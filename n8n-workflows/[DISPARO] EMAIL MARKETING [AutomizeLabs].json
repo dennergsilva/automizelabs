@@ -1,0 +1,2874 @@
+{
+  "id": "HihT3eOUSIxuiRp0",
+  "name": "[DISPARO] EMAIL MARKETING [AutomizeLabs]",
+  "active": true,
+  "isArchived": false,
+  "versionId": "8d8d8fd2-2ddc-40ff-b21a-017d330e9b4f",
+  "activeVersionId": "8d8d8fd2-2ddc-40ff-b21a-017d330e9b4f",
+  "triggerCount": 3,
+  "createdAt": "2025-10-29T13:33:09.029Z",
+  "updatedAt": "2026-04-15T03:20:46.513Z",
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Status do contato para (a enviar)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Status do contato para (enviado)": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Status do contato para (enviado)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Atualizar Status contato para (falhou)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Receber Clique": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrair Dados": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Planilha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Planilha": {
+      "main": [
+        [
+          {
+            "node": "Redirecionar para WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Extrair Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Receber Abertura": {
+      "main": [
+        [
+          {
+            "node": "Setar Data Abertura",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Setar Data Abertura": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Planilha1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Planilha1": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+          "mode": "list",
+          "cachedResultName": "Email Marketing [Denner]",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        128,
+        0
+      ],
+      "id": "21400d24-acc4-4ed2-aebe-3f4870051e43",
+      "name": "Get row(s) in sheet"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1824,
+        16
+      ],
+      "id": "8eea90ce-3ef0-4379-9885-2a74b3fee68a",
+      "name": "Wait",
+      "webhookId": "656b102d-cc45-4241-a0e7-320c6a3abd21"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        400,
+        0
+      ],
+      "id": "e1fc1b36-96f9-44da-85ba-c245e47077d3",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $('Loop Over Items').item.json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        928,
+        32
+      ],
+      "id": "1573e41b-243b-4e4d-95ff-34db6d1499d5",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b870f222-a8cd-4527-a65e-4ad989f27731",
+              "leftValue": "={{ $('Loop Over Items').item.json.status }}",
+              "rightValue": "enviado",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        16
+      ],
+      "id": "38a22208-d79f-475c-bcb1-e7a3e8decaca",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+          "mode": "list",
+          "cachedResultName": "Email Marketing [Denner]",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "a enviar"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1152,
+        32
+      ],
+      "id": "86415621-4bac-4634-b673-755dd5f09237",
+      "name": "Atualiza Status do contato para (a enviar)"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+          "mode": "list",
+          "cachedResultName": "Email Marketing [Denner]",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $('Edit Fields').item.json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1616,
+        16
+      ],
+      "id": "2353bc4c-a5d7-412d-9990-0e98d4d89462",
+      "name": "Atualiza Status do contato para (enviado)"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields').item.json.email }}",
+        "subject": "={{ $('Edit Fields').item.json.nome }}, NOVO paciente agendado - segunda às 11h00",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Agente de IA 24h - Automize Labs</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.8;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 40px 30px;\n        }\n        .content p {\n            margin: 16px 0;\n            font-size: 16px;\n            color: #000000;\n        }\n        .content strong {\n            font-weight: 600;\n        }\n        .spacer {\n            height: 12px;\n        }\n        .chat-example {\n            background-color: #f9f9f9;\n            padding: 24px;\n            margin: 30px 0;\n            border-radius: 4px;\n            font-family: 'Courier New', monospace;\n            font-size: 14px;\n            line-height: 2;\n            color: #000000;\n        }\n        .chat-example div {\n            margin: 8px 0;\n        }\n        .chat-example strong {\n            color: #000000;\n        }\n        .cta-section {\n            text-align: center;\n            margin: 0;\n            padding: 15px 20px 25px 20px;\n        }\n        .cta-section p {\n            font-size: 17px;\n            color: #000000;\n            margin: 8px 0;\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 16px 40px;\n            background-color: #10b981;\n            color: #ffffff !important;\n            text-decoration: none;\n            border-radius: 6px;\n            font-weight: 600;\n            font-size: 17px;\n            transition: background-color 0.2s ease;\n            margin-top: 10px;\n        }\n        .cta-button:hover {\n            background-color: #059669;\n        }\n        .divider {\n            border: 0;\n            border-top: 1px solid #e5e5e5;\n            margin: 20px 0 15px 0;\n        }\n        .footer {\n            padding: 30px 0 20px 0;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .unsubscribe {\n            margin-top: 20px;\n            font-size: 12px;\n        }\n        @media only screen and (max-width: 600px) {\n            .email-container {\n                padding: 30px 20px;\n            }\n            .cta-button {\n                padding: 14px 30px;\n                font-size: 16px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <div class=\"content\">\n            <p><strong>{{ $('Edit Fields').item.json.nome }}, você acabou de receber um novo agendamento automático para segunda às 11h00.</strong></p>\n            \n            <p>Espera... esse agendamento ainda não aconteceu de verdade.</p>\n            \n            <p><strong>Mas imagina acordar todo dia com notificações assim?</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Enquanto você dorme.</p>\n            \n            <p>Enquanto atende outros pacientes.</p>\n            \n            <p>Enquanto está no almoço.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Seu Agente de IA 24h está agendando pacientes automaticamente.</strong></p>\n            \n            <p>Respondendo em segundos.</p>\n            \n            <p>Qualificando leads.</p>\n            \n            <p>Confirmando consultas.</p>\n            \n            <p>Enviando lembretes.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Sem você fazer absolutamente nada.</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Porque <strong>68%</strong> dos pacientes desistem se não são respondidos em <strong>5 minutos</strong>.</p>\n            \n            <p>E seus concorrentes que já usam IA nunca perdem esses agendamentos.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Veja um exemplo real de conversa às 23h47:</strong></p>\n            \n            <div class=\"chat-example\">\n                <div><strong>Paciente [23h47]:</strong> \"Oi, quanto custa limpeza?\"</div>\n                <div><strong>Agente IA [23h47]:</strong> \"Olá! Nossa limpeza custa R$180. Posso agendar para você? Tenho segunda às 11h ou terça às 14h disponíveis.\"</div>\n                <div><strong>Paciente [23h48]:</strong> \"Segunda às 11h pode ser\"</div>\n                <div><strong>Agente IA [23h48]:</strong> \"Perfeito! Pode me passar seu nome completo e CPF?\"</div>\n            </div>\n            \n            <p><strong>Pronto. Agendamento feito em 1 minuto. Às 23h da noite. Automaticamente.</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Clínicas que usam aumentaram <strong>35%</strong> os agendamentos no primeiro mês.</p>\n            \n            <p>Reduziram <strong>40%</strong> das faltas.</p>\n            \n            <p>E liberaram a secretária para o que realmente importa.</p>\n            \n            <hr class=\"divider\">\n            \n            <div class=\"cta-section\">\n                <p><strong>{{ $('Edit Fields').item.json.nome }}, quer ver isso funcionando na prática?</strong></p>\n                \n                <p>Fale agora com nosso Agente de IA e teste você mesmo.</p>\n                <a href=\"https://n8n.automizelabs.com.br/webhook/track-click?email={{ $('Edit Fields').item.json.email }}&redirect=https://wa.link/33o3to\" class=\"cta-button\">Falar com o Agente de IA</a>\n            </div>\n        </div>\n        \n        <div class=\"footer\">\n            <p><strong>Automize Labs</strong></p>\n            <p>Uberlândia, Minas Gerais</p>\n            <p class=\"unsubscribe\">Você está recebendo este e-mail porque demonstrou interesse em soluções de automação.</p>\n            <p class=\"unsubscribe\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n        \n        <!-- Pixel de tracking de abertura -->\n        <img src=\"https://n8n.automizelabs.com.br/webhook/track-open?email={{ $('Edit Fields').item.json.email }}\" width=\"1\" height=\"1\" style=\"display:none;\" alt=\"\">\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1360,
+        32
+      ],
+      "id": "ee706bea-f705-4828-b988-90547e2e2cd9",
+      "name": "Enviar Email",
+      "webhookId": "79140aaa-339e-4cf8-819f-8e2d14ad33c9",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "path": "track-click",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "2fcf034a-d470-4d00-8bd8-317d59854038",
+      "name": "Webhook - Receber Clique",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        768
+      ],
+      "webhookId": "track-click-email",
+      "notesInFlow": true,
+      "notes": "URL do webhook será algo como:\nhttps://seu-n8n.com/webhook/track-click"
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "email",
+              "stringValue": "={{ $('Webhook - Receber Clique').item.json.query.email }}"
+            },
+            {
+              "name": "data_clique",
+              "stringValue": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm:ss') }}"
+            },
+            {
+              "name": "redirect",
+              "stringValue": "={{ $('Webhook - Receber Clique').item.json.query.redirect }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "96846b7d-643e-43b1-9330-ea7a30c9bece",
+      "name": "Extrair Dados",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        320,
+        768
+      ],
+      "notesInFlow": true,
+      "notes": "Extrai o e-mail e timestamp do clique"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+          "mode": "list",
+          "cachedResultName": "Email Marketing [Denner]",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "clicked": "sim",
+            "email": "={{ $json.email }}",
+            "data_clique": "={{ $json.data_clique }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "71e7a103-f26e-45ec-9010-72dd56a1f5e7",
+      "name": "Atualizar Planilha",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        768
+      ],
+      "notesInFlow": true,
+      "notes": "Marca 'clicked' = sim e registra data/hora"
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "={{ $('Extrair Dados').item.json.redirect }}",
+        "options": {}
+      },
+      "id": "c6f44dfb-0a84-4a01-a7ef-93201bb5d385",
+      "name": "Redirecionar para WhatsApp",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        768,
+        768
+      ],
+      "notesInFlow": true,
+      "notes": "Redireciona o usuário para o WhatsApp após registrar o clique"
+    },
+    {
+      "parameters": {
+        "outputFieldName": "=Data e Hora",
+        "options": {
+          "timezone": "America/Sao_Paulo"
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        112,
+        768
+      ],
+      "id": "7dfc8f0a-4526-4df3-acdc-ebec891b76a5",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "path": "track-open",
+        "options": {}
+      },
+      "id": "701c97c2-a430-4263-855b-132cb54df3de",
+      "name": "Webhook - Receber Abertura",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        400
+      ],
+      "webhookId": "track-open-email",
+      "notesInFlow": true,
+      "notes": "URL: https://n8n.automizelabs.com.br/webhook/track-open"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "assignment1",
+              "name": "email",
+              "value": "={{ $json.query.email }}",
+              "type": "string"
+            },
+            {
+              "id": "assignment2",
+              "name": "opened",
+              "value": "sim",
+              "type": "string"
+            },
+            {
+              "id": "assignment3",
+              "name": "data_abertura",
+              "value": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e945e9c3-9ca5-4bec-b3a1-eae499d9e0bb",
+      "name": "Setar Data Abertura",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        176,
+        400
+      ],
+      "notesInFlow": true,
+      "notes": "Captura e-mail e timestamp de abertura"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+          "mode": "list",
+          "cachedResultName": "Email Marketing [Denner]",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "opened": "={{ $json.opened }}",
+            "data_abertura": "={{ $json.data_abertura }}",
+            "email": "={{ $('Webhook - Receber Abertura').item.json.query.email }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "f9642025-8adf-4c07-9812-433220f87d27",
+      "name": "Atualizar Planilha1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        400
+      ],
+      "notesInFlow": true,
+      "notes": "Marca opened = sim e registra data/hora"
+    },
+    {
+      "parameters": {
+        "content": "## Dispara o E-mail",
+        "height": 352,
+        "width": 2336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "79d19e7c-cc53-4ba1-aedc-c980b56209ec",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Tracking Taxa de Cliques",
+        "height": 352,
+        "width": 1120,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "d50d746a-52c8-4ff2-a004-d5c602ada83d",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Tracking Taxa de Abertura",
+        "height": 352,
+        "width": 800,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "4a507235-1e74-4759-b2f5-4481034253cb",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 16,
+              "triggerAtMinute": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        96
+      ],
+      "id": "7dad495b-89be-4d1d-b73e-dcc2de69b8ae",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -64
+      ],
+      "id": "1896e793-ea26-4f97-9c38-598af51a8195",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+          "mode": "list",
+          "cachedResultName": "Email Marketing [Denner]",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $('Webhook - Receber Abertura').item.json.query.email }}",
+            "status": "falhou"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1d46f97a-7374-4d91-8e04-63b672792146",
+      "name": "Atualizar Status contato para (falhou)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [
+        1616,
+        352
+      ],
+      "notesInFlow": true,
+      "notes": "Marca opened = sim e registra data/hora"
+    },
+    {
+      "parameters": {
+        "content": "## Falha no envio",
+        "height": 240,
+        "width": 272,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1536,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "eddf7153-adfa-4149-9e76-51068d8d7db6",
+      "name": "Sticky Note3"
+    }
+  ],
+  "activeVersion": {
+    "nodes": [
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+            "mode": "list",
+            "cachedResultName": "Email Marketing [Denner]",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Backlog",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          128,
+          0
+        ],
+        "id": "21400d24-acc4-4ed2-aebe-3f4870051e43",
+        "name": "Get row(s) in sheet"
+      },
+      {
+        "parameters": {
+          "amount": 30
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          1824,
+          16
+        ],
+        "id": "8eea90ce-3ef0-4379-9885-2a74b3fee68a",
+        "name": "Wait",
+        "webhookId": "656b102d-cc45-4241-a0e7-320c6a3abd21"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          400,
+          0
+        ],
+        "id": "e1fc1b36-96f9-44da-85ba-c245e47077d3",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+                "name": "nome",
+                "value": "={{ $('Loop Over Items').item.json.first_name }}",
+                "type": "string"
+              },
+              {
+                "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+                "name": "email",
+                "value": "={{ $('Loop Over Items').item.json.email }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          928,
+          32
+        ],
+        "id": "1573e41b-243b-4e4d-95ff-34db6d1499d5",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "b870f222-a8cd-4527-a65e-4ad989f27731",
+                "leftValue": "={{ $('Loop Over Items').item.json.status }}",
+                "rightValue": "enviado",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals",
+                  "name": "filter.operator.equals"
+                }
+              }
+            ],
+            "combinator": "or"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          640,
+          16
+        ],
+        "id": "38a22208-d79f-475c-bcb1-e7a3e8decaca",
+        "name": "If"
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "documentId": {
+            "__rl": true,
+            "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+            "mode": "list",
+            "cachedResultName": "Email Marketing [Denner]",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Backlog",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "email": "={{ $json.email }}",
+              "status": "a enviar"
+            },
+            "matchingColumns": [
+              "email"
+            ],
+            "schema": [
+              {
+                "id": "first_name",
+                "displayName": "first_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "email",
+                "displayName": "email",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": " campanha",
+                "displayName": " campanha",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "estado",
+                "displayName": "estado",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "status",
+                "displayName": "status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "data_envio",
+                "displayName": "data_envio",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "opened",
+                "displayName": "opened",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_abertura",
+                "displayName": "data_abertura",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "clicked",
+                "displayName": "clicked",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_clique",
+                "displayName": "data_clique",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_abertura_min",
+                "displayName": "tempo_ate_abertura_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_clique_min",
+                "displayName": "tempo_ate_clique_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "row_number",
+                "displayName": "row_number",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "readOnly": true,
+                "removed": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          1152,
+          32
+        ],
+        "id": "86415621-4bac-4634-b673-755dd5f09237",
+        "name": "Atualiza Status do contato para (a enviar)"
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "documentId": {
+            "__rl": true,
+            "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+            "mode": "list",
+            "cachedResultName": "Email Marketing [Denner]",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Backlog",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "email": "={{ $('Edit Fields').item.json.email }}",
+              "status": "enviado",
+              "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+            },
+            "matchingColumns": [
+              "email"
+            ],
+            "schema": [
+              {
+                "id": "first_name",
+                "displayName": "first_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "email",
+                "displayName": "email",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": " campanha",
+                "displayName": " campanha",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "estado",
+                "displayName": "estado",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "status",
+                "displayName": "status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "data_envio",
+                "displayName": "data_envio",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "opened",
+                "displayName": "opened",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_abertura",
+                "displayName": "data_abertura",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "clicked",
+                "displayName": "clicked",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_clique",
+                "displayName": "data_clique",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_abertura_min",
+                "displayName": "tempo_ate_abertura_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_clique_min",
+                "displayName": "tempo_ate_clique_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "row_number",
+                "displayName": "row_number",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "readOnly": true,
+                "removed": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          1616,
+          16
+        ],
+        "id": "2353bc4c-a5d7-412d-9990-0e98d4d89462",
+        "name": "Atualiza Status do contato para (enviado)"
+      },
+      {
+        "parameters": {
+          "sendTo": "={{ $('Edit Fields').item.json.email }}",
+          "subject": "={{ $('Edit Fields').item.json.nome }}, NOVO paciente agendado - segunda às 11h00",
+          "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Agente de IA 24h - Automize Labs</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.8;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 40px 30px;\n        }\n        .content p {\n            margin: 16px 0;\n            font-size: 16px;\n            color: #000000;\n        }\n        .content strong {\n            font-weight: 600;\n        }\n        .spacer {\n            height: 12px;\n        }\n        .chat-example {\n            background-color: #f9f9f9;\n            padding: 24px;\n            margin: 30px 0;\n            border-radius: 4px;\n            font-family: 'Courier New', monospace;\n            font-size: 14px;\n            line-height: 2;\n            color: #000000;\n        }\n        .chat-example div {\n            margin: 8px 0;\n        }\n        .chat-example strong {\n            color: #000000;\n        }\n        .cta-section {\n            text-align: center;\n            margin: 0;\n            padding: 15px 20px 25px 20px;\n        }\n        .cta-section p {\n            font-size: 17px;\n            color: #000000;\n            margin: 8px 0;\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 16px 40px;\n            background-color: #10b981;\n            color: #ffffff !important;\n            text-decoration: none;\n            border-radius: 6px;\n            font-weight: 600;\n            font-size: 17px;\n            transition: background-color 0.2s ease;\n            margin-top: 10px;\n        }\n        .cta-button:hover {\n            background-color: #059669;\n        }\n        .divider {\n            border: 0;\n            border-top: 1px solid #e5e5e5;\n            margin: 20px 0 15px 0;\n        }\n        .footer {\n            padding: 30px 0 20px 0;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .unsubscribe {\n            margin-top: 20px;\n            font-size: 12px;\n        }\n        @media only screen and (max-width: 600px) {\n            .email-container {\n                padding: 30px 20px;\n            }\n            .cta-button {\n                padding: 14px 30px;\n                font-size: 16px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <div class=\"content\">\n            <p><strong>{{ $('Edit Fields').item.json.nome }}, você acabou de receber um novo agendamento automático para segunda às 11h00.</strong></p>\n            \n            <p>Espera... esse agendamento ainda não aconteceu de verdade.</p>\n            \n            <p><strong>Mas imagina acordar todo dia com notificações assim?</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Enquanto você dorme.</p>\n            \n            <p>Enquanto atende outros pacientes.</p>\n            \n            <p>Enquanto está no almoço.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Seu Agente de IA 24h está agendando pacientes automaticamente.</strong></p>\n            \n            <p>Respondendo em segundos.</p>\n            \n            <p>Qualificando leads.</p>\n            \n            <p>Confirmando consultas.</p>\n            \n            <p>Enviando lembretes.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Sem você fazer absolutamente nada.</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Porque <strong>68%</strong> dos pacientes desistem se não são respondidos em <strong>5 minutos</strong>.</p>\n            \n            <p>E seus concorrentes que já usam IA nunca perdem esses agendamentos.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Veja um exemplo real de conversa às 23h47:</strong></p>\n            \n            <div class=\"chat-example\">\n                <div><strong>Paciente [23h47]:</strong> \"Oi, quanto custa limpeza?\"</div>\n                <div><strong>Agente IA [23h47]:</strong> \"Olá! Nossa limpeza custa R$180. Posso agendar para você? Tenho segunda às 11h ou terça às 14h disponíveis.\"</div>\n                <div><strong>Paciente [23h48]:</strong> \"Segunda às 11h pode ser\"</div>\n                <div><strong>Agente IA [23h48]:</strong> \"Perfeito! Pode me passar seu nome completo e CPF?\"</div>\n            </div>\n            \n            <p><strong>Pronto. Agendamento feito em 1 minuto. Às 23h da noite. Automaticamente.</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Clínicas que usam aumentaram <strong>35%</strong> os agendamentos no primeiro mês.</p>\n            \n            <p>Reduziram <strong>40%</strong> das faltas.</p>\n            \n            <p>E liberaram a secretária para o que realmente importa.</p>\n            \n            <hr class=\"divider\">\n            \n            <div class=\"cta-section\">\n                <p><strong>{{ $('Edit Fields').item.json.nome }}, quer ver isso funcionando na prática?</strong></p>\n                \n                <p>Fale agora com nosso Agente de IA e teste você mesmo.</p>\n                <a href=\"https://n8n.automizelabs.com.br/webhook/track-click?email={{ $('Edit Fields').item.json.email }}&redirect=https://wa.link/33o3to\" class=\"cta-button\">Falar com o Agente de IA</a>\n            </div>\n        </div>\n        \n        <div class=\"footer\">\n            <p><strong>Automize Labs</strong></p>\n            <p>Uberlândia, Minas Gerais</p>\n            <p class=\"unsubscribe\">Você está recebendo este e-mail porque demonstrou interesse em soluções de automação.</p>\n            <p class=\"unsubscribe\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n        \n        <!-- Pixel de tracking de abertura -->\n        <img src=\"https://n8n.automizelabs.com.br/webhook/track-open?email={{ $('Edit Fields').item.json.email }}\" width=\"1\" height=\"1\" style=\"display:none;\" alt=\"\">\n    </div>\n</body>\n</html>",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.gmail",
+        "typeVersion": 2.1,
+        "position": [
+          1360,
+          32
+        ],
+        "id": "ee706bea-f705-4828-b988-90547e2e2cd9",
+        "name": "Enviar Email",
+        "webhookId": "79140aaa-339e-4cf8-819f-8e2d14ad33c9",
+        "onError": "continueErrorOutput"
+      },
+      {
+        "parameters": {
+          "path": "track-click",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "id": "2fcf034a-d470-4d00-8bd8-317d59854038",
+        "name": "Webhook - Receber Clique",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1.1,
+        "position": [
+          -80,
+          768
+        ],
+        "webhookId": "track-click-email",
+        "notesInFlow": true,
+        "notes": "URL do webhook será algo como:\nhttps://seu-n8n.com/webhook/track-click"
+      },
+      {
+        "parameters": {
+          "fields": {
+            "values": [
+              {
+                "name": "email",
+                "stringValue": "={{ $('Webhook - Receber Clique').item.json.query.email }}"
+              },
+              {
+                "name": "data_clique",
+                "stringValue": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm:ss') }}"
+              },
+              {
+                "name": "redirect",
+                "stringValue": "={{ $('Webhook - Receber Clique').item.json.query.redirect }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "96846b7d-643e-43b1-9330-ea7a30c9bece",
+        "name": "Extrair Dados",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.2,
+        "position": [
+          320,
+          768
+        ],
+        "notesInFlow": true,
+        "notes": "Extrai o e-mail e timestamp do clique"
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "documentId": {
+            "__rl": true,
+            "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+            "mode": "list",
+            "cachedResultName": "Email Marketing [Denner]",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Backlog",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "clicked": "sim",
+              "email": "={{ $json.email }}",
+              "data_clique": "={{ $json.data_clique }}"
+            },
+            "matchingColumns": [
+              "email"
+            ],
+            "schema": [
+              {
+                "id": "first_name",
+                "displayName": "first_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "email",
+                "displayName": "email",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": " campanha",
+                "displayName": " campanha",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "estado",
+                "displayName": "estado",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "status",
+                "displayName": "status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_envio",
+                "displayName": "data_envio",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "opened",
+                "displayName": "opened",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_abertura",
+                "displayName": "data_abertura",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "clicked",
+                "displayName": "clicked",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "data_clique",
+                "displayName": "data_clique",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "tempo_ate_abertura_min",
+                "displayName": "tempo_ate_abertura_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_clique_min",
+                "displayName": "tempo_ate_clique_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "row_number",
+                "displayName": "row_number",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "readOnly": true,
+                "removed": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "id": "71e7a103-f26e-45ec-9010-72dd56a1f5e7",
+        "name": "Atualizar Planilha",
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.2,
+        "position": [
+          544,
+          768
+        ],
+        "notesInFlow": true,
+        "notes": "Marca 'clicked' = sim e registra data/hora"
+      },
+      {
+        "parameters": {
+          "respondWith": "redirect",
+          "redirectURL": "={{ $('Extrair Dados').item.json.redirect }}",
+          "options": {}
+        },
+        "id": "c6f44dfb-0a84-4a01-a7ef-93201bb5d385",
+        "name": "Redirecionar para WhatsApp",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          768,
+          768
+        ],
+        "notesInFlow": true,
+        "notes": "Redireciona o usuário para o WhatsApp após registrar o clique"
+      },
+      {
+        "parameters": {
+          "outputFieldName": "=Data e Hora",
+          "options": {
+            "timezone": "America/Sao_Paulo"
+          }
+        },
+        "type": "n8n-nodes-base.dateTime",
+        "typeVersion": 2,
+        "position": [
+          112,
+          768
+        ],
+        "id": "7dfc8f0a-4526-4df3-acdc-ebec891b76a5",
+        "name": "Date & Time"
+      },
+      {
+        "parameters": {
+          "path": "track-open",
+          "options": {}
+        },
+        "id": "701c97c2-a430-4263-855b-132cb54df3de",
+        "name": "Webhook - Receber Abertura",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1.1,
+        "position": [
+          -80,
+          400
+        ],
+        "webhookId": "track-open-email",
+        "notesInFlow": true,
+        "notes": "URL: https://n8n.automizelabs.com.br/webhook/track-open"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "assignment1",
+                "name": "email",
+                "value": "={{ $json.query.email }}",
+                "type": "string"
+              },
+              {
+                "id": "assignment2",
+                "name": "opened",
+                "value": "sim",
+                "type": "string"
+              },
+              {
+                "id": "assignment3",
+                "name": "data_abertura",
+                "value": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "e945e9c3-9ca5-4bec-b3a1-eae499d9e0bb",
+        "name": "Setar Data Abertura",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.3,
+        "position": [
+          176,
+          400
+        ],
+        "notesInFlow": true,
+        "notes": "Captura e-mail e timestamp de abertura"
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "documentId": {
+            "__rl": true,
+            "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+            "mode": "list",
+            "cachedResultName": "Email Marketing [Denner]",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Backlog",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "opened": "={{ $json.opened }}",
+              "data_abertura": "={{ $json.data_abertura }}",
+              "email": "={{ $('Webhook - Receber Abertura').item.json.query.email }}"
+            },
+            "matchingColumns": [
+              "email"
+            ],
+            "schema": [
+              {
+                "id": "first_name",
+                "displayName": "first_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "email",
+                "displayName": "email",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": " campanha",
+                "displayName": " campanha",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "estado",
+                "displayName": "estado",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "status",
+                "displayName": "status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_envio",
+                "displayName": "data_envio",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "opened",
+                "displayName": "opened",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "data_abertura",
+                "displayName": "data_abertura",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "clicked",
+                "displayName": "clicked",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_clique",
+                "displayName": "data_clique",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_abertura_min",
+                "displayName": "tempo_ate_abertura_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_clique_min",
+                "displayName": "tempo_ate_clique_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "row_number",
+                "displayName": "row_number",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "readOnly": true,
+                "removed": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "id": "f9642025-8adf-4c07-9812-433220f87d27",
+        "name": "Atualizar Planilha1",
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.2,
+        "position": [
+          448,
+          400
+        ],
+        "notesInFlow": true,
+        "notes": "Marca opened = sim e registra data/hora"
+      },
+      {
+        "parameters": {
+          "content": "## Dispara o E-mail",
+          "height": 352,
+          "width": 2336
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -144,
+          -80
+        ],
+        "typeVersion": 1,
+        "id": "79d19e7c-cc53-4ba1-aedc-c980b56209ec",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "content": "## Tracking Taxa de Cliques",
+          "height": 352,
+          "width": 1120,
+          "color": 4
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -144,
+          688
+        ],
+        "typeVersion": 1,
+        "id": "d50d746a-52c8-4ff2-a004-d5c602ada83d",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "content": "## Tracking Taxa de Abertura",
+          "height": 352,
+          "width": 800,
+          "color": 5
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -144,
+          304
+        ],
+        "typeVersion": 1,
+        "id": "4a507235-1e74-4759-b2f5-4481034253cb",
+        "name": "Sticky Note2"
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 16,
+                "triggerAtMinute": 10
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          -400,
+          96
+        ],
+        "id": "7dad495b-89be-4d1d-b73e-dcc2de69b8ae",
+        "name": "Schedule Trigger"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          -400,
+          -64
+        ],
+        "id": "1896e793-ea26-4f97-9c38-598af51a8195",
+        "name": "When clicking ‘Execute workflow’"
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "documentId": {
+            "__rl": true,
+            "value": "1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg",
+            "mode": "list",
+            "cachedResultName": "Email Marketing [Denner]",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Backlog",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_RiMCcc656OwfdwujuzKI_nNXvLxaMJ8fJmY5mZKJVg/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "email": "={{ $('Webhook - Receber Abertura').item.json.query.email }}",
+              "status": "falhou"
+            },
+            "matchingColumns": [
+              "email"
+            ],
+            "schema": [
+              {
+                "id": "first_name",
+                "displayName": "first_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "email",
+                "displayName": "email",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": " campanha",
+                "displayName": " campanha",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "estado",
+                "displayName": "estado",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "status",
+                "displayName": "status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "data_envio",
+                "displayName": "data_envio",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "opened",
+                "displayName": "opened",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_abertura",
+                "displayName": "data_abertura",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "clicked",
+                "displayName": "clicked",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "data_clique",
+                "displayName": "data_clique",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_abertura_min",
+                "displayName": "tempo_ate_abertura_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "tempo_ate_clique_min",
+                "displayName": "tempo_ate_clique_min",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "row_number",
+                "displayName": "row_number",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "readOnly": true,
+                "removed": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "id": "1d46f97a-7374-4d91-8e04-63b672792146",
+        "name": "Atualizar Status contato para (falhou)",
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.2,
+        "position": [
+          1616,
+          352
+        ],
+        "notesInFlow": true,
+        "notes": "Marca opened = sim e registra data/hora"
+      },
+      {
+        "parameters": {
+          "content": "## Falha no envio",
+          "height": 240,
+          "width": 272,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1536,
+          304
+        ],
+        "typeVersion": 1,
+        "id": "eddf7153-adfa-4149-9e76-51068d8d7db6",
+        "name": "Sticky Note3"
+      }
+    ],
+    "connections": {
+      "Loop Over Items": {
+        "main": [
+          [],
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get row(s) in sheet": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Atualiza Status do contato para (a enviar)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Atualiza Status do contato para (a enviar)": {
+        "main": [
+          [
+            {
+              "node": "Enviar Email",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Atualiza Status do contato para (enviado)": {
+        "main": [
+          [
+            {
+              "node": "Wait",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Enviar Email": {
+        "main": [
+          [
+            {
+              "node": "Atualiza Status do contato para (enviado)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Atualizar Status contato para (falhou)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook - Receber Clique": {
+        "main": [
+          [
+            {
+              "node": "Date & Time",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extrair Dados": {
+        "main": [
+          [
+            {
+              "node": "Atualizar Planilha",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Atualizar Planilha": {
+        "main": [
+          [
+            {
+              "node": "Redirecionar para WhatsApp",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Date & Time": {
+        "main": [
+          [
+            {
+              "node": "Extrair Dados",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook - Receber Abertura": {
+        "main": [
+          [
+            {
+              "node": "Setar Data Abertura",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Setar Data Abertura": {
+        "main": [
+          [
+            {
+              "node": "Atualizar Planilha1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Atualizar Planilha1": {
+        "main": [
+          []
+        ]
+      },
+      "Schedule Trigger": {
+        "main": [
+          []
+        ]
+      },
+      "When clicking ‘Execute workflow’": {
+        "main": [
+          []
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "parentFolderId": null,
+  "scopes": [
+    "workflow:create",
+    "workflow:delete",
+    "workflow:execute",
+    "workflow:execute-chat",
+    "workflow:list",
+    "workflow:move",
+    "workflow:publish",
+    "workflow:read",
+    "workflow:share",
+    "workflow:unpublish",
+    "workflow:unshare",
+    "workflow:update",
+    "workflow:updateRedactionSetting"
+  ],
+  "canExecute": true
+}

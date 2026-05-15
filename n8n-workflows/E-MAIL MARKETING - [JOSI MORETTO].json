@@ -1,0 +1,3566 @@
+{
+  "id": "YHnL5uWF3VWspi8c",
+  "name": "E-MAIL MARKETING - [JOSI MORETTO]",
+  "active": false,
+  "isArchived": false,
+  "versionId": "bcb0a682-495e-40d5-bb89-b4c01f9f2419",
+  "activeVersionId": null,
+  "triggerCount": 3,
+  "createdAt": "2025-11-28T16:26:46.668Z",
+  "updatedAt": "2026-04-15T03:20:50.438Z",
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Status do contato para (a enviar)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Status do contato para (enviado)": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Status do contato para (enviado)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Atualizar Status contato para (falhou)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Receber Clique": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrair Dados": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Planilha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Planilha": {
+      "main": [
+        [
+          {
+            "node": "Redirecionar para WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Extrair Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Receber Abertura": {
+      "main": [
+        [
+          {
+            "node": "Setar Data Abertura",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Setar Data Abertura": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Planilha1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Planilha1": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Distribuir Entre 6 Contas": {
+      "main": [
+        [
+          {
+            "node": "Switch - Rotear Contas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch - Rotear Contas": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge - Unificar Resultados": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Distribuir Entre 6 Contas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Status do contato para (enviado)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        []
+      ]
+    },
+    "Atualiza Status do contato para (enviado)1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)1": {
+      "main": [
+        []
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)2": {
+      "main": [
+        []
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)3": {
+      "main": [
+        []
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)4": {
+      "main": [
+        []
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)5": {
+      "main": [
+        []
+      ]
+    },
+    "Atualiza Status do contato para (a enviar)6": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Gmail (Josi Ecommerce)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Gmail (Evelyn Josi)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Gmail (Sac Josi)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Gmail (Tudo que uma Lady)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Gmail (My Lady)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail (Josi Ecommerce)": {
+      "main": [
+        [
+          {
+            "node": "Merge - Unificar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmai (Loja Josi)": {
+      "main": [
+        [
+          {
+            "node": "Merge - Unificar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail (My Lady)": {
+      "main": [
+        [
+          {
+            "node": "Merge - Unificar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail (Tudo que uma Lady)": {
+      "main": [
+        [
+          {
+            "node": "Merge - Unificar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail (Sac Josi)": {
+      "main": [
+        [
+          {
+            "node": "Merge - Unificar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail (Evelyn Josi)": {
+      "main": [
+        [
+          {
+            "node": "Merge - Unificar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Gmai (Loja Josi)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        128,
+        0
+      ],
+      "id": "7df9840a-0363-48e9-a244-a075ffc19416",
+      "name": "Get row(s) in sheet"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1824,
+        16
+      ],
+      "id": "0efd48ff-2f2a-47b7-b0c5-ed1938e7304f",
+      "name": "Wait",
+      "webhookId": "78c5f5cb-e6c0-4c9e-a57d-393b087c11b1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        400,
+        0
+      ],
+      "id": "5d8621e5-fe01-4aee-94f0-76a1c48e5bad",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $('Loop Over Items').item.json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        928,
+        32
+      ],
+      "id": "94e77966-4bc3-40f0-809b-4750c43c384a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b870f222-a8cd-4527-a65e-4ad989f27731",
+              "leftValue": "={{ $('Loop Over Items').item.json.status }}",
+              "rightValue": "enviado",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        16
+      ],
+      "id": "c4d62f1e-5066-43fb-9965-b9d0838db809",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "a enviar"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1152,
+        32
+      ],
+      "id": "1f781083-d1b5-42fe-a03c-c341df175815",
+      "name": "Atualiza Status do contato para (a enviar)"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $('Edit Fields').item.json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1616,
+        16
+      ],
+      "id": "d3480878-6ff6-43ef-80f5-d1177ce382f0",
+      "name": "Atualiza Status do contato para (enviado)"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields').item.json.email }}",
+        "subject": "={{ $('Edit Fields').item.json.nome }}, NOVO paciente agendado - segunda às 11h00",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Agente de IA 24h - Automize Labs</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.8;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 40px 30px;\n        }\n        .content p {\n            margin: 16px 0;\n            font-size: 16px;\n            color: #000000;\n        }\n        .content strong {\n            font-weight: 600;\n        }\n        .spacer {\n            height: 12px;\n        }\n        .chat-example {\n            background-color: #f9f9f9;\n            padding: 24px;\n            margin: 30px 0;\n            border-radius: 4px;\n            font-family: 'Courier New', monospace;\n            font-size: 14px;\n            line-height: 2;\n            color: #000000;\n        }\n        .chat-example div {\n            margin: 8px 0;\n        }\n        .chat-example strong {\n            color: #000000;\n        }\n        .cta-section {\n            text-align: center;\n            margin: 0;\n            padding: 15px 20px 25px 20px;\n        }\n        .cta-section p {\n            font-size: 17px;\n            color: #000000;\n            margin: 8px 0;\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 16px 40px;\n            background-color: #10b981;\n            color: #ffffff !important;\n            text-decoration: none;\n            border-radius: 6px;\n            font-weight: 600;\n            font-size: 17px;\n            transition: background-color 0.2s ease;\n            margin-top: 10px;\n        }\n        .cta-button:hover {\n            background-color: #059669;\n        }\n        .divider {\n            border: 0;\n            border-top: 1px solid #e5e5e5;\n            margin: 20px 0 15px 0;\n        }\n        .footer {\n            padding: 30px 0 20px 0;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .unsubscribe {\n            margin-top: 20px;\n            font-size: 12px;\n        }\n        @media only screen and (max-width: 600px) {\n            .email-container {\n                padding: 30px 20px;\n            }\n            .cta-button {\n                padding: 14px 30px;\n                font-size: 16px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <div class=\"content\">\n            <p><strong>{{ $('Edit Fields').item.json.nome }}, você acabou de receber um novo agendamento automático para segunda às 11h00.</strong></p>\n            \n            <p>Espera... esse agendamento ainda não aconteceu de verdade.</p>\n            \n            <p><strong>Mas imagina acordar todo dia com notificações assim?</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Enquanto você dorme.</p>\n            \n            <p>Enquanto atende outros pacientes.</p>\n            \n            <p>Enquanto está no almoço.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Seu Agente de IA 24h está agendando pacientes automaticamente.</strong></p>\n            \n            <p>Respondendo em segundos.</p>\n            \n            <p>Qualificando leads.</p>\n            \n            <p>Confirmando consultas.</p>\n            \n            <p>Enviando lembretes.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Sem você fazer absolutamente nada.</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Porque <strong>68%</strong> dos pacientes desistem se não são respondidos em <strong>5 minutos</strong>.</p>\n            \n            <p>E seus concorrentes que já usam IA nunca perdem esses agendamentos.</p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p><strong>Veja um exemplo real de conversa às 23h47:</strong></p>\n            \n            <div class=\"chat-example\">\n                <div><strong>Paciente [23h47]:</strong> \"Oi, quanto custa limpeza?\"</div>\n                <div><strong>Agente IA [23h47]:</strong> \"Olá! Nossa limpeza custa R$180. Posso agendar para você? Tenho segunda às 11h ou terça às 14h disponíveis.\"</div>\n                <div><strong>Paciente [23h48]:</strong> \"Segunda às 11h pode ser\"</div>\n                <div><strong>Agente IA [23h48]:</strong> \"Perfeito! Pode me passar seu nome completo e CPF?\"</div>\n            </div>\n            \n            <p><strong>Pronto. Agendamento feito em 1 minuto. Às 23h da noite. Automaticamente.</strong></p>\n            \n            <div class=\"spacer\"></div>\n            \n            <p>Clínicas que usam aumentaram <strong>35%</strong> os agendamentos no primeiro mês.</p>\n            \n            <p>Reduziram <strong>40%</strong> das faltas.</p>\n            \n            <p>E liberaram a secretária para o que realmente importa.</p>\n            \n            <hr class=\"divider\">\n            \n            <div class=\"cta-section\">\n                <p><strong>{{ $('Edit Fields').item.json.nome }}, quer ver isso funcionando na prática?</strong></p>\n                \n                <p>Fale agora com nosso Agente de IA e teste você mesmo.</p>\n                <a href=\"https://n8n.automizelabs.com.br/webhook/track-click?email={{ $('Edit Fields').item.json.email }}&redirect=https://wa.link/33o3to\" class=\"cta-button\">Falar com o Agente de IA</a>\n            </div>\n        </div>\n        \n        <div class=\"footer\">\n            <p><strong>Automize Labs</strong></p>\n            <p>Uberlândia, Minas Gerais</p>\n            <p class=\"unsubscribe\">Você está recebendo este e-mail porque demonstrou interesse em soluções de automação.</p>\n            <p class=\"unsubscribe\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n        \n        <!-- Pixel de tracking de abertura -->\n        <img src=\"https://n8n.automizelabs.com.br/webhook/track-open?email={{ $('Edit Fields').item.json.email }}\" width=\"1\" height=\"1\" style=\"display:none;\" alt=\"\">\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1360,
+        32
+      ],
+      "id": "e17147be-f01c-48b7-ba6b-09863ecf8cff",
+      "name": "Enviar Email",
+      "webhookId": "779305ff-a8b4-40ca-8671-794a6e128215",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "path": "clique-josi",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "4117cf4f-7176-422e-9204-110010deed2d",
+      "name": "Webhook - Receber Clique",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        768
+      ],
+      "webhookId": "0d7b3ff2-62aa-4e1f-a2a4-9d02abde13da",
+      "notesInFlow": true,
+      "notes": "URL do webhook será algo como:\nhttps://seu-n8n.com/webhook/track-click"
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "email",
+              "stringValue": "={{ $('Webhook - Receber Clique').item.json.query.email }}"
+            },
+            {
+              "name": "data_clique",
+              "stringValue": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm:ss') }}"
+            },
+            {
+              "name": "redirect",
+              "stringValue": "={{ $('Webhook - Receber Clique').item.json.query.redirect }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "80cd4dd2-ef6a-4e3e-b870-c01c00ced5c9",
+      "name": "Extrair Dados",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        320,
+        768
+      ],
+      "notesInFlow": true,
+      "notes": "Extrai o e-mail e timestamp do clique"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "clicked": "sim",
+            "email": "={{ $json.email }}",
+            "data_clique": "={{ $json.data_clique }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "28372287-440e-49a4-99a8-265802c4613a",
+      "name": "Atualizar Planilha",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        768
+      ],
+      "notesInFlow": true,
+      "notes": "Marca 'clicked' = sim e registra data/hora"
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "={{ $('Extrair Dados').item.json.redirect }}",
+        "options": {}
+      },
+      "id": "69d74d44-b221-4fd7-b7b3-c0b48b31350f",
+      "name": "Redirecionar para WhatsApp",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        768,
+        768
+      ],
+      "notesInFlow": true,
+      "notes": "Redireciona o usuário para o WhatsApp após registrar o clique"
+    },
+    {
+      "parameters": {
+        "outputFieldName": "=Data e Hora",
+        "options": {
+          "timezone": "America/Sao_Paulo"
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        112,
+        768
+      ],
+      "id": "d21c85cd-271b-4f94-9461-7a1993388464",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "path": "abertura-josi",
+        "options": {}
+      },
+      "id": "328c51c5-3577-456b-b61d-f5eea7484fbe",
+      "name": "Webhook - Receber Abertura",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        400
+      ],
+      "webhookId": "f47576f0-6e8a-486f-ac6c-fd4cb0d917e7",
+      "notesInFlow": true,
+      "notes": "URL: https://n8n.automizelabs.com.br/webhook/track-open"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "assignment1",
+              "name": "email",
+              "value": "={{ $json.query.email }}",
+              "type": "string"
+            },
+            {
+              "id": "assignment2",
+              "name": "opened",
+              "value": "sim",
+              "type": "string"
+            },
+            {
+              "id": "assignment3",
+              "name": "data_abertura",
+              "value": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "765b6672-8723-45b0-a36e-e803334139e7",
+      "name": "Setar Data Abertura",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        176,
+        400
+      ],
+      "notesInFlow": true,
+      "notes": "Captura e-mail e timestamp de abertura"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "opened": "={{ $json.opened }}",
+            "data_abertura": "={{ $json.data_abertura }}",
+            "email": "={{ $('Webhook - Receber Abertura').item.json.query.email }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "e3be75f0-820b-4e93-9c60-72f94e84f0bf",
+      "name": "Atualizar Planilha1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        400
+      ],
+      "notesInFlow": true,
+      "notes": "Marca opened = sim e registra data/hora"
+    },
+    {
+      "parameters": {
+        "content": "## Dispara o E-mail",
+        "height": 352,
+        "width": 2336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "09001a1c-38df-49c7-a736-bb7389d19aa2",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Tracking Taxa de Cliques",
+        "height": 352,
+        "width": 1120,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "8085d454-63f1-45d1-a5e4-2ba239416f39",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Tracking Taxa de Abertura",
+        "height": 352,
+        "width": 800,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "c7f8e047-8ac1-47f7-8f94-7866fbb3e0e6",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 40
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1168,
+        -1824
+      ],
+      "id": "35a5b6fc-62a9-47c3-82b9-a9dbd6d95f54",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $('Webhook - Receber Abertura').item.json.query.email }}",
+            "status": "falhou"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "3da86963-e69a-4b37-8c54-9111affd7204",
+      "name": "Atualizar Status contato para (falhou)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [
+        1616,
+        352
+      ],
+      "notesInFlow": true,
+      "notes": "Marca opened = sim e registra data/hora"
+    },
+    {
+      "parameters": {
+        "content": "## Falha no envio",
+        "height": 240,
+        "width": 288,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1536,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "24c8c675-3ded-4337-bb7b-0fec53e7cb48",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pega todos os leads da planilha\nconst items = $input.all();\n\n// Configuração\nconst LIMIT_PER_ACCOUNT = 500;  // Limite do Gmail\nconst TOTAL_ACCOUNTS = 6;        // Suas 6 contas\n\n// Calcula capacidade total diária\nconst capacidadeTotal = TOTAL_ACCOUNTS * LIMIT_PER_ACCOUNT; // 3.000 emails\n\n// VERIFICAÇÃO DE SEGURANÇA\nif (items.length > capacidadeTotal) {\n  throw new Error(`⚠️ ATENÇÃO: Você tem ${items.length} leads, mas só pode enviar ${capacidadeTotal} emails por dia (6 contas × 500 emails)`);\n}\n\nconsole.log(`📊 Total de leads: ${items.length}`);\nconsole.log(`📧 Emails por conta: ~${Math.ceil(items.length / TOTAL_ACCOUNTS)}`);\n\n// Distribui cada lead para uma conta\nconst itemsComConta = items.map((item, index) => {\n  \n  // MÁGICA: usa módulo (%) para rotacionar\n  const accountId = (index % TOTAL_ACCOUNTS) + 1;\n  \n  // Log para acompanhar distribuição\n  if (index < 10 || index % 100 === 0) {\n    console.log(`Lead ${index + 1} → Conta ${accountId}`);\n  }\n  \n  return {\n    json: {\n      // Mantém todos os dados originais do lead\n      ...item.json,\n      \n      // Adiciona informações da conta\n      selected_account_id: accountId,\n      lead_position: index + 1,\n      total_leads: items.length,\n      account_info: `Conta ${accountId} de ${TOTAL_ACCOUNTS}`\n    }\n  };\n});\n\n// Contagem final por conta\nconst countPerAccount = {};\nfor (let i = 1; i <= TOTAL_ACCOUNTS; i++) {\n  countPerAccount[`Conta ${i}`] = itemsComConta.filter(item => item.json.selected_account_id === i).length;\n}\n\nconsole.log('\\n📊 DISTRIBUIÇÃO FINAL:');\nconsole.log(JSON.stringify(countPerAccount, null, 2));\n\nreturn itemsComConta;"
+      },
+      "id": "7fe4fc7b-d556-4929-bccb-576f112441c7",
+      "name": "Distribuir Entre 6 Contas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -752,
+        -1824
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.selected_account_id }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "f84d4148-2662-4484-860f-a9b543372106"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Conta 1"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.selected_account_id }}",
+                    "rightValue": 2,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "ecef3c1e-0303-4712-a8e0-d9a5744afce0"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Conta 2"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.selected_account_id }}",
+                    "rightValue": 3,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "a2d7226c-f9b5-41fa-bb7f-32dac1978c5f"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Conta 3"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.selected_account_id }}",
+                    "rightValue": 4,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "54e480a9-69d4-42b9-9bac-65cca2cbcea6"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Conta 4"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.selected_account_id }}",
+                    "rightValue": 5,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "1f15eba7-d960-4410-b82f-6d3d4aef8ef3"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Conta 5"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.selected_account_id }}",
+                    "rightValue": 6,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "1e80462d-af8f-4e09-96cb-ad0a3e5bd2e5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Conta 6"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1a7c44d9-003e-4043-ac70-a62356bc3321",
+      "name": "Switch - Rotear Contas",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -528,
+        -1888
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "3cca6dbb-5e58-4c9e-a71f-d8f92ce4eeb7",
+      "name": "Merge - Unificar Resultados",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        -1792
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "e74db901-b6aa-45d3-8fd8-7f1967e225f7",
+      "name": "Get row(s) in sheet1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -976,
+        -1824
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a933fd4e-aac8-4855-a76c-bf18f74b8d3a",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1376,
+        -1376
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "status-field",
+              "name": "status",
+              "value": "enviado",
+              "type": "string"
+            },
+            {
+              "id": "data-envio-field",
+              "name": "data_envio",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "a1f0dbf1-7f04-4dc8-bb6d-f31a0b0d8f4f",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "conta-usada-field",
+              "name": "conta",
+              "value": "={{ $('Switch - Rotear Contas').item.json.selected_account_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "52c0daf5-0d8c-484d-8a09-25bfdd46fe78",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        688,
+        -1792
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "id": "12ffc404-d301-400f-9a30-99388cee385f",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1088,
+        -1792
+      ],
+      "webhookId": "wait-webhook",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "={{ $json.status }}",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}",
+            "conta": "={{ $json.conta }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        896,
+        -1792
+      ],
+      "id": "1f2cb28e-db8d-412c-bd81-16df05dae4c3",
+      "name": "Atualiza Status do contato para (enviado)1",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1824,
+        -2320
+      ],
+      "id": "f924dba1-7982-4880-8f1c-b0ea798e6d75",
+      "name": "Atualiza Status do contato para (a enviar)1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1824,
+        -2128
+      ],
+      "id": "f2393006-ba99-47de-bb01-661e31a5bdbb",
+      "name": "Atualiza Status do contato para (a enviar)2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1824,
+        -1952
+      ],
+      "id": "2724e2fa-5f48-44d2-bb62-000625d84051",
+      "name": "Atualiza Status do contato para (a enviar)3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1824,
+        -1760
+      ],
+      "id": "6b33e33b-414a-4318-a429-d5f9ece2e522",
+      "name": "Atualiza Status do contato para (a enviar)4",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1824,
+        -1568
+      ],
+      "id": "5942b752-f98a-4085-b1de-bc394d597667",
+      "name": "Atualiza Status do contato para (a enviar)5",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I",
+          "mode": "list",
+          "cachedResultName": "Disparo [Email Marketing] Josi Moretto",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Backlog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l-2fE3TSjB086nM9E4OHlt0AfL4ReLUdcNcdY08Nh5I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.email }}",
+            "status": "enviado",
+            "data_envio": "={{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "first_name",
+              "displayName": "first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " campanha",
+              "displayName": " campanha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conta",
+              "displayName": "conta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_envio",
+              "displayName": "data_envio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opened",
+              "displayName": "opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_abertura",
+              "displayName": "data_abertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked",
+              "displayName": "clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "data_clique",
+              "displayName": "data_clique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_abertura_min",
+              "displayName": "tempo_ate_abertura_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tempo_ate_clique_min",
+              "displayName": "tempo_ate_clique_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1824,
+        -1392
+      ],
+      "id": "7ec42514-3eb4-4f7a-8bc0-1d3b1731613f",
+      "name": "Atualiza Status do contato para (a enviar)6",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -2272
+      ],
+      "id": "d7e84829-54fc-4f0d-aba9-75a54ad59d4b",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -2080
+      ],
+      "id": "33c30f73-75d9-4966-aefe-01f300d096aa",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -1904
+      ],
+      "id": "d1314c40-a21b-4bfd-9942-eb7df5bc2456",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -1712
+      ],
+      "id": "1a4aa020-81d0-4735-bad5-2aaaa8e4f5f2",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -1520
+      ],
+      "id": "ee231dae-a3ef-4f55-98c1-cbeb66e447df",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a9493e49-f9b9-45e8-925c-63127eeba5e5",
+              "name": "nome",
+              "value": "={{ $json.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "a3806307-7e92-4775-9132-7462bb17eb7a",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -1344
+      ],
+      "id": "07ff2d00-1b55-42bd-aada-5daad34efd33",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields2').item.json.email }}",
+        "subject": "=🔴 {{ $('Edit Fields2').item.json.nome }}, Natal da ladies começou, você vem?",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🎄 NATAL DAS LADIES - ESTAMOS AO VIVO!</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.6;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 0;\n        }\n        .live-banner {\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n            padding: 25px 30px;\n            text-align: center;\n            border-bottom: 4px solid #FFD700;\n        }\n        .live-banner h1 {\n            color: #FFD700;\n            font-size: 36px;\n            font-weight: 900;\n            margin: 0;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .live-dot {\n            display: inline-block;\n            width: 12px;\n            height: 12px;\n            background-color: #ff0000;\n            border-radius: 50%;\n            margin-right: 8px;\n            animation: blink 1.5s infinite;\n        }\n        @keyframes blink {\n            0%, 100% { opacity: 1; }\n            50% { opacity: 0.3; }\n        }\n        .christmas-subtitle {\n            background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);\n            padding: 15px;\n            text-align: center;\n            color: #ffffff;\n            font-size: 22px;\n            font-weight: 700;\n        }\n        .content {\n            padding: 30px 25px;\n        }\n        .content p {\n            margin: 14px 0;\n            font-size: 17px;\n            color: #000000;\n            line-height: 1.5;\n        }\n        .content strong {\n            font-weight: 700;\n            color: #000000;\n        }\n        .highlight {\n            color: #DC143C;\n            font-weight: 700;\n        }\n        .highlight-gold {\n            color: #FFD700;\n            font-weight: 700;\n            background-color: #8B0000;\n            padding: 2px 6px;\n            border-radius: 3px;\n        }\n        .urgency-message {\n            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);\n            border-left: 5px solid #DC143C;\n            padding: 20px;\n            margin: 25px 0;\n            text-align: center;\n            border-radius: 8px;\n        }\n        .urgency-message p {\n            margin: 8px 0;\n            font-size: 18px;\n            color: #8B0000;\n            font-weight: 700;\n        }\n        .benefits-list {\n            background: linear-gradient(to bottom, #f8f9fa 0%, #e8f5e9 100%);\n            padding: 25px;\n            margin: 25px 0;\n            border-radius: 8px;\n            border-left: 4px solid #DC143C;\n            border-right: 4px solid #228B22;\n        }\n        .benefits-list p {\n            margin: 12px 0;\n            font-size: 16px;\n            font-weight: 600;\n        }\n        .price-tag {\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700;\n            padding: 20px;\n            margin: 25px 0;\n            border-radius: 15px;\n            text-align: center;\n            border: 3px solid #FFD700;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);\n        }\n        .price-tag p {\n            color: #ffffff;\n            font-size: 18px;\n            margin: 8px 0;\n        }\n        .price-tag .price {\n            color: #FFD700;\n            font-size: 42px;\n            font-weight: 900;\n            margin: 10px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 20px 60px;\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700 !important;\n            text-decoration: none;\n            border-radius: 50px;\n            font-weight: 900;\n            font-size: 20px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);\n            transition: all 0.3s ease;\n            margin: 20px 0;\n            border: 3px solid #FFD700;\n        }\n        .cta-button:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.7);\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n        }\n        .cta-section {\n            text-align: center;\n            margin: 30px 0;\n            padding: 30px 20px;\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #228B22 100%);\n            border-radius: 8px;\n        }\n        .cta-section p {\n            color: #FFD700;\n            font-size: 19px;\n            font-weight: 700;\n            margin: 15px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .footer {\n            padding: 25px;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            background-color: #f8f9fa;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .christmas-emoji {\n            font-size: 24px;\n        }\n        @media only screen and (max-width: 600px) {\n            .live-banner h1 {\n                font-size: 28px;\n            }\n            .content {\n                padding: 25px 20px;\n            }\n            .cta-button {\n                padding: 18px 50px;\n                font-size: 18px;\n            }\n            .price-tag .price {\n                font-size: 36px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <!-- Live Banner -->\n        <div class=\"live-banner\">\n            <h1>\n                <span class=\"live-dot\"></span>🎄 ESTAMOS AO VIVO! 🎄\n            </h1>\n        </div>\n        \n        <!-- Christmas Subtitle -->\n        <div class=\"christmas-subtitle\">\n            ✨ Live Especial de NATAL ✨\n        </div>\n        \n        <!-- Content -->\n        <div class=\"content\">\n            <p><strong>Nossa LIVE DE NATAL está no ar com PRESENTES e OFERTAS EXCLUSIVAS! 🎁🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 19px; color: #DC143C;\"><strong>👉 Entra agora na live e aproveita presentes e ofertas exclusivas! 🎁</strong></p>\n            \n            <!-- Price Tag -->\n            <div class=\"price-tag\">\n                <p style=\"font-size: 20px; font-weight: 900;\">🎁 NATAL DAS LADIES 🎁</p>\n                <p class=\"price\">Itens a partir de R$9,90</p>\n                <p style=\"font-size: 24px; font-weight: 900; color: #FFD700;\">Descontos de até 80% OFF</p>\n            </div>\n            \n            <!-- Benefits List -->\n            <div class=\"benefits-list\">\n                <p style=\"text-align: center; font-size: 18px; color: #DC143C;\"><strong>🎅 PROMOÇÕES EXCLUSIVAS DA LIVE:</strong></p>\n                <p>🎄 Itens especiais a partir de <span class=\"highlight\">R$9,90</span></p>\n                <p>🎁 Descontos de até <span class=\"highlight\">80% OFF</span></p>\n                <p>✨ Kits promocionais com <span class=\"highlight\">SUPER descontos</span></p>\n                <p>🎅 Brindes exclusivos para quem comprar na live</p>\n                <p>💳 Parcele suas compras sem dor de cabeça</p>\n                <p>🚚 Condições especiais de <span class=\"highlight\">FRETE</span></p>\n            </div>\n            \n            <!-- Urgency Message -->\n            <div class=\"urgency-message\">\n                <p class=\"christmas-emoji\">⚡ OFERTAS VÁLIDAS APENAS DURANTE A LIVE ⚡</p>\n                <p>Quando a transmissão acabar, os descontos acabam!</p>\n                <p>🎄 Não perca essa chance de garantir seus presentes! 🎁</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 18px;\"><strong>Essa é a oportunidade que você esperava para garantir produtos incríveis com descontos IMPERDÍVEIS! 🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Presentes pra você, pra família, pra amiga... todo mundo merece um <span class=\"highlight\">NATAL DAS LADIES</span>! 🎅✨</p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Se você não aproveitar AGORA, vai se arrepender de ter perdido! ⏰</p>\n            \n            <!-- CTA Section -->\n            <div class=\"cta-section\">\n                <p style=\"font-size: 24px; font-weight: 900;\">🔴 A LIVE ESTÁ ROLANDO AGORA!</p>\n                \n                <p style=\"font-size: 18px; margin-top: 15px; color: #ffffff;\">Entre antes que os melhores produtos acabem 🎁</p>\n                \n                <a href=\"https://www.instagram.com/josi.moretto/\" class=\"cta-button\">🎄 ENTRAR NA LIVE AGORA 🎄</a>\n                \n                <p style=\"font-size: 14px; margin-top: 20px;\">Ofertas exclusivas • Válido apenas na transmissão</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 14px; color: #666666; margin-top: 30px;\">P.S.: Quem entrou nos primeiros minutos já está garantindo os melhores produtos com os maiores descontos. Corre que ainda dá tempo! 🎅🔥</p>\n        </div>\n        \n        <!-- Footer -->\n        <div class=\"footer\">\n            <p><strong>🎄 Natal das Ladies 2024 - Josi Moretto 🎁</strong></p>\n            <p>🔴 AO VIVO AGORA • Instagram</p>\n            <p style=\"font-size: 12px; margin-top: 15px;\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        -2272
+      ],
+      "id": "4b9e90d9-c8ec-48a0-bfc5-00dfdab84f71",
+      "name": "Gmail (Josi Ecommerce)",
+      "webhookId": "8bef28b4-8c6c-420c-9202-77139c9cdbe9",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields3').item.json.email }}",
+        "subject": "=🔴 {{ $('Edit Fields3').item.json.nome }}, Natal da ladies começou, você vem?",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🎄 NATAL DAS LADIES - ESTAMOS AO VIVO!</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.6;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 0;\n        }\n        .live-banner {\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n            padding: 25px 30px;\n            text-align: center;\n            border-bottom: 4px solid #FFD700;\n        }\n        .live-banner h1 {\n            color: #FFD700;\n            font-size: 36px;\n            font-weight: 900;\n            margin: 0;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .live-dot {\n            display: inline-block;\n            width: 12px;\n            height: 12px;\n            background-color: #ff0000;\n            border-radius: 50%;\n            margin-right: 8px;\n            animation: blink 1.5s infinite;\n        }\n        @keyframes blink {\n            0%, 100% { opacity: 1; }\n            50% { opacity: 0.3; }\n        }\n        .christmas-subtitle {\n            background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);\n            padding: 15px;\n            text-align: center;\n            color: #ffffff;\n            font-size: 22px;\n            font-weight: 700;\n        }\n        .content {\n            padding: 30px 25px;\n        }\n        .content p {\n            margin: 14px 0;\n            font-size: 17px;\n            color: #000000;\n            line-height: 1.5;\n        }\n        .content strong {\n            font-weight: 700;\n            color: #000000;\n        }\n        .highlight {\n            color: #DC143C;\n            font-weight: 700;\n        }\n        .highlight-gold {\n            color: #FFD700;\n            font-weight: 700;\n            background-color: #8B0000;\n            padding: 2px 6px;\n            border-radius: 3px;\n        }\n        .urgency-message {\n            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);\n            border-left: 5px solid #DC143C;\n            padding: 20px;\n            margin: 25px 0;\n            text-align: center;\n            border-radius: 8px;\n        }\n        .urgency-message p {\n            margin: 8px 0;\n            font-size: 18px;\n            color: #8B0000;\n            font-weight: 700;\n        }\n        .benefits-list {\n            background: linear-gradient(to bottom, #f8f9fa 0%, #e8f5e9 100%);\n            padding: 25px;\n            margin: 25px 0;\n            border-radius: 8px;\n            border-left: 4px solid #DC143C;\n            border-right: 4px solid #228B22;\n        }\n        .benefits-list p {\n            margin: 12px 0;\n            font-size: 16px;\n            font-weight: 600;\n        }\n        .price-tag {\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700;\n            padding: 20px;\n            margin: 25px 0;\n            border-radius: 15px;\n            text-align: center;\n            border: 3px solid #FFD700;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);\n        }\n        .price-tag p {\n            color: #ffffff;\n            font-size: 18px;\n            margin: 8px 0;\n        }\n        .price-tag .price {\n            color: #FFD700;\n            font-size: 42px;\n            font-weight: 900;\n            margin: 10px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 20px 60px;\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700 !important;\n            text-decoration: none;\n            border-radius: 50px;\n            font-weight: 900;\n            font-size: 20px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);\n            transition: all 0.3s ease;\n            margin: 20px 0;\n            border: 3px solid #FFD700;\n        }\n        .cta-button:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.7);\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n        }\n        .cta-section {\n            text-align: center;\n            margin: 30px 0;\n            padding: 30px 20px;\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #228B22 100%);\n            border-radius: 8px;\n        }\n        .cta-section p {\n            color: #FFD700;\n            font-size: 19px;\n            font-weight: 700;\n            margin: 15px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .footer {\n            padding: 25px;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            background-color: #f8f9fa;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .christmas-emoji {\n            font-size: 24px;\n        }\n        @media only screen and (max-width: 600px) {\n            .live-banner h1 {\n                font-size: 28px;\n            }\n            .content {\n                padding: 25px 20px;\n            }\n            .cta-button {\n                padding: 18px 50px;\n                font-size: 18px;\n            }\n            .price-tag .price {\n                font-size: 36px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <!-- Live Banner -->\n        <div class=\"live-banner\">\n            <h1>\n                <span class=\"live-dot\"></span>🎄 ESTAMOS AO VIVO! 🎄\n            </h1>\n        </div>\n        \n        <!-- Christmas Subtitle -->\n        <div class=\"christmas-subtitle\">\n            ✨ Live Especial de NATAL ✨\n        </div>\n        \n        <!-- Content -->\n        <div class=\"content\">\n            <p><strong>Nossa LIVE DE NATAL está no ar com PRESENTES e OFERTAS EXCLUSIVAS! 🎁🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 19px; color: #DC143C;\"><strong>👉 Entra agora na live e aproveita presentes e ofertas exclusivas! 🎁</strong></p>\n            \n            <!-- Price Tag -->\n            <div class=\"price-tag\">\n                <p style=\"font-size: 20px; font-weight: 900;\">🎁 NATAL DAS LADIES 🎁</p>\n                <p class=\"price\">Itens a partir de R$9,90</p>\n                <p style=\"font-size: 24px; font-weight: 900; color: #FFD700;\">Descontos de até 80% OFF</p>\n            </div>\n            \n            <!-- Benefits List -->\n            <div class=\"benefits-list\">\n                <p style=\"text-align: center; font-size: 18px; color: #DC143C;\"><strong>🎅 PROMOÇÕES EXCLUSIVAS DA LIVE:</strong></p>\n                <p>🎄 Itens especiais a partir de <span class=\"highlight\">R$9,90</span></p>\n                <p>🎁 Descontos de até <span class=\"highlight\">80% OFF</span></p>\n                <p>✨ Kits promocionais com <span class=\"highlight\">SUPER descontos</span></p>\n                <p>🎅 Brindes exclusivos para quem comprar na live</p>\n                <p>💳 Parcele suas compras sem dor de cabeça</p>\n                <p>🚚 Condições especiais de <span class=\"highlight\">FRETE</span></p>\n            </div>\n            \n            <!-- Urgency Message -->\n            <div class=\"urgency-message\">\n                <p class=\"christmas-emoji\">⚡ OFERTAS VÁLIDAS APENAS DURANTE A LIVE ⚡</p>\n                <p>Quando a transmissão acabar, os descontos acabam!</p>\n                <p>🎄 Não perca essa chance de garantir seus presentes! 🎁</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 18px;\"><strong>Essa é a oportunidade que você esperava para garantir produtos incríveis com descontos IMPERDÍVEIS! 🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Presentes pra você, pra família, pra amiga... todo mundo merece um <span class=\"highlight\">NATAL DAS LADIES</span>! 🎅✨</p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Se você não aproveitar AGORA, vai se arrepender de ter perdido! ⏰</p>\n            \n            <!-- CTA Section -->\n            <div class=\"cta-section\">\n                <p style=\"font-size: 24px; font-weight: 900;\">🔴 A LIVE ESTÁ ROLANDO AGORA!</p>\n                \n                <p style=\"font-size: 18px; margin-top: 15px; color: #ffffff;\">Entre antes que os melhores produtos acabem 🎁</p>\n                \n                <a href=\"https://www.instagram.com/josi.moretto/\" class=\"cta-button\">🎄 ENTRAR NA LIVE AGORA 🎄</a>\n                \n                <p style=\"font-size: 14px; margin-top: 20px;\">Ofertas exclusivas • Válido apenas na transmissão</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 14px; color: #666666; margin-top: 30px;\">P.S.: Quem entrou nos primeiros minutos já está garantindo os melhores produtos com os maiores descontos. Corre que ainda dá tempo! 🎅🔥</p>\n        </div>\n        \n        <!-- Footer -->\n        <div class=\"footer\">\n            <p><strong>🎄 Natal das Ladies 2024 - Josi Moretto 🎁</strong></p>\n            <p>🔴 AO VIVO AGORA • Instagram</p>\n            <p style=\"font-size: 12px; margin-top: 15px;\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        -2080
+      ],
+      "id": "9ec64faf-6e28-45a6-855e-a1da548b5109",
+      "name": "Gmai (Loja Josi)",
+      "webhookId": "8bef28b4-8c6c-420c-9202-77139c9cdbe9",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields4').item.json.email }}",
+        "subject": "=🔴 {{ $('Edit Fields4').item.json.nome }}, Natal da ladies começou, você vem?",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🎄 NATAL DAS LADIES - ESTAMOS AO VIVO!</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.6;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 0;\n        }\n        .live-banner {\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n            padding: 25px 30px;\n            text-align: center;\n            border-bottom: 4px solid #FFD700;\n        }\n        .live-banner h1 {\n            color: #FFD700;\n            font-size: 36px;\n            font-weight: 900;\n            margin: 0;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .live-dot {\n            display: inline-block;\n            width: 12px;\n            height: 12px;\n            background-color: #ff0000;\n            border-radius: 50%;\n            margin-right: 8px;\n            animation: blink 1.5s infinite;\n        }\n        @keyframes blink {\n            0%, 100% { opacity: 1; }\n            50% { opacity: 0.3; }\n        }\n        .christmas-subtitle {\n            background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);\n            padding: 15px;\n            text-align: center;\n            color: #ffffff;\n            font-size: 22px;\n            font-weight: 700;\n        }\n        .content {\n            padding: 30px 25px;\n        }\n        .content p {\n            margin: 14px 0;\n            font-size: 17px;\n            color: #000000;\n            line-height: 1.5;\n        }\n        .content strong {\n            font-weight: 700;\n            color: #000000;\n        }\n        .highlight {\n            color: #DC143C;\n            font-weight: 700;\n        }\n        .highlight-gold {\n            color: #FFD700;\n            font-weight: 700;\n            background-color: #8B0000;\n            padding: 2px 6px;\n            border-radius: 3px;\n        }\n        .urgency-message {\n            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);\n            border-left: 5px solid #DC143C;\n            padding: 20px;\n            margin: 25px 0;\n            text-align: center;\n            border-radius: 8px;\n        }\n        .urgency-message p {\n            margin: 8px 0;\n            font-size: 18px;\n            color: #8B0000;\n            font-weight: 700;\n        }\n        .benefits-list {\n            background: linear-gradient(to bottom, #f8f9fa 0%, #e8f5e9 100%);\n            padding: 25px;\n            margin: 25px 0;\n            border-radius: 8px;\n            border-left: 4px solid #DC143C;\n            border-right: 4px solid #228B22;\n        }\n        .benefits-list p {\n            margin: 12px 0;\n            font-size: 16px;\n            font-weight: 600;\n        }\n        .price-tag {\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700;\n            padding: 20px;\n            margin: 25px 0;\n            border-radius: 15px;\n            text-align: center;\n            border: 3px solid #FFD700;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);\n        }\n        .price-tag p {\n            color: #ffffff;\n            font-size: 18px;\n            margin: 8px 0;\n        }\n        .price-tag .price {\n            color: #FFD700;\n            font-size: 42px;\n            font-weight: 900;\n            margin: 10px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 20px 60px;\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700 !important;\n            text-decoration: none;\n            border-radius: 50px;\n            font-weight: 900;\n            font-size: 20px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);\n            transition: all 0.3s ease;\n            margin: 20px 0;\n            border: 3px solid #FFD700;\n        }\n        .cta-button:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.7);\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n        }\n        .cta-section {\n            text-align: center;\n            margin: 30px 0;\n            padding: 30px 20px;\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #228B22 100%);\n            border-radius: 8px;\n        }\n        .cta-section p {\n            color: #FFD700;\n            font-size: 19px;\n            font-weight: 700;\n            margin: 15px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .footer {\n            padding: 25px;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            background-color: #f8f9fa;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .christmas-emoji {\n            font-size: 24px;\n        }\n        @media only screen and (max-width: 600px) {\n            .live-banner h1 {\n                font-size: 28px;\n            }\n            .content {\n                padding: 25px 20px;\n            }\n            .cta-button {\n                padding: 18px 50px;\n                font-size: 18px;\n            }\n            .price-tag .price {\n                font-size: 36px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <!-- Live Banner -->\n        <div class=\"live-banner\">\n            <h1>\n                <span class=\"live-dot\"></span>🎄 ESTAMOS AO VIVO! 🎄\n            </h1>\n        </div>\n        \n        <!-- Christmas Subtitle -->\n        <div class=\"christmas-subtitle\">\n            ✨ Live Especial de NATAL ✨\n        </div>\n        \n        <!-- Content -->\n        <div class=\"content\">\n            <p><strong>Nossa LIVE DE NATAL está no ar com PRESENTES e OFERTAS EXCLUSIVAS! 🎁🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 19px; color: #DC143C;\"><strong>👉 Entra agora na live e aproveita presentes e ofertas exclusivas! 🎁</strong></p>\n            \n            <!-- Price Tag -->\n            <div class=\"price-tag\">\n                <p style=\"font-size: 20px; font-weight: 900;\">🎁 NATAL DAS LADIES 🎁</p>\n                <p class=\"price\">Itens a partir de R$9,90</p>\n                <p style=\"font-size: 24px; font-weight: 900; color: #FFD700;\">Descontos de até 80% OFF</p>\n            </div>\n            \n            <!-- Benefits List -->\n            <div class=\"benefits-list\">\n                <p style=\"text-align: center; font-size: 18px; color: #DC143C;\"><strong>🎅 PROMOÇÕES EXCLUSIVAS DA LIVE:</strong></p>\n                <p>🎄 Itens especiais a partir de <span class=\"highlight\">R$9,90</span></p>\n                <p>🎁 Descontos de até <span class=\"highlight\">80% OFF</span></p>\n                <p>✨ Kits promocionais com <span class=\"highlight\">SUPER descontos</span></p>\n                <p>🎅 Brindes exclusivos para quem comprar na live</p>\n                <p>💳 Parcele suas compras sem dor de cabeça</p>\n                <p>🚚 Condições especiais de <span class=\"highlight\">FRETE</span></p>\n            </div>\n            \n            <!-- Urgency Message -->\n            <div class=\"urgency-message\">\n                <p class=\"christmas-emoji\">⚡ OFERTAS VÁLIDAS APENAS DURANTE A LIVE ⚡</p>\n                <p>Quando a transmissão acabar, os descontos acabam!</p>\n                <p>🎄 Não perca essa chance de garantir seus presentes! 🎁</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 18px;\"><strong>Essa é a oportunidade que você esperava para garantir produtos incríveis com descontos IMPERDÍVEIS! 🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Presentes pra você, pra família, pra amiga... todo mundo merece um <span class=\"highlight\">NATAL DAS LADIES</span>! 🎅✨</p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Se você não aproveitar AGORA, vai se arrepender de ter perdido! ⏰</p>\n            \n            <!-- CTA Section -->\n            <div class=\"cta-section\">\n                <p style=\"font-size: 24px; font-weight: 900;\">🔴 A LIVE ESTÁ ROLANDO AGORA!</p>\n                \n                <p style=\"font-size: 18px; margin-top: 15px; color: #ffffff;\">Entre antes que os melhores produtos acabem 🎁</p>\n                \n                <a href=\"https://www.instagram.com/josi.moretto/\" class=\"cta-button\">🎄 ENTRAR NA LIVE AGORA 🎄</a>\n                \n                <p style=\"font-size: 14px; margin-top: 20px;\">Ofertas exclusivas • Válido apenas na transmissão</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 14px; color: #666666; margin-top: 30px;\">P.S.: Quem entrou nos primeiros minutos já está garantindo os melhores produtos com os maiores descontos. Corre que ainda dá tempo! 🎅🔥</p>\n        </div>\n        \n        <!-- Footer -->\n        <div class=\"footer\">\n            <p><strong>🎄 Natal das Ladies 2024 - Josi Moretto 🎁</strong></p>\n            <p>🔴 AO VIVO AGORA • Instagram</p>\n            <p style=\"font-size: 12px; margin-top: 15px;\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        -1904
+      ],
+      "id": "f92f3b89-5525-4d66-84a2-431f2c785e0e",
+      "name": "Gmail (My Lady)",
+      "webhookId": "8bef28b4-8c6c-420c-9202-77139c9cdbe9"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields5').item.json.email }}",
+        "subject": "=🔴 {{ $('Edit Fields5').item.json.nome }}, Natal da ladies começou, você vem?",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🎄 NATAL DAS LADIES - ESTAMOS AO VIVO!</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.6;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 0;\n        }\n        .live-banner {\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n            padding: 25px 30px;\n            text-align: center;\n            border-bottom: 4px solid #FFD700;\n        }\n        .live-banner h1 {\n            color: #FFD700;\n            font-size: 36px;\n            font-weight: 900;\n            margin: 0;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .live-dot {\n            display: inline-block;\n            width: 12px;\n            height: 12px;\n            background-color: #ff0000;\n            border-radius: 50%;\n            margin-right: 8px;\n            animation: blink 1.5s infinite;\n        }\n        @keyframes blink {\n            0%, 100% { opacity: 1; }\n            50% { opacity: 0.3; }\n        }\n        .christmas-subtitle {\n            background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);\n            padding: 15px;\n            text-align: center;\n            color: #ffffff;\n            font-size: 22px;\n            font-weight: 700;\n        }\n        .content {\n            padding: 30px 25px;\n        }\n        .content p {\n            margin: 14px 0;\n            font-size: 17px;\n            color: #000000;\n            line-height: 1.5;\n        }\n        .content strong {\n            font-weight: 700;\n            color: #000000;\n        }\n        .highlight {\n            color: #DC143C;\n            font-weight: 700;\n        }\n        .highlight-gold {\n            color: #FFD700;\n            font-weight: 700;\n            background-color: #8B0000;\n            padding: 2px 6px;\n            border-radius: 3px;\n        }\n        .urgency-message {\n            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);\n            border-left: 5px solid #DC143C;\n            padding: 20px;\n            margin: 25px 0;\n            text-align: center;\n            border-radius: 8px;\n        }\n        .urgency-message p {\n            margin: 8px 0;\n            font-size: 18px;\n            color: #8B0000;\n            font-weight: 700;\n        }\n        .benefits-list {\n            background: linear-gradient(to bottom, #f8f9fa 0%, #e8f5e9 100%);\n            padding: 25px;\n            margin: 25px 0;\n            border-radius: 8px;\n            border-left: 4px solid #DC143C;\n            border-right: 4px solid #228B22;\n        }\n        .benefits-list p {\n            margin: 12px 0;\n            font-size: 16px;\n            font-weight: 600;\n        }\n        .price-tag {\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700;\n            padding: 20px;\n            margin: 25px 0;\n            border-radius: 15px;\n            text-align: center;\n            border: 3px solid #FFD700;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);\n        }\n        .price-tag p {\n            color: #ffffff;\n            font-size: 18px;\n            margin: 8px 0;\n        }\n        .price-tag .price {\n            color: #FFD700;\n            font-size: 42px;\n            font-weight: 900;\n            margin: 10px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 20px 60px;\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700 !important;\n            text-decoration: none;\n            border-radius: 50px;\n            font-weight: 900;\n            font-size: 20px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);\n            transition: all 0.3s ease;\n            margin: 20px 0;\n            border: 3px solid #FFD700;\n        }\n        .cta-button:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.7);\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n        }\n        .cta-section {\n            text-align: center;\n            margin: 30px 0;\n            padding: 30px 20px;\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #228B22 100%);\n            border-radius: 8px;\n        }\n        .cta-section p {\n            color: #FFD700;\n            font-size: 19px;\n            font-weight: 700;\n            margin: 15px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .footer {\n            padding: 25px;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            background-color: #f8f9fa;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .christmas-emoji {\n            font-size: 24px;\n        }\n        @media only screen and (max-width: 600px) {\n            .live-banner h1 {\n                font-size: 28px;\n            }\n            .content {\n                padding: 25px 20px;\n            }\n            .cta-button {\n                padding: 18px 50px;\n                font-size: 18px;\n            }\n            .price-tag .price {\n                font-size: 36px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <!-- Live Banner -->\n        <div class=\"live-banner\">\n            <h1>\n                <span class=\"live-dot\"></span>🎄 ESTAMOS AO VIVO! 🎄\n            </h1>\n        </div>\n        \n        <!-- Christmas Subtitle -->\n        <div class=\"christmas-subtitle\">\n            ✨ Live Especial de NATAL ✨\n        </div>\n        \n        <!-- Content -->\n        <div class=\"content\">\n            <p><strong>Nossa LIVE DE NATAL está no ar com PRESENTES e OFERTAS EXCLUSIVAS! 🎁🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 19px; color: #DC143C;\"><strong>👉 Entra agora na live e aproveita presentes e ofertas exclusivas! 🎁</strong></p>\n            \n            <!-- Price Tag -->\n            <div class=\"price-tag\">\n                <p style=\"font-size: 20px; font-weight: 900;\">🎁 NATAL DAS LADIES 🎁</p>\n                <p class=\"price\">Itens a partir de R$9,90</p>\n                <p style=\"font-size: 24px; font-weight: 900; color: #FFD700;\">Descontos de até 80% OFF</p>\n            </div>\n            \n            <!-- Benefits List -->\n            <div class=\"benefits-list\">\n                <p style=\"text-align: center; font-size: 18px; color: #DC143C;\"><strong>🎅 PROMOÇÕES EXCLUSIVAS DA LIVE:</strong></p>\n                <p>🎄 Itens especiais a partir de <span class=\"highlight\">R$9,90</span></p>\n                <p>🎁 Descontos de até <span class=\"highlight\">80% OFF</span></p>\n                <p>✨ Kits promocionais com <span class=\"highlight\">SUPER descontos</span></p>\n                <p>🎅 Brindes exclusivos para quem comprar na live</p>\n                <p>💳 Parcele suas compras sem dor de cabeça</p>\n                <p>🚚 Condições especiais de <span class=\"highlight\">FRETE</span></p>\n            </div>\n            \n            <!-- Urgency Message -->\n            <div class=\"urgency-message\">\n                <p class=\"christmas-emoji\">⚡ OFERTAS VÁLIDAS APENAS DURANTE A LIVE ⚡</p>\n                <p>Quando a transmissão acabar, os descontos acabam!</p>\n                <p>🎄 Não perca essa chance de garantir seus presentes! 🎁</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 18px;\"><strong>Essa é a oportunidade que você esperava para garantir produtos incríveis com descontos IMPERDÍVEIS! 🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Presentes pra você, pra família, pra amiga... todo mundo merece um <span class=\"highlight\">NATAL DAS LADIES</span>! 🎅✨</p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Se você não aproveitar AGORA, vai se arrepender de ter perdido! ⏰</p>\n            \n            <!-- CTA Section -->\n            <div class=\"cta-section\">\n                <p style=\"font-size: 24px; font-weight: 900;\">🔴 A LIVE ESTÁ ROLANDO AGORA!</p>\n                \n                <p style=\"font-size: 18px; margin-top: 15px; color: #ffffff;\">Entre antes que os melhores produtos acabem 🎁</p>\n                \n                <a href=\"https://www.instagram.com/josi.moretto/\" class=\"cta-button\">🎄 ENTRAR NA LIVE AGORA 🎄</a>\n                \n                <p style=\"font-size: 14px; margin-top: 20px;\">Ofertas exclusivas • Válido apenas na transmissão</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 14px; color: #666666; margin-top: 30px;\">P.S.: Quem entrou nos primeiros minutos já está garantindo os melhores produtos com os maiores descontos. Corre que ainda dá tempo! 🎅🔥</p>\n        </div>\n        \n        <!-- Footer -->\n        <div class=\"footer\">\n            <p><strong>🎄 Natal das Ladies 2024 - Josi Moretto 🎁</strong></p>\n            <p>🔴 AO VIVO AGORA • Instagram</p>\n            <p style=\"font-size: 12px; margin-top: 15px;\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        -1712
+      ],
+      "id": "7398e276-7634-4006-a822-5b272f61f7ce",
+      "name": "Gmail (Tudo que uma Lady)",
+      "webhookId": "8bef28b4-8c6c-420c-9202-77139c9cdbe9"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields6').item.json.email }}",
+        "subject": "=🔴 {{ $('Edit Fields6').item.json.nome }}, Natal da ladies começou, você vem?",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🎄 NATAL DAS LADIES - ESTAMOS AO VIVO!</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.6;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 0;\n        }\n        .live-banner {\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n            padding: 25px 30px;\n            text-align: center;\n            border-bottom: 4px solid #FFD700;\n        }\n        .live-banner h1 {\n            color: #FFD700;\n            font-size: 36px;\n            font-weight: 900;\n            margin: 0;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .live-dot {\n            display: inline-block;\n            width: 12px;\n            height: 12px;\n            background-color: #ff0000;\n            border-radius: 50%;\n            margin-right: 8px;\n            animation: blink 1.5s infinite;\n        }\n        @keyframes blink {\n            0%, 100% { opacity: 1; }\n            50% { opacity: 0.3; }\n        }\n        .christmas-subtitle {\n            background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);\n            padding: 15px;\n            text-align: center;\n            color: #ffffff;\n            font-size: 22px;\n            font-weight: 700;\n        }\n        .content {\n            padding: 30px 25px;\n        }\n        .content p {\n            margin: 14px 0;\n            font-size: 17px;\n            color: #000000;\n            line-height: 1.5;\n        }\n        .content strong {\n            font-weight: 700;\n            color: #000000;\n        }\n        .highlight {\n            color: #DC143C;\n            font-weight: 700;\n        }\n        .highlight-gold {\n            color: #FFD700;\n            font-weight: 700;\n            background-color: #8B0000;\n            padding: 2px 6px;\n            border-radius: 3px;\n        }\n        .urgency-message {\n            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);\n            border-left: 5px solid #DC143C;\n            padding: 20px;\n            margin: 25px 0;\n            text-align: center;\n            border-radius: 8px;\n        }\n        .urgency-message p {\n            margin: 8px 0;\n            font-size: 18px;\n            color: #8B0000;\n            font-weight: 700;\n        }\n        .benefits-list {\n            background: linear-gradient(to bottom, #f8f9fa 0%, #e8f5e9 100%);\n            padding: 25px;\n            margin: 25px 0;\n            border-radius: 8px;\n            border-left: 4px solid #DC143C;\n            border-right: 4px solid #228B22;\n        }\n        .benefits-list p {\n            margin: 12px 0;\n            font-size: 16px;\n            font-weight: 600;\n        }\n        .price-tag {\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700;\n            padding: 20px;\n            margin: 25px 0;\n            border-radius: 15px;\n            text-align: center;\n            border: 3px solid #FFD700;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);\n        }\n        .price-tag p {\n            color: #ffffff;\n            font-size: 18px;\n            margin: 8px 0;\n        }\n        .price-tag .price {\n            color: #FFD700;\n            font-size: 42px;\n            font-weight: 900;\n            margin: 10px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 20px 60px;\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700 !important;\n            text-decoration: none;\n            border-radius: 50px;\n            font-weight: 900;\n            font-size: 20px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);\n            transition: all 0.3s ease;\n            margin: 20px 0;\n            border: 3px solid #FFD700;\n        }\n        .cta-button:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.7);\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n        }\n        .cta-section {\n            text-align: center;\n            margin: 30px 0;\n            padding: 30px 20px;\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #228B22 100%);\n            border-radius: 8px;\n        }\n        .cta-section p {\n            color: #FFD700;\n            font-size: 19px;\n            font-weight: 700;\n            margin: 15px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .footer {\n            padding: 25px;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            background-color: #f8f9fa;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .christmas-emoji {\n            font-size: 24px;\n        }\n        @media only screen and (max-width: 600px) {\n            .live-banner h1 {\n                font-size: 28px;\n            }\n            .content {\n                padding: 25px 20px;\n            }\n            .cta-button {\n                padding: 18px 50px;\n                font-size: 18px;\n            }\n            .price-tag .price {\n                font-size: 36px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <!-- Live Banner -->\n        <div class=\"live-banner\">\n            <h1>\n                <span class=\"live-dot\"></span>🎄 ESTAMOS AO VIVO! 🎄\n            </h1>\n        </div>\n        \n        <!-- Christmas Subtitle -->\n        <div class=\"christmas-subtitle\">\n            ✨ Live Especial de NATAL ✨\n        </div>\n        \n        <!-- Content -->\n        <div class=\"content\">\n            <p><strong>Nossa LIVE DE NATAL está no ar com PRESENTES e OFERTAS EXCLUSIVAS! 🎁🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 19px; color: #DC143C;\"><strong>👉 Entra agora na live e aproveita presentes e ofertas exclusivas! 🎁</strong></p>\n            \n            <!-- Price Tag -->\n            <div class=\"price-tag\">\n                <p style=\"font-size: 20px; font-weight: 900;\">🎁 NATAL DAS LADIES 🎁</p>\n                <p class=\"price\">Itens a partir de R$9,90</p>\n                <p style=\"font-size: 24px; font-weight: 900; color: #FFD700;\">Descontos de até 80% OFF</p>\n            </div>\n            \n            <!-- Benefits List -->\n            <div class=\"benefits-list\">\n                <p style=\"text-align: center; font-size: 18px; color: #DC143C;\"><strong>🎅 PROMOÇÕES EXCLUSIVAS DA LIVE:</strong></p>\n                <p>🎄 Itens especiais a partir de <span class=\"highlight\">R$9,90</span></p>\n                <p>🎁 Descontos de até <span class=\"highlight\">80% OFF</span></p>\n                <p>✨ Kits promocionais com <span class=\"highlight\">SUPER descontos</span></p>\n                <p>🎅 Brindes exclusivos para quem comprar na live</p>\n                <p>💳 Parcele suas compras sem dor de cabeça</p>\n                <p>🚚 Condições especiais de <span class=\"highlight\">FRETE</span></p>\n            </div>\n            \n            <!-- Urgency Message -->\n            <div class=\"urgency-message\">\n                <p class=\"christmas-emoji\">⚡ OFERTAS VÁLIDAS APENAS DURANTE A LIVE ⚡</p>\n                <p>Quando a transmissão acabar, os descontos acabam!</p>\n                <p>🎄 Não perca essa chance de garantir seus presentes! 🎁</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 18px;\"><strong>Essa é a oportunidade que você esperava para garantir produtos incríveis com descontos IMPERDÍVEIS! 🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Presentes pra você, pra família, pra amiga... todo mundo merece um <span class=\"highlight\">NATAL DAS LADIES</span>! 🎅✨</p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Se você não aproveitar AGORA, vai se arrepender de ter perdido! ⏰</p>\n            \n            <!-- CTA Section -->\n            <div class=\"cta-section\">\n                <p style=\"font-size: 24px; font-weight: 900;\">🔴 A LIVE ESTÁ ROLANDO AGORA!</p>\n                \n                <p style=\"font-size: 18px; margin-top: 15px; color: #ffffff;\">Entre antes que os melhores produtos acabem 🎁</p>\n                \n                <a href=\"https://www.instagram.com/josi.moretto/\" class=\"cta-button\">🎄 ENTRAR NA LIVE AGORA 🎄</a>\n                \n                <p style=\"font-size: 14px; margin-top: 20px;\">Ofertas exclusivas • Válido apenas na transmissão</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 14px; color: #666666; margin-top: 30px;\">P.S.: Quem entrou nos primeiros minutos já está garantindo os melhores produtos com os maiores descontos. Corre que ainda dá tempo! 🎅🔥</p>\n        </div>\n        \n        <!-- Footer -->\n        <div class=\"footer\">\n            <p><strong>🎄 Natal das Ladies 2024 - Josi Moretto 🎁</strong></p>\n            <p>🔴 AO VIVO AGORA • Instagram</p>\n            <p style=\"font-size: 12px; margin-top: 15px;\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        -1520
+      ],
+      "id": "cea4d73f-a1f5-4c65-938f-756cbe6d6b21",
+      "name": "Gmail (Sac Josi)",
+      "webhookId": "8bef28b4-8c6c-420c-9202-77139c9cdbe9"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields7').item.json.email }}",
+        "subject": "=🔴 {{ $('Edit Fields7').item.json.nome }}, Natal da ladies começou, você vem?",
+        "message": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🎄 NATAL DAS LADIES - ESTAMOS AO VIVO!</title>\n    <style>\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\n            line-height: 1.6;\n            color: #000000;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 0 auto;\n            background-color: #ffffff;\n            padding: 0;\n        }\n        .live-banner {\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n            padding: 25px 30px;\n            text-align: center;\n            border-bottom: 4px solid #FFD700;\n        }\n        .live-banner h1 {\n            color: #FFD700;\n            font-size: 36px;\n            font-weight: 900;\n            margin: 0;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .live-dot {\n            display: inline-block;\n            width: 12px;\n            height: 12px;\n            background-color: #ff0000;\n            border-radius: 50%;\n            margin-right: 8px;\n            animation: blink 1.5s infinite;\n        }\n        @keyframes blink {\n            0%, 100% { opacity: 1; }\n            50% { opacity: 0.3; }\n        }\n        .christmas-subtitle {\n            background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);\n            padding: 15px;\n            text-align: center;\n            color: #ffffff;\n            font-size: 22px;\n            font-weight: 700;\n        }\n        .content {\n            padding: 30px 25px;\n        }\n        .content p {\n            margin: 14px 0;\n            font-size: 17px;\n            color: #000000;\n            line-height: 1.5;\n        }\n        .content strong {\n            font-weight: 700;\n            color: #000000;\n        }\n        .highlight {\n            color: #DC143C;\n            font-weight: 700;\n        }\n        .highlight-gold {\n            color: #FFD700;\n            font-weight: 700;\n            background-color: #8B0000;\n            padding: 2px 6px;\n            border-radius: 3px;\n        }\n        .urgency-message {\n            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);\n            border-left: 5px solid #DC143C;\n            padding: 20px;\n            margin: 25px 0;\n            text-align: center;\n            border-radius: 8px;\n        }\n        .urgency-message p {\n            margin: 8px 0;\n            font-size: 18px;\n            color: #8B0000;\n            font-weight: 700;\n        }\n        .benefits-list {\n            background: linear-gradient(to bottom, #f8f9fa 0%, #e8f5e9 100%);\n            padding: 25px;\n            margin: 25px 0;\n            border-radius: 8px;\n            border-left: 4px solid #DC143C;\n            border-right: 4px solid #228B22;\n        }\n        .benefits-list p {\n            margin: 12px 0;\n            font-size: 16px;\n            font-weight: 600;\n        }\n        .price-tag {\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700;\n            padding: 20px;\n            margin: 25px 0;\n            border-radius: 15px;\n            text-align: center;\n            border: 3px solid #FFD700;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);\n        }\n        .price-tag p {\n            color: #ffffff;\n            font-size: 18px;\n            margin: 8px 0;\n        }\n        .price-tag .price {\n            color: #FFD700;\n            font-size: 42px;\n            font-weight: 900;\n            margin: 10px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .cta-button {\n            display: inline-block;\n            padding: 20px 60px;\n            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);\n            color: #FFD700 !important;\n            text-decoration: none;\n            border-radius: 50px;\n            font-weight: 900;\n            font-size: 20px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);\n            transition: all 0.3s ease;\n            margin: 20px 0;\n            border: 3px solid #FFD700;\n        }\n        .cta-button:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.7);\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);\n        }\n        .cta-section {\n            text-align: center;\n            margin: 30px 0;\n            padding: 30px 20px;\n            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #228B22 100%);\n            border-radius: 8px;\n        }\n        .cta-section p {\n            color: #FFD700;\n            font-size: 19px;\n            font-weight: 700;\n            margin: 15px 0;\n            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n        }\n        .footer {\n            padding: 25px;\n            text-align: center;\n            font-size: 13px;\n            color: #666666;\n            background-color: #f8f9fa;\n            border-top: 1px solid #e5e5e5;\n        }\n        .footer p {\n            margin: 8px 0;\n            color: #666666;\n        }\n        .footer a {\n            color: #666666;\n            text-decoration: underline;\n        }\n        .christmas-emoji {\n            font-size: 24px;\n        }\n        @media only screen and (max-width: 600px) {\n            .live-banner h1 {\n                font-size: 28px;\n            }\n            .content {\n                padding: 25px 20px;\n            }\n            .cta-button {\n                padding: 18px 50px;\n                font-size: 18px;\n            }\n            .price-tag .price {\n                font-size: 36px;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"email-container\">\n        <!-- Live Banner -->\n        <div class=\"live-banner\">\n            <h1>\n                <span class=\"live-dot\"></span>🎄 ESTAMOS AO VIVO! 🎄\n            </h1>\n        </div>\n        \n        <!-- Christmas Subtitle -->\n        <div class=\"christmas-subtitle\">\n            ✨ Live Especial de NATAL ✨\n        </div>\n        \n        <!-- Content -->\n        <div class=\"content\">\n            <p><strong>Nossa LIVE DE NATAL está no ar com PRESENTES e OFERTAS EXCLUSIVAS! 🎁🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 19px; color: #DC143C;\"><strong>👉 Entra agora na live e aproveita presentes e ofertas exclusivas! 🎁</strong></p>\n            \n            <!-- Price Tag -->\n            <div class=\"price-tag\">\n                <p style=\"font-size: 20px; font-weight: 900;\">🎁 NATAL DAS LADIES 🎁</p>\n                <p class=\"price\">Itens a partir de R$9,90</p>\n                <p style=\"font-size: 24px; font-weight: 900; color: #FFD700;\">Descontos de até 80% OFF</p>\n            </div>\n            \n            <!-- Benefits List -->\n            <div class=\"benefits-list\">\n                <p style=\"text-align: center; font-size: 18px; color: #DC143C;\"><strong>🎅 PROMOÇÕES EXCLUSIVAS DA LIVE:</strong></p>\n                <p>🎄 Itens especiais a partir de <span class=\"highlight\">R$9,90</span></p>\n                <p>🎁 Descontos de até <span class=\"highlight\">80% OFF</span></p>\n                <p>✨ Kits promocionais com <span class=\"highlight\">SUPER descontos</span></p>\n                <p>🎅 Brindes exclusivos para quem comprar na live</p>\n                <p>💳 Parcele suas compras sem dor de cabeça</p>\n                <p>🚚 Condições especiais de <span class=\"highlight\">FRETE</span></p>\n            </div>\n            \n            <!-- Urgency Message -->\n            <div class=\"urgency-message\">\n                <p class=\"christmas-emoji\">⚡ OFERTAS VÁLIDAS APENAS DURANTE A LIVE ⚡</p>\n                <p>Quando a transmissão acabar, os descontos acabam!</p>\n                <p>🎄 Não perca essa chance de garantir seus presentes! 🎁</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 18px;\"><strong>Essa é a oportunidade que você esperava para garantir produtos incríveis com descontos IMPERDÍVEIS! 🔥</strong></p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Presentes pra você, pra família, pra amiga... todo mundo merece um <span class=\"highlight\">NATAL DAS LADIES</span>! 🎅✨</p>\n            \n            <p style=\"text-align: center; font-size: 16px;\">Se você não aproveitar AGORA, vai se arrepender de ter perdido! ⏰</p>\n            \n            <!-- CTA Section -->\n            <div class=\"cta-section\">\n                <p style=\"font-size: 24px; font-weight: 900;\">🔴 A LIVE ESTÁ ROLANDO AGORA!</p>\n                \n                <p style=\"font-size: 18px; margin-top: 15px; color: #ffffff;\">Entre antes que os melhores produtos acabem 🎁</p>\n                \n                <a href=\"https://www.instagram.com/josi.moretto/\" class=\"cta-button\">🎄 ENTRAR NA LIVE AGORA 🎄</a>\n                \n                <p style=\"font-size: 14px; margin-top: 20px;\">Ofertas exclusivas • Válido apenas na transmissão</p>\n            </div>\n            \n            <p style=\"text-align: center; font-size: 14px; color: #666666; margin-top: 30px;\">P.S.: Quem entrou nos primeiros minutos já está garantindo os melhores produtos com os maiores descontos. Corre que ainda dá tempo! 🎅🔥</p>\n        </div>\n        \n        <!-- Footer -->\n        <div class=\"footer\">\n            <p><strong>🎄 Natal das Ladies 2024 - Josi Moretto 🎁</strong></p>\n            <p>🔴 AO VIVO AGORA • Instagram</p>\n            <p style=\"font-size: 12px; margin-top: 15px;\">Não quer mais receber? <a href=\"#\">Cancelar inscrição</a></p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        -1344
+      ],
+      "id": "2a919978-74ef-48ab-9646-678ad6ff52a7",
+      "name": "Gmail (Evelyn Josi)",
+      "webhookId": "8bef28b4-8c6c-420c-9202-77139c9cdbe9"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b870f222-a8cd-4527-a65e-4ad989f27731",
+              "leftValue": "={{ $('Loop Over Items1').item.json.status }}",
+              "rightValue": "enviado",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1104,
+        -1360
+      ],
+      "id": "2ae41ef8-c172-4249-b8ce-0c1c65ba1b4f",
+      "name": "If1",
+      "executeOnce": false,
+      "alwaysOutputData": false,
+      "disabled": true
+    }
+  ],
+  "activeVersion": null,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "parentFolderId": null,
+  "scopes": [
+    "workflow:create",
+    "workflow:delete",
+    "workflow:execute",
+    "workflow:execute-chat",
+    "workflow:list",
+    "workflow:move",
+    "workflow:publish",
+    "workflow:read",
+    "workflow:share",
+    "workflow:unpublish",
+    "workflow:unshare",
+    "workflow:update",
+    "workflow:updateRedactionSetting"
+  ],
+  "canExecute": true
+}
