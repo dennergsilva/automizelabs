@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AutomizeLabs — Consultoria de automação, inteligência artificial e integração de sistemas. Transforme processos em fluxos inteligentes.">
+    <meta name="theme-color" content="#050510">
+    <meta property="og:title" content="AutomizeLabs — Automação, IA e Integração">
+    <meta property="og:description" content="Consultoria especializada em automação inteligente, IA aplicada e integração de sistemas.">
+    <meta property="og:type" content="website">
+    <title>AutomizeLabs — Automação · IA · Integração</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="particles"></canvas>
+    <div class="grid-overlay"></div>
+    <div class="scanlines"></div>
+
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="logo">
+                <span class="logo-bracket">[</span>
+                <span class="logo-text">automize<span class="accent-cyan">.</span>labs</span>
+                <span class="logo-bracket">]</span>
+                <span class="logo-cursor">_</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#servicos" data-num="01">Serviços</a></li>
+                <li><a href="#sobre" data-num="02">Sobre</a></li>
+                <li><a href="#contato" data-num="03">Contato</a></li>
+            </ul>
+            <a href="https://wa.me/5534999213145?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20AutomizeLabs." class="nav-cta" target="_blank" rel="noopener">
+                <span>iniciar projeto</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="container hero-inner">
+            <div class="hero-tag">
+                <span class="dot"></span>
+                <span class="hero-tag-text">// system.online → ready</span>
+            </div>
+
+            <h1 class="hero-title">
+                <span class="hero-line-1">Automatize</span>
+                <span class="hero-line-2">o que ainda<br>te <span class="strike">consome</span><span class="hero-typed-wrap"><span id="typed"></span><span class="caret">|</span></span></span>
+            </h1>
+
+            <p class="hero-sub">
+                Consultoria de <strong>automação</strong>, <strong>IA aplicada</strong> e
+                <strong>integração de sistemas</strong> para empresas que querem
+                <span class="accent-green">eliminar trabalho repetitivo</span> e
+                <span class="accent-cyan">escalar com inteligência</span>.
+            </p>
+
+            <div class="hero-ctas">
+                <a href="#contato" class="btn btn-primary">
+                    <span class="btn-text">Falar com um especialista</span>
+                    <span class="btn-glow"></span>
+                </a>
+                <a href="#servicos" class="btn btn-ghost">
+                    <span>Ver serviços</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">120<span>+</span></div>
+                    <div class="stat-label">automações em produção</div>
+                </div>
+                <div class="stat-sep"></div>
+                <div class="stat">
+                    <div class="stat-num">40<span>+</span></div>
+                    <div class="stat-label">sistemas integrados</div>
+                </div>
+                <div class="stat-sep"></div>
+                <div class="stat">
+                    <div class="stat-num">24<span>/7</span></div>
+                    <div class="stat-label">monitoramento ativo</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section class="services" id="servicos">
+        <div class="container">
+            <header class="section-head">
+                <div class="section-num">// 01</div>
+                <h2 class="section-title">Serviços que <span class="accent-cyan">entregamos</span></h2>
+                <p class="section-desc">Da automação de tarefas operacionais à arquitetura de agentes de IA em produção. Soluções desenhadas sob medida, do diagnóstico ao deploy.</p>
+            </header>
+
+            <div class="services-grid">
+                <article class="service-card" data-tilt>
+                    <div class="card-num">01</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="8" y="20" width="20" height="24" rx="2"/>
+                            <rect x="36" y="20" width="20" height="24" rx="2"/>
+                            <path d="M28 32h8"/>
+                            <circle cx="18" cy="32" r="3"/>
+                            <circle cx="46" cy="32" r="3"/>
+                            <path d="M12 14v6M52 14v6M12 44v6M52 44v6"/>
+                        </svg>
+                    </div>
+                    <h3>Automação de Processos</h3>
+                    <p>Mapeamos seus fluxos e construímos automações robustas em n8n, Make, Zapier ou código sob medida. Workflows que rodam 24/7, com observabilidade e tolerância a falhas.</p>
+                    <ul class="card-list">
+                        <li>RPA para sistemas legados</li>
+                        <li>Workflows multi-etapas com n8n</li>
+                        <li>Automação de back-office e atendimento</li>
+                        <li>Schedulers, webhooks e event-driven</li>
+                    </ul>
+                    <div class="card-corner"></div>
+                </article>
+
+                <article class="service-card service-card-featured" data-tilt>
+                    <div class="card-badge">flagship</div>
+                    <div class="card-num">02</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="32" cy="32" r="20"/>
+                            <circle cx="32" cy="32" r="12"/>
+                            <circle cx="32" cy="32" r="4" fill="currentColor"/>
+                            <path d="M32 4v8M32 52v8M4 32h8M52 32h8M11 11l6 6M47 47l6 6M53 11l-6 6M17 47l-6 6"/>
+                        </svg>
+                    </div>
+                    <h3>Inteligência Artificial</h3>
+                    <p>Agentes de IA, copilots internos e pipelines com LLMs aplicados a casos reais do seu negócio. Não vendemos hype — entregamos soluções com ROI mensurável.</p>
+                    <ul class="card-list">
+                        <li>Agentes com Claude, GPT e modelos open-source</li>
+                        <li>RAG sobre base de conhecimento privada</li>
+                        <li>Classificação, extração e enriquecimento</li>
+                        <li>Chatbots inteligentes para WhatsApp</li>
+                    </ul>
+                    <div class="card-corner"></div>
+                </article>
+
+                <article class="service-card" data-tilt>
+                    <div class="card-num">03</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="14" cy="14" r="6"/>
+                            <circle cx="50" cy="14" r="6"/>
+                            <circle cx="14" cy="50" r="6"/>
+                            <circle cx="50" cy="50" r="6"/>
+                            <circle cx="32" cy="32" r="8"/>
+                            <path d="M20 14h12M32 14h12M20 50h12M32 50h12M14 20v12M14 32v12M50 20v12M50 32v12M20 20l6 6M44 20l-6 6M20 44l6-6M44 44l-6-6"/>
+                        </svg>
+                    </div>
+                    <h3>Integração de Sistemas</h3>
+                    <p>Conectamos CRMs, ERPs, plataformas de marketing, bancos de dados e APIs internas. Camadas de integração estáveis que sobrevivem ao caos dos sistemas reais.</p>
+                    <ul class="card-list">
+                        <li>APIs REST, GraphQL e webhooks</li>
+                        <li>ETL/ELT e pipelines de dados</li>
+                        <li>Salesforce, HubSpot, RD Station, Pipedrive</li>
+                        <li>Sincronização bidirecional com auditoria</li>
+                    </ul>
+                    <div class="card-corner"></div>
+                </article>
+            </div>
+
+            <div class="tech-stack">
+                <span class="stack-label">// stack</span>
+                <div class="stack-items">
+                    <span>n8n</span><i></i>
+                    <span>Python</span><i></i>
+                    <span>Node.js</span><i></i>
+                    <span>Claude</span><i></i>
+                    <span>OpenAI</span><i></i>
+                    <span>Supabase</span><i></i>
+                    <span>PostgreSQL</span><i></i>
+                    <span>Redis</span><i></i>
+                    <span>Docker</span><i></i>
+                    <span>AWS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="sobre">
+        <div class="container about-grid">
+            <div class="about-text">
+                <header class="section-head section-head-left">
+                    <div class="section-num">// 02</div>
+                    <h2 class="section-title">Engenharia, não <span class="accent-green">improviso</span>.</h2>
+                </header>
+                <p class="about-lead">
+                    A <strong>AutomizeLabs</strong> nasceu da convicção de que automação e IA só geram valor quando tratadas como engenharia — com diagnóstico, arquitetura e operação contínua.
+                </p>
+                <p>
+                    Trabalhamos lado a lado com times de operações, marketing, vendas e atendimento para transformar processos manuais em sistemas autônomos confiáveis. Cada projeto começa com um diagnóstico técnico honesto: nem tudo precisa de IA, nem tudo precisa virar automação — mas o que precisa, fazemos certo da primeira vez.
+                </p>
+                <div class="about-pillars">
+                    <div class="pillar">
+                        <div class="pillar-icon">▲</div>
+                        <h4>Diagnóstico técnico</h4>
+                        <p>Mapeamos processos antes de propor solução. Sem soluções pré-fabricadas.</p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-icon">◆</div>
+                        <h4>Engenharia de produção</h4>
+                        <p>Código versionado, testes, observabilidade e documentação. Sempre.</p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-icon">●</div>
+                        <h4>Operação contínua</h4>
+                        <p>Monitoramos, ajustamos e evoluímos. Automação não é projeto, é serviço.</p>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="about-terminal">
+                <div class="terminal-head">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">automizelabs@manifest ~ </span>
+                </div>
+                <div class="terminal-body">
+                    <p><span class="term-prompt">$</span> cat manifest.txt</p>
+                    <p class="term-out"><span class="accent-cyan">#</span> AutomizeLabs Manifest v1.0</p>
+                    <p class="term-out">&nbsp;</p>
+                    <p class="term-out"><span class="accent-green">→</span> Resolver problemas reais,</p>
+                    <p class="term-out">&nbsp;&nbsp;não vender ferramentas.</p>
+                    <p class="term-out">&nbsp;</p>
+                    <p class="term-out"><span class="accent-green">→</span> Medir resultado, não esforço.</p>
+                    <p class="term-out">&nbsp;</p>
+                    <p class="term-out"><span class="accent-green">→</span> Tratar IA como engenharia,</p>
+                    <p class="term-out">&nbsp;&nbsp;não como mágica.</p>
+                    <p class="term-out">&nbsp;</p>
+                    <p class="term-out"><span class="accent-green">→</span> Entregar sistemas que</p>
+                    <p class="term-out">&nbsp;&nbsp;<span class="accent-cyan">sobrevivem em produção</span>.</p>
+                    <p class="term-out">&nbsp;</p>
+                    <p><span class="term-prompt">$</span> <span class="term-cursor">_</span></p>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="contact" id="contato">
+        <div class="container">
+            <header class="section-head">
+                <div class="section-num">// 03</div>
+                <h2 class="section-title">Vamos <span class="accent-green">conversar</span>?</h2>
+                <p class="section-desc">Conte seu desafio. Em até 24h retornamos com um diagnóstico inicial e uma proposta de próximos passos — sem compromisso.</p>
+            </header>
+
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3>Inicie pelo canal que preferir</h3>
+                    <p>Respondemos rápido. Atendimento humano, sem funil de vendas burocrático.</p>
+
+                    <a href="https://wa.me/5534999213145?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20AutomizeLabs." class="contact-btn whatsapp" target="_blank" rel="noopener">
+                        <div class="contact-btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-btn-content">
+                            <div class="contact-btn-label">WhatsApp</div>
+                            <div class="contact-btn-value">+55 (34) 99921-3145</div>
+                        </div>
+                        <svg class="contact-btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+
+                    <a href="mailto:contato@automizelabs.com.br?subject=Projeto%20de%20automa%C3%A7%C3%A3o" class="contact-btn email">
+                        <div class="contact-btn-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                                <path d="M3 7l9 6 9-6"/>
+                            </svg>
+                        </div>
+                        <div class="contact-btn-content">
+                            <div class="contact-btn-label">E-mail</div>
+                            <div class="contact-btn-value">contato@automizelabs.com.br</div>
+                        </div>
+                        <svg class="contact-btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </div>
+
+                <div class="contact-side">
+                    <div class="contact-side-block">
+                        <span class="label">// resposta</span>
+                        <strong>&lt; 24h úteis</strong>
+                    </div>
+                    <div class="contact-side-block">
+                        <span class="label">// atendimento</span>
+                        <strong>Brasil + LATAM</strong>
+                    </div>
+                    <div class="contact-side-block">
+                        <span class="label">// status</span>
+                        <strong class="status-online"><span class="pulse"></span>Aceitando projetos</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-bracket">[</span>
+                <span>automize<span class="accent-cyan">.</span>labs</span>
+                <span class="logo-bracket">]</span>
+            </div>
+            <p class="footer-meta">© <span id="year"></span> AutomizeLabs · Automação · IA · Integração</p>
+            <p class="footer-built">construído com <span class="accent-cyan">caf&eacute;</span> e <span class="accent-green">engenharia</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
