@@ -1,0 +1,10 @@
+.git
+.github
+.gitignore
+.DS_Store
+README.md
+n8n-workflows
+*.md
+.vscode
+.idea
+node_modules
