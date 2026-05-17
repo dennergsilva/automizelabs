@@ -22,8 +22,12 @@
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.querySelector('.nav-links');
     if (navToggle && navLinks) {
-        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+        const setExpanded = (open) => {
+            navLinks.classList.toggle('open', open);
+            navToggle.setAttribute('aria-expanded', String(open));
+        };
+        navToggle.addEventListener('click', () => setExpanded(!navLinks.classList.contains('open')));
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setExpanded(false)));
     }
 
     // ---- Typed text effect ----

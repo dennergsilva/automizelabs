@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://automizelabs.com.br/sitemap.xml

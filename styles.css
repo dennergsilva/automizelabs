@@ -1273,3 +1273,26 @@ body {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ---- Skip link (a11y) ---- */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 100;
+    padding: 12px 20px;
+    background: var(--neon-cyan);
+    color: var(--bg-0);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--radius);
+    box-shadow: var(--glow-cyan);
+    transition: top 0.2s var(--ease);
+}
+
+.skip-link:focus {
+    top: 16px;
+    outline: 2px solid var(--neon-green);
+    outline-offset: 2px;
+}
