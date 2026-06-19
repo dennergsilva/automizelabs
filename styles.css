@@ -109,6 +109,22 @@ body {
 .accent-green { color: var(--neon-green); text-shadow: 0 0 12px rgba(0, 255, 136, 0.5); }
 .accent-cyan { color: var(--neon-cyan); text-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
 
+/* ---- Keyboard focus (a11y) ---- */
+:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.btn:focus-visible,
+.nav-cta:focus-visible {
+    outline-color: var(--neon-green);
+    box-shadow: var(--glow-green);
+}
+
+/* Outline só para teclado; mouse/touch não dispara :focus-visible */
+:focus:not(:focus-visible) { outline: none; }
+
 /* ---- Navigation ---- */
 .nav {
     position: fixed;
@@ -271,8 +287,14 @@ body {
     display: block;
     height: 2px;
     background: var(--neon-cyan);
-    transition: all 0.3s;
+    transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+    transform-origin: center;
 }
+
+/* Hambúrguer → X quando o menu abre */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---- Hero ---- */
 .hero {

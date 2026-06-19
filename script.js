@@ -5,6 +5,9 @@
 (() => {
     'use strict';
 
+    // ---- Motion preference ----
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // ---- Year ----
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -32,7 +35,12 @@
 
     // ---- Typed text effect ----
     const typedEl = document.getElementById('typed');
-    if (typedEl) {
+    if (typedEl && reduceMotion) {
+        // Sem animação contínua: mostra uma palavra fixa e some com o caret.
+        typedEl.textContent = 'tempo.';
+        const caret = typedEl.parentElement?.querySelector('.caret');
+        if (caret) caret.style.display = 'none';
+    } else if (typedEl) {
         const words = ['tempo.', 'energia.', 'foco.', 'resultado.'];
         let wordIdx = 0;
         let charIdx = 0;
@@ -77,6 +85,12 @@
         if (!match) return;
         const target = parseInt(match[1], 10);
         const suffix = el.querySelector('span')?.outerHTML || '';
+
+        if (reduceMotion) {
+            el.innerHTML = target + suffix;
+            return;
+        }
+
         const duration = 1400;
         const start = performance.now();
 
@@ -92,14 +106,32 @@
 
     // ---- Intersection observer for reveals + counters ----
     const revealEls = document.querySelectorAll('.service-card, .pillar, .about-terminal, .contact-card, .section-head');
-    revealEls.forEach(el => el.classList.add('reveal'));
+    revealEls.forEach(el => {
+        el.classList.add('reveal');
+        // Índice entre irmãos reveláveis → stagger quando entram juntos (ex.: grid de cards).
+        const sibs = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
+        el.dataset.revealIndex = String(sibs.indexOf(el));
+    });
 
     const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                io.unobserve(entry.target);
-            }
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            io.unobserve(el);
+
+            const idx = Math.min(parseInt(el.dataset.revealIndex, 10) || 0, 4);
+            el.style.transitionDelay = reduceMotion ? '0s' : `${idx * 80}ms`;
+            el.classList.add('visible');
+
+            // Após revelar, remove as classes para o elemento voltar à sua própria
+            // transição (ex.: hover do card em 0.4s, em vez do 0.8s do .reveal).
+            // Prende ao fim da transição de opacity — o tilt mexe só no transform.
+            el.addEventListener('transitionend', function cleanup(e) {
+                if (e.propertyName !== 'opacity') return;
+                el.style.transitionDelay = '';
+                el.classList.remove('reveal', 'visible');
+                el.removeEventListener('transitionend', cleanup);
+            });
         });
     }, { threshold: 0.15 });
 
@@ -117,8 +149,8 @@
     }, { threshold: 0.4 });
     counters.forEach(c => counterIo.observe(c));
 
-    // ---- Tilt effect on cards ----
-    const tiltEls = document.querySelectorAll('[data-tilt]');
+    // ---- Tilt effect on cards (desativado se o usuário prefere menos movimento) ----
+    const tiltEls = reduceMotion ? [] : document.querySelectorAll('[data-tilt]');
     tiltEls.forEach(el => {
         el.addEventListener('mousemove', (e) => {
             const rect = el.getBoundingClientRect();
