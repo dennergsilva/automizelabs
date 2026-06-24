@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel · Prospectos</title>
+<style>
+  :root{--bg:#0f1115;--card:#1a1d24;--bd:#2a2e38;--mut:#8b92a0;--pri:#7c5cff;--ok:#22c55e;--warn:#f59e0b}
+  *{margin:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+  body{background:var(--bg);color:#e8eaed}
+  header{position:sticky;top:0;background:#0f1115ee;backdrop-filter:blur(8px);padding:14px 16px;border-bottom:1px solid var(--bd);z-index:5}
+  h1{font-size:17px;font-weight:700}
+  .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--mut)}
+  .stats b{color:#fff}
+  .board{display:flex;gap:12px;padding:16px;overflow-x:auto;min-height:80vh}
+  .col{flex:0 0 270px;background:#13161c;border:1px solid var(--bd);border-radius:14px;padding:10px}
+  .col h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);padding:4px 6px 10px;display:flex;justify-content:space-between}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+  .card .nm{font-weight:600;font-size:14px}
+  .card .ci{font-size:12px;color:var(--mut);margin:2px 0 8px}
+  .row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .btn{font-size:12px;padding:6px 10px;border-radius:8px;border:1px solid var(--bd);background:#222633;color:#e8eaed;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+  .btn.wa{background:#1f3d2f;border-color:#2e5c46;color:#7ee2a8}
+  .btn.see{background:#262036;border-color:#3a2e5c;color:#c4b4ff}
+  select,textarea{width:100%;background:#0f1218;border:1px solid var(--bd);color:#e8eaed;border-radius:8px;padding:6px;font-size:12px}
+  textarea{margin-top:6px;resize:vertical;min-height:34px}
+  .login{max-width:320px;margin:18vh auto;padding:24px;background:var(--card);border:1px solid var(--bd);border-radius:16px;text-align:center}
+  .login input{width:100%;padding:11px;border-radius:10px;border:1px solid var(--bd);background:#0f1218;color:#fff;margin:14px 0}
+  .login button{width:100%;padding:11px;border-radius:10px;border:0;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
+  .star{color:var(--warn)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const COLS = [
+  ["gerado","Gerado"],["abordado","Abordado"],["respondeu","Respondeu"],
+  ["negociando","Negociando"],["fechado","Fechado"],["perdido","Perdido"],
+];
+let senha = localStorage.getItem("painel_senha") || "";
+const api = (p, opt={}) => fetch("/api"+p, {...opt, headers:{"Content-Type":"application/json","x-senha":senha, ...(opt.headers||{})}});
+
+function login(){
+  document.getElementById("app").innerHTML = `
+    <div class="login">
+      <h1>Painel de Prospectos</h1>
+      <input id="s" type="password" placeholder="Senha" />
+      <button onclick="setSenha()">Entrar</button>
+    </div>`;
+}
+function setSenha(){ senha = document.getElementById("s").value; localStorage.setItem("painel_senha",senha); load(); }
+
+async function load(){
+  const r = await api("/prospectos");
+  if(r.status===401){ login(); return; }
+  const rows = await r.json();
+  render(rows);
+}
+
+function stat(rows){
+  const c = Object.fromEntries(COLS.map(([k])=>[k, rows.filter(x=>x.status===k).length]));
+  const total = rows.length, fech = c.fechado||0;
+  const conv = total? Math.round(fech/total*100):0;
+  return `<div class="stats">
+    <span>Total: <b>${total}</b></span>
+    <span>Fechados: <b style="color:var(--ok)">${fech}</b></span>
+    <span>Conversão: <b>${conv}%</b></span>
+    <span>MRR estimado: <b>R$ ${(fech*97).toLocaleString("pt-BR")}</b></span>
+  </div>`;
+}
+
+function card(p){
+  const wa = p.whatsapp ? `https://wa.me/${String(p.whatsapp).replace(/\\D/g,"")}` : "#";
+  const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
+  return `<div class="card">
+    <div class="nm">${esc(p.nome||"")}</div>
+    <div class="ci">${esc(p.cidade||"")} ${p.nota_google?`· <span class="star">★</span>${esc(p.nota_google)}`:""}</div>
+    <div class="row">
+      ${p.whatsapp?`<a class="btn wa" href="${wa}" target="_blank">WhatsApp</a>`:""}
+      ${p.preview_url?`<a class="btn see" href="${p.preview_url}" target="_blank">Ver site</a>`:""}
+    </div>
+    <select onchange="mv(${p.id}, this.value)">${opts}</select>
+    <textarea placeholder="Observações..." onblur="obs(${p.id}, this.value)">${esc(p.observacoes||"")}</textarea>
+  </div>`;
+}
+
+function render(rows){
+  document.getElementById("app").innerHTML = `
+    <header><h1>Painel de Prospectos</h1>${stat(rows)}</header>
+    <div class="board">
+      ${COLS.map(([k,l])=>`
+        <div class="col">
+          <h2>${l}<span>${rows.filter(x=>x.status===k).length}</span></h2>
+          ${rows.filter(x=>x.status===k).map(card).join("")}
+        </div>`).join("")}
+    </div>`;
+}
+
+async function mv(id, status){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({status})}); load(); }
+async function obs(id, observacoes){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({observacoes})}); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+senha ? load() : login();
+</script>
+</body>
+</html>
