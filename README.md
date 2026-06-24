@@ -41,4 +41,4 @@ Depois abra http://localhost:8000
 ## Contato
 
 - WhatsApp: +55 (34) 99921-3145
-- E-mail: contato@automizelabs.com.br
+- E-mail: automizelabs@gmail.com
