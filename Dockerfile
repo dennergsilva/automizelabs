@@ -11,6 +11,7 @@ COPY sitemap.xml /usr/share/nginx/html/
 COPY favicon.svg /usr/share/nginx/html/
 COPY og-image.png /usr/share/nginx/html/
 COPY privacidade/ /usr/share/nginx/html/privacidade/
+COPY _sites/ /usr/share/nginx/html/_sites/
 
 # Config nginx customizada (gzip, cache, security headers)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
