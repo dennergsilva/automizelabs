@@ -72,5 +72,11 @@ app.patch("/api/prospectos/:id", auth, async (req, res) => {
   res.json(r.rows[0]);
 });
 
+// Remove um prospect
+app.delete("/api/prospectos/:id", auth, async (req, res) => {
+  await pool.query("DELETE FROM prospectos WHERE id=$1", [req.params.id]);
+  res.json({ ok: true });
+});
+
 app.use(express.static("public"));
 app.listen(process.env.PORT || 3000, () => console.log("painel no ar"));

@@ -5,14 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Painel · Prospectos</title>
 <style>
-  :root{--bg:#0f1115;--card:#1a1d24;--bd:#2a2e38;--mut:#8b92a0;--pri:#7c5cff;--ok:#22c55e;--warn:#f59e0b}
+  :root{--bg:#0f1115;--card:#1a1d24;--bd:#2a2e38;--mut:#8b92a0;--pri:#7c5cff;--ok:#22c55e;--warn:#f59e0b;--cyan:#34d3ff}
   *{margin:0;box-sizing:border-box;font-family:system-ui,sans-serif}
   body{background:var(--bg);color:#e8eaed}
   header{position:sticky;top:0;background:#0f1115ee;backdrop-filter:blur(8px);padding:14px 16px;border-bottom:1px solid var(--bd);z-index:5}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
   h1{font-size:17px;font-weight:700}
-  .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--mut)}
-  .stats b{color:#fff}
-  .board{display:flex;gap:12px;padding:16px;overflow-x:auto;min-height:80vh}
+  .tabs{display:flex;gap:6px}
+  .tab{font-size:13px;padding:7px 16px;border-radius:9px;border:1px solid var(--bd);background:#1a1d24;color:var(--mut);cursor:pointer}
+  .tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+  /* kanban */
+  .board{display:flex;gap:12px;padding:16px;overflow-x:auto;min-height:78vh}
   .col{flex:0 0 270px;background:#13161c;border:1px solid var(--bd);border-radius:14px;padding:10px}
   .col h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);padding:4px 6px 10px;display:flex;justify-content:space-between}
   .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
@@ -24,6 +27,26 @@
   .btn.see{background:#262036;border-color:#3a2e5c;color:#c4b4ff}
   select,textarea{width:100%;background:#0f1218;border:1px solid var(--bd);color:#e8eaed;border-radius:8px;padding:6px;font-size:12px}
   textarea{margin-top:6px;resize:vertical;min-height:34px}
+  /* metricas */
+  .wrap{padding:18px 16px;max-width:1000px;margin:0 auto}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+  .kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px}
+  .kpi .lbl{font-size:12px;color:var(--mut);margin-bottom:6px}
+  .kpi .val{font-size:26px;font-weight:700}
+  .kpi .sub{font-size:11px;color:var(--mut);margin-top:2px}
+  .panel{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:18px}
+  .panel h3{font-size:14px;margin-bottom:16px;font-weight:600}
+  .fstage{margin-bottom:12px}
+  .fstage .fhead{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .fstage .fhead .conv{color:var(--cyan);font-size:11px}
+  .ftrack{height:30px;background:#0f1218;border-radius:7px;overflow:hidden}
+  .fbar{height:100%;border-radius:7px;display:flex;align-items:center;padding-left:10px;font-size:12px;font-weight:600;color:#0f1115;min-width:34px;transition:width .5s}
+  .days{display:flex;align-items:flex-end;gap:5px;height:130px;padding-top:10px}
+  .day{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
+  .day .b{width:100%;background:linear-gradient(180deg,var(--pri),#5a3fd6);border-radius:4px 4px 0 0;min-height:2px;transition:height .5s}
+  .day .n{font-size:9px;color:var(--mut)}
+  .day .v{font-size:10px;color:#e8eaed}
+  /* login */
   .login{max-width:320px;margin:18vh auto;padding:24px;background:var(--card);border:1px solid var(--bd);border-radius:16px;text-align:center}
   .login input{width:100%;padding:11px;border-radius:10px;border:1px solid var(--bd);background:#0f1218;color:#fff;margin:14px 0}
   .login button{width:100%;padding:11px;border-radius:10px;border:0;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
@@ -37,68 +60,124 @@ const COLS = [
   ["gerado","Gerado"],["abordado","Abordado"],["respondeu","Respondeu"],
   ["negociando","Negociando"],["fechado","Fechado"],["perdido","Perdido"],
 ];
+const FUNNEL = [["gerado","Gerado"],["abordado","Abordado"],["respondeu","Respondeu"],["negociando","Negociando"],["fechado","Fechado"]];
+const IDX = {gerado:0,abordado:1,respondeu:2,negociando:3,fechado:4};
+const COLOR = ["#7c5cff","#6457e0","#34d3ff","#f59e0b","#22c55e"];
+const MENSALIDADE = 97;
 let senha = localStorage.getItem("painel_senha") || "";
+let view = localStorage.getItem("painel_view") || "funil";
+let DATA = [];
 const api = (p, opt={}) => fetch("/api"+p, {...opt, headers:{"Content-Type":"application/json","x-senha":senha, ...(opt.headers||{})}});
+const esc = (s)=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function login(){
-  document.getElementById("app").innerHTML = `
-    <div class="login">
-      <h1>Painel de Prospectos</h1>
-      <input id="s" type="password" placeholder="Senha" />
-      <button onclick="setSenha()">Entrar</button>
-    </div>`;
+  document.getElementById("app").innerHTML = `<div class="login"><h1>Painel de Prospectos</h1>
+    <input id="s" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')setSenha()" />
+    <button onclick="setSenha()">Entrar</button></div>`;
 }
-function setSenha(){ senha = document.getElementById("s").value; localStorage.setItem("painel_senha",senha); load(); }
+function setSenha(){ senha=document.getElementById("s").value; localStorage.setItem("painel_senha",senha); load(); }
+function setView(v){ view=v; localStorage.setItem("painel_view",v); render(); }
 
 async function load(){
   const r = await api("/prospectos");
   if(r.status===401){ login(); return; }
-  const rows = await r.json();
-  render(rows);
+  DATA = await r.json();
+  render();
 }
 
-function stat(rows){
-  const c = Object.fromEntries(COLS.map(([k])=>[k, rows.filter(x=>x.status===k).length]));
-  const total = rows.length, fech = c.fechado||0;
-  const conv = total? Math.round(fech/total*100):0;
-  return `<div class="stats">
-    <span>Total: <b>${total}</b></span>
-    <span>Fechados: <b style="color:var(--ok)">${fech}</b></span>
-    <span>Conversão: <b>${conv}%</b></span>
-    <span>MRR estimado: <b>R$ ${(fech*97).toLocaleString("pt-BR")}</b></span>
-  </div>`;
+function header(){
+  return `<header><div class="top">
+    <h1>Painel de Prospectos</h1>
+    <div class="tabs">
+      <div class="tab ${view==='funil'?'on':''}" onclick="setView('funil')">Funil</div>
+      <div class="tab ${view==='metricas'?'on':''}" onclick="setView('metricas')">Métricas</div>
+    </div>
+  </div></header>`;
 }
 
+function render(){
+  if(!senha){ login(); return; }
+  document.getElementById("app").innerHTML = header() + (view==="funil" ? kanban() : metricas());
+}
+
+/* ---------- FUNIL (kanban) ---------- */
 function card(p){
-  const wa = p.whatsapp ? `https://wa.me/${String(p.whatsapp).replace(/\\D/g,"")}` : "#";
+  const wa = p.whatsapp ? "https://wa.me/"+String(p.whatsapp).replace(/\\D/g,"") : "#";
   const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
   return `<div class="card">
     <div class="nm">${esc(p.nome||"")}</div>
-    <div class="ci">${esc(p.cidade||"")} ${p.nota_google?`· <span class="star">★</span>${esc(p.nota_google)}`:""}</div>
+    <div class="ci">${esc(p.cidade||"")} ${p.nota_google?'· <span class="star">★</span>'+esc(p.nota_google):""}</div>
     <div class="row">
       ${p.whatsapp?`<a class="btn wa" href="${wa}" target="_blank">WhatsApp</a>`:""}
       ${p.preview_url?`<a class="btn see" href="${p.preview_url}" target="_blank">Ver site</a>`:""}
     </div>
-    <select onchange="mv(${p.id}, this.value)">${opts}</select>
-    <textarea placeholder="Observações..." onblur="obs(${p.id}, this.value)">${esc(p.observacoes||"")}</textarea>
+    <select onchange="mv(${p.id},this.value)">${opts}</select>
+    <textarea placeholder="Observações..." onblur="obs(${p.id},this.value)">${esc(p.observacoes||"")}</textarea>
+    <div style="text-align:right;margin-top:6px"><span onclick="del(${p.id})" style="font-size:11px;color:var(--mut);cursor:pointer">remover</span></div>
   </div>`;
 }
-
-function render(rows){
-  document.getElementById("app").innerHTML = `
-    <header><h1>Painel de Prospectos</h1>${stat(rows)}</header>
-    <div class="board">
-      ${COLS.map(([k,l])=>`
-        <div class="col">
-          <h2>${l}<span>${rows.filter(x=>x.status===k).length}</span></h2>
-          ${rows.filter(x=>x.status===k).map(card).join("")}
-        </div>`).join("")}
-    </div>`;
+async function del(id){ if(!confirm("Remover este prospect?")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
+function kanban(){
+  return `<div class="board">${COLS.map(([k,l])=>`<div class="col">
+    <h2>${l}<span>${DATA.filter(x=>x.status===k).length}</span></h2>
+    ${DATA.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
 }
+async function mv(id,status){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({status})}); load(); }
+async function obs(id,observacoes){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({observacoes})}); }
 
-async function mv(id, status){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({status})}); load(); }
-async function obs(id, observacoes){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({observacoes})}); }
-function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+/* ---------- MÉTRICAS ---------- */
+function metricas(){
+  const rows=DATA, total=rows.length;
+  const fechado=rows.filter(r=>r.status==="fechado").length;
+  const perdido=rows.filter(r=>r.status==="perdido").length;
+  const ativos=rows.filter(r=>r.status!=="perdido");
+  const reached=(k)=>ativos.filter(r=>(IDX[r.status]??-1)>=IDX[k]).length;
+  const pipeline=total-fechado-perdido;
+  const taxaResp = reached("abordado") ? Math.round(reached("respondeu")/reached("abordado")*100) : 0;
+  const taxaFech = total ? Math.round(fechado/total*100) : 0;
+  const taxaPerda = total ? Math.round(perdido/total*100) : 0;
+
+  const kpi=(lbl,val,sub,color)=>`<div class="kpi"><div class="lbl">${lbl}</div><div class="val" ${color?'style="color:'+color+'"':''}>${val}</div>${sub?'<div class="sub">'+sub+'</div>':''}</div>`;
+  const kpis=`<div class="kpis">
+    ${kpi("Total prospectados",total,"força da prospecção")}
+    ${kpi("Em pipeline",pipeline,"em negociação ativa")}
+    ${kpi("Taxa de resposta",taxaResp+"%","responderam / abordados","#34d3ff")}
+    ${kpi("Taxa de fechamento",taxaFech+"%","fechados / total","#22c55e")}
+    ${kpi("MRR","R$ "+(fechado*MENSALIDADE).toLocaleString("pt-BR"),fechado+" assinante(s)","#22c55e")}
+    ${kpi("Perdidos",perdido,taxaPerda+"% de perda","#f59e0b")}
+  </div>`;
+
+  // Funil: reached por etapa, largura relativa ao topo (gerado)
+  const base=reached("gerado")||1;
+  let prev=null;
+  const funil=FUNNEL.map(([k,l],i)=>{
+    const c=reached(k); const w=Math.max(c/base*100,4);
+    const conv=prev!==null && prev>0 ? Math.round(c/prev*100) : null; prev=c;
+    return `<div class="fstage">
+      <div class="fhead"><span>${l} · <b>${c}</b></span>${conv!==null?'<span class="conv">▼ '+conv+'% da etapa anterior</span>':''}</div>
+      <div class="ftrack"><div class="fbar" style="width:${w}%;background:${COLOR[i]}">${c}</div></div>
+    </div>`;
+  }).join("");
+
+  // Prospecção por dia (últimos 14 dias)
+  const byDay={};
+  rows.forEach(r=>{ const d=(r.criado_em||"").slice(0,10); if(d) byDay[d]=(byDay[d]||0)+1; });
+  const days=[]; const today=new Date(rows.length?rows[0].criado_em:Date.now());
+  // monta últimos 14 dias com base na data mais recente disponível
+  const ref = Object.keys(byDay).sort().pop() || new Date().toISOString().slice(0,10);
+  const refDate=new Date(ref+"T00:00:00");
+  for(let i=13;i>=0;i--){ const dt=new Date(refDate); dt.setDate(dt.getDate()-i); const key=dt.toISOString().slice(0,10); days.push([key,byDay[key]||0]); }
+  const maxd=Math.max(1,...days.map(d=>d[1]));
+  const chart=`<div class="days">${days.map(([k,v])=>`<div class="day">
+    <div class="v">${v||""}</div><div class="b" style="height:${v/maxd*100}%"></div>
+    <div class="n">${k.slice(8,10)}/${k.slice(5,7)}</div></div>`).join("")}</div>`;
+
+  return `<div class="wrap">
+    ${kpis}
+    <div class="panel"><h3>Funil de vendas por etapa</h3>${funil}</div>
+    <div class="panel"><h3>Prospecção nos últimos 14 dias</h3>${chart}</div>
+  </div>`;
+}
 
 senha ? load() : login();
 </script>
