@@ -48,7 +48,10 @@ app.post("/api/prospectos", auth, async (req, res) => {
   const r = await pool.query(
     `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,preview_url,slug)
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
-     ON CONFLICT (slug) DO UPDATE SET preview_url=EXCLUDED.preview_url, atualizado_em=now()
+     ON CONFLICT (slug) DO UPDATE SET
+       nome=EXCLUDED.nome, cidade=EXCLUDED.cidade, nicho=EXCLUDED.nicho,
+       whatsapp=EXCLUDED.whatsapp, instagram=EXCLUDED.instagram, endereco=EXCLUDED.endereco,
+       nota_google=EXCLUDED.nota_google, preview_url=EXCLUDED.preview_url, atualizado_em=now()
      RETURNING *`,
     [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug]
   );
