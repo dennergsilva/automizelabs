@@ -47,18 +47,31 @@ app.get("/api/prospectos", auth, async (_req, res) => {
   res.json(r.rows);
 });
 
-// Cria (a máquina chama isto ao gerar um site). Upsert por slug.
+// Cria/atualiza (a máquina chama isto ao gerar um site).
+// Se vier place_id e o lead já existir (descoberto), PROMOVE ele p/ 'gerado'
+// (atualiza no lugar, sem duplicar). Senão, upsert por slug.
 app.post("/api/prospectos", auth, async (req, res) => {
   const b = req.body || {};
+  if (b.place_id) {
+    const up = await pool.query(
+      `UPDATE prospectos SET
+         nome=$1, cidade=$2, nicho=$3, whatsapp=$4, instagram=$5, endereco=$6,
+         nota_google=$7, preview_url=$8, slug=$9, status='gerado', atualizado_em=now()
+       WHERE place_id=$10 RETURNING *`,
+      [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug, b.place_id]
+    );
+    if (up.rows[0]) return res.json(up.rows[0]);
+  }
   const r = await pool.query(
-    `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,preview_url,slug)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,preview_url,slug,place_id)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
      ON CONFLICT (slug) DO UPDATE SET
        nome=EXCLUDED.nome, cidade=EXCLUDED.cidade, nicho=EXCLUDED.nicho,
        whatsapp=EXCLUDED.whatsapp, instagram=EXCLUDED.instagram, endereco=EXCLUDED.endereco,
-       nota_google=EXCLUDED.nota_google, preview_url=EXCLUDED.preview_url, atualizado_em=now()
+       nota_google=EXCLUDED.nota_google, preview_url=EXCLUDED.preview_url,
+       place_id=COALESCE(EXCLUDED.place_id, prospectos.place_id), atualizado_em=now()
      RETURNING *`,
-    [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug]
+    [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug, b.place_id || null]
   );
   res.json(r.rows[0]);
 });
