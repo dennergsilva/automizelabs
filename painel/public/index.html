@@ -25,6 +25,9 @@
   .btn{font-size:12px;padding:6px 10px;border-radius:8px;border:1px solid var(--bd);background:#222633;color:#e8eaed;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
   .btn.wa{background:#1f3d2f;border-color:#2e5c46;color:#7ee2a8}
   .btn.see{background:#262036;border-color:#3a2e5c;color:#c4b4ff}
+  .btn.ig{background:#3a1f33;border-color:#6e2a55;color:#f0a8d6}
+  .col.disc{border-color:#6e2a55}
+  .col.disc h2{color:#f0a8d6}
   select,textarea{width:100%;background:#0f1218;border:1px solid var(--bd);color:#e8eaed;border-radius:8px;padding:6px;font-size:12px}
   textarea{margin-top:6px;resize:vertical;min-height:34px}
   /* metricas */
@@ -57,6 +60,7 @@
 <div id="app"></div>
 <script>
 const COLS = [
+  ["descoberto","Descoberto"],
   ["gerado","Gerado"],["abordado","Abordado"],["respondeu","Respondeu"],
   ["negociando","Negociando"],["fechado","Fechado"],["perdido","Perdido"],
 ];
@@ -102,13 +106,19 @@ function render(){
 
 /* ---------- FUNIL (kanban) ---------- */
 function card(p){
-  const wa = p.whatsapp ? "https://wa.me/"+String(p.whatsapp).replace(/\\D/g,"") : "#";
+  const num = String(p.whatsapp||"").replace(/\D/g,"");
+  const msg = p.preview_url
+    ? `Oi! Tudo bem? Sou da AutomizeLabs. Preparei um site profissional pro ${p.nome} e queria te mostrar (sem compromisso): ${p.preview_url}`
+    : `Oi! Tudo bem? Vi o ${p.nome} no Google${p.nota_google?` (${p.nota_google}★!)`:""} e percebi que vocês ainda não têm um site próprio. Eu crio sites pra negócios de beleza — posso te mandar uma prévia sem compromisso?`;
+  const wa = num ? "https://wa.me/"+num+"?text="+encodeURIComponent(msg) : "#";
+  const ig = p.instagram ? "https://instagram.com/"+String(p.instagram).replace(/^@/,"") : "";
   const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
   return `<div class="card">
     <div class="nm">${esc(p.nome||"")}</div>
-    <div class="ci">${esc(p.cidade||"")} ${p.nota_google?'· <span class="star">★</span>'+esc(p.nota_google):""}</div>
+    <div class="ci">${esc(p.cidade||"")} ${p.nota_google?'· <span class="star">★</span>'+esc(p.nota_google):""} ${p.nicho&&p.nicho!=='salao'?'· '+esc(p.nicho):""}</div>
     <div class="row">
-      ${p.whatsapp?`<a class="btn wa" href="${wa}" target="_blank">WhatsApp</a>`:""}
+      ${num?`<a class="btn wa" href="${wa}" target="_blank">WhatsApp</a>`:""}
+      ${ig?`<a class="btn ig" href="${ig}" target="_blank">Instagram</a>`:""}
       ${p.preview_url?`<a class="btn see" href="${p.preview_url}" target="_blank">Ver site</a>`:""}
     </div>
     <select onchange="mv(${p.id},this.value)">${opts}</select>
@@ -118,7 +128,7 @@ function card(p){
 }
 async function del(id){ if(!confirm("Remover este prospect?")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
 function kanban(){
-  return `<div class="board">${COLS.map(([k,l])=>`<div class="col">
+  return `<div class="board">${COLS.map(([k,l])=>`<div class="col ${k==='descoberto'?'disc':''}">
     <h2>${l}<span>${DATA.filter(x=>x.status===k).length}</span></h2>
     ${DATA.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
 }
@@ -128,23 +138,25 @@ async function obs(id,observacoes){ await api("/prospectos/"+id,{method:"PATCH",
 /* ---------- MÉTRICAS ---------- */
 function metricas(){
   const rows=DATA, total=rows.length;
+  const descobertos=rows.filter(r=>r.status==="descoberto").length;
   const fechado=rows.filter(r=>r.status==="fechado").length;
   const perdido=rows.filter(r=>r.status==="perdido").length;
+  const noFunil=total-descobertos;                 // leads que viraram site e entraram no funil de venda
   const ativos=rows.filter(r=>r.status!=="perdido");
   const reached=(k)=>ativos.filter(r=>(IDX[r.status]??-1)>=IDX[k]).length;
-  const pipeline=total-fechado-perdido;
+  const pipeline=noFunil-fechado-perdido;          // em negociação ativa (exclui pool e finalizados)
   const taxaResp = reached("abordado") ? Math.round(reached("respondeu")/reached("abordado")*100) : 0;
-  const taxaFech = total ? Math.round(fechado/total*100) : 0;
-  const taxaPerda = total ? Math.round(perdido/total*100) : 0;
+  const taxaFech = noFunil ? Math.round(fechado/noFunil*100) : 0;
+  const taxaPerda = noFunil ? Math.round(perdido/noFunil*100) : 0;
 
   const kpi=(lbl,val,sub,color)=>`<div class="kpi"><div class="lbl">${lbl}</div><div class="val" ${color?'style="color:'+color+'"':''}>${val}</div>${sub?'<div class="sub">'+sub+'</div>':''}</div>`;
   const kpis=`<div class="kpis">
-    ${kpi("Total prospectados",total,"força da prospecção")}
+    ${kpi("Descobertos",descobertos,"pool sem site (a abordar)","#f0a8d6")}
+    ${kpi("No funil",noFunil,"sites gerados → venda")}
     ${kpi("Em pipeline",pipeline,"em negociação ativa")}
     ${kpi("Taxa de resposta",taxaResp+"%","responderam / abordados","#34d3ff")}
-    ${kpi("Taxa de fechamento",taxaFech+"%","fechados / total","#22c55e")}
+    ${kpi("Taxa de fechamento",taxaFech+"%","fechados / no funil","#22c55e")}
     ${kpi("MRR","R$ "+(fechado*MENSALIDADE).toLocaleString("pt-BR"),fechado+" assinante(s)","#22c55e")}
-    ${kpi("Perdidos",perdido,taxaPerda+"% de perda","#f59e0b")}
   </div>`;
 
   // Funil: reached por etapa, largura relativa ao topo (gerado)

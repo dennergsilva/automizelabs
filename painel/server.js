@@ -20,12 +20,17 @@ await pool.query(`
     nota_google   TEXT,
     preview_url   TEXT,
     slug          TEXT UNIQUE,
+    place_id      TEXT,
     status        TEXT DEFAULT 'gerado',
     observacoes   TEXT DEFAULT '',
     criado_em     TIMESTAMPTZ DEFAULT now(),
     atualizado_em TIMESTAMPTZ DEFAULT now()
   );
 `);
+// Migração: leads descobertos do Maps (sem site ainda) entram com place_id.
+// slug fica NULL até gerar o site; place_id deduplica a descoberta.
+await pool.query(`ALTER TABLE prospectos ADD COLUMN IF NOT EXISTS place_id TEXT;`);
+await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS prospectos_place_id_key ON prospectos(place_id);`);
 
 const app = express();
 app.use(express.json());
@@ -56,6 +61,28 @@ app.post("/api/prospectos", auth, async (req, res) => {
     [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug]
   );
   res.json(r.rows[0]);
+});
+
+// Bulk de leads DESCOBERTOS (scrape do Maps / n8n). Upsert por place_id, status='descoberto'.
+// Aceita array direto ou { leads: [...] }. Não mexe em quem já virou site (gerado etc.).
+app.post("/api/descobertos", auth, async (req, res) => {
+  const leads = Array.isArray(req.body) ? req.body : (req.body?.leads || []);
+  let inseridos = 0, atualizados = 0, ignorados = 0;
+  for (const b of leads) {
+    if (!b.place_id) { ignorados++; continue; }
+    const r = await pool.query(
+      `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,place_id,status)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'descoberto')
+       ON CONFLICT (place_id) DO UPDATE SET
+         nome=EXCLUDED.nome, cidade=EXCLUDED.cidade, nicho=EXCLUDED.nicho,
+         whatsapp=EXCLUDED.whatsapp, instagram=EXCLUDED.instagram, endereco=EXCLUDED.endereco,
+         nota_google=EXCLUDED.nota_google, atualizado_em=now()
+       RETURNING (xmax = 0) AS novo`,
+      [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google ?? b.nota, b.place_id]
+    );
+    r.rows[0].novo ? inseridos++ : atualizados++;
+  }
+  res.json({ ok: true, inseridos, atualizados, ignorados, total: leads.length });
 });
 
 // Atualiza status / observações
