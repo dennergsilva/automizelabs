@@ -80,7 +80,9 @@ function login(){
     <button onclick="setSenha()">Entrar</button></div>`;
 }
 function setSenha(){ senha=document.getElementById("s").value; localStorage.setItem("painel_senha",senha); load(); }
+let filtro = "";
 function setView(v){ view=v; localStorage.setItem("painel_view",v); render(); }
+function setFiltro(v){ filtro=v; render(); const b=document.getElementById("busca"); if(b){ b.focus(); b.setSelectionRange(b.value.length,b.value.length); } }
 
 async function load(){
   const r = await api("/prospectos");
@@ -96,7 +98,7 @@ function header(){
       <div class="tab ${view==='funil'?'on':''}" onclick="setView('funil')">Funil</div>
       <div class="tab ${view==='metricas'?'on':''}" onclick="setView('metricas')">Métricas</div>
     </div>
-  </div></header>`;
+  </div>${view==='funil'?`<input id="busca" placeholder="Buscar por nome..." value="${esc(filtro)}" oninput="setFiltro(this.value)" style="width:100%;max-width:340px;margin-top:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--bd);background:#1a1d24;color:#e8eaed;font-size:13px" />`:""}</header>`;
 }
 
 function render(){
@@ -128,9 +130,11 @@ function card(p){
 }
 async function del(id){ if(!confirm("Remover este prospect?")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
 function kanban(){
+  const f = filtro.trim().toLowerCase();
+  const vis = DATA.filter(x => !f || (x.nome||"").toLowerCase().includes(f));
   return `<div class="board">${COLS.map(([k,l])=>`<div class="col ${k==='descoberto'?'disc':''}">
-    <h2>${l}<span>${DATA.filter(x=>x.status===k).length}</span></h2>
-    ${DATA.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
+    <h2>${l}<span>${vis.filter(x=>x.status===k).length}</span></h2>
+    ${vis.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
 }
 async function mv(id,status){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({status})}); load(); }
 async function obs(id,observacoes){ await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({observacoes})}); }
