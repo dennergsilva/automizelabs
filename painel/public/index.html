@@ -108,8 +108,8 @@ function render(){
 function card(p){
   const num = String(p.whatsapp||"").replace(/\D/g,"");
   const msg = p.preview_url
-    ? `Olá! Vim pelo site de vocês e gostaria de mais informações sobre os serviços.\n\nNa verdade, comecei assim de propósito: sou o Denner, da AutomizeLabs — essa é a mensagem que um cliente mandaria se vocês tivessem um site no ar. Segundo o Google, 76% de quem busca um serviço por perto visita o negócio em até 1 dia — e, sem site, quem recebe essa visita é o concorrente que aparece.\nPor isso preparei um modelo de cortesia do ${p.nome}, com as fotos e avaliações reais de vocês, para mostrar como ficaria:\n${p.preview_url}\nPode dar uma olhada e me dizer o que achou?`
-    : `Olá! Sou o Denner, da AutomizeLabs. Encontrei o ${p.nome} no Google e notei que vocês ainda não têm um site próprio. Posso preparar um modelo de cortesia, com as fotos e avaliações reais de vocês, e te mostrar sem compromisso?`;
+    ? `Olá! Vim pelo site de vocês e gostaria de mais informações sobre os serviços.\n\nNa verdade, comecei assim de propósito: sou o Denner, da AutomizeLabs — essa é a mensagem que um cliente mandaria se vocês tivessem um site no ar.\n\nSegundo o Google, 76% de quem busca um serviço por perto visita o negócio em até 1 dia — e, sem site, quem recebe essa visita é o concorrente que aparece.\n\nPor isso preparei um modelo de cortesia do site de vocês, com as fotos e avaliações reais, para mostrar como ficaria:\n\n${p.preview_url}\n\nPode dar uma olhada e me dizer o que achou?`
+    : `Olá! Sou o Denner, da AutomizeLabs. Encontrei vocês no Google e notei que ainda não têm um site próprio. Posso preparar um modelo de cortesia, com as fotos e avaliações reais de vocês, e te mostrar sem compromisso?`;
   const wa = num ? "https://wa.me/"+num+"?text="+encodeURIComponent(msg) : "#";
   const ig = p.instagram ? "https://instagram.com/"+String(p.instagram).replace(/^@/,"") : "";
   const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
