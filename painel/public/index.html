@@ -127,10 +127,10 @@ function card(p){
     </div>
     <select onchange="mv(${p.id},this.value)">${opts}</select>
     <textarea placeholder="Observações..." onblur="obs(${p.id},this.value)">${esc(p.observacoes||"")}</textarea>
-    <div style="text-align:right;margin-top:6px"><span onclick="del(${p.id})" style="font-size:11px;color:var(--mut);cursor:pointer">remover</span></div>
+    <div style="text-align:right;margin-top:6px"><span onclick="del(${p.id})" style="font-size:11px;color:#e0708a;cursor:pointer">🗑 excluir cliente</span></div>
   </div>`;
 }
-async function del(id){ if(!confirm("Remover este prospect?")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
+async function del(id){ if(!confirm("Excluir este cliente do CRM?\n\nO card sai agora. Os arquivos do site e o subdomínio são removidos do servidor no purge (excluir-cliente.mjs).")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
 function kanban(){
   const f = filtro.trim().toLowerCase();
   const vis = DATA.filter(x => !f || (x.nome||"").toLowerCase().includes(f));
