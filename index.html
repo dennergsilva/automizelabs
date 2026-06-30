@@ -61,7 +61,7 @@
 <body>
     <a href="#main" class="skip-link">Pular para o conteúdo</a>
 
-    <canvas id="particles" aria-hidden="true"></canvas>
+    <canvas id="webgl-bg" aria-hidden="true"></canvas>
     <div class="grid-overlay" aria-hidden="true"></div>
     <div class="scanlines" aria-hidden="true"></div>
 
@@ -372,5 +372,10 @@
     </footer>
 
     <script src="script.js" defer></script>
+    <!-- Camada de movimento: libs vendorizadas (sem CDN em runtime) -->
+    <script src="vendor/gsap.min.js" defer></script>
+    <script src="vendor/ScrollTrigger.min.js" defer></script>
+    <script src="vendor/lenis.min.js" defer></script>
+    <script type="module" src="motion3d.js"></script>
 </body>
 </html>
