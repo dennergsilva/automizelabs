@@ -5,16 +5,18 @@
 // no import, o site continua funcionando (script.js roda independente).
 // =======================================================
 
-import * as THREE from "https://esm.sh/three@0.160.0";
-import gsap from "https://esm.sh/gsap@3.12.5";
-import { ScrollTrigger } from "https://esm.sh/gsap@3.12.5/ScrollTrigger";
-import Lenis from "https://esm.sh/lenis@1.1.13";
+// three.js como ES module local; gsap/ScrollTrigger/Lenis via <script> UMD
+// (carregados no index.html antes deste módulo) → globais window.
+import * as THREE from "./vendor/three.module.js";
+
+const { gsap, ScrollTrigger, Lenis } = window;
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const canvas = document.getElementById("webgl-bg");
 
-// Respeita quem prefere menos movimento: sem smooth scroll, sem 3D animado.
-if (!reduce) {
+// Roda só se as libs carregaram e o usuário não pediu menos movimento.
+// Se algo faltar, o site segue normal (script.js é independente).
+if (!reduce && gsap && ScrollTrigger && Lenis) {
   gsap.registerPlugin(ScrollTrigger);
 
   // ---- 1) Scroll suave (Lenis) sincronizado ao ticker do GSAP ----
