@@ -542,13 +542,34 @@
     fbq('init', PIXEL_ID); fbq('track', 'PageView');
   }
 
-  // 2) Dispara conversão em QUALQUER clique de "Entrar no Grupo VIP"
+  // 2) Conversão à prova de falhas: 1x por sessão (dedupe), Pixel + API de Conversões (mesmo eventID)
+  var CAPI_ENDPOINT = "https://n8n.automizelabs.com.br/webhook/capi-josi-live";
+  function getCookie(n){ var m=document.cookie.match('(^|; )'+n+'=([^;]+)'); return m?decodeURIComponent(m[2]):''; }
+  function getFbc(){
+    var c=getCookie('_fbc'); if(c) return c;
+    try{ var f=new URLSearchParams(location.search).get('fbclid'); return f?('fb.1.'+Date.now()+'.'+f):''; }catch(e){ return ''; }
+  }
+  function fireLead(){
+    try{ if(sessionStorage.getItem('vip_lead_sent')) return; sessionStorage.setItem('vip_lead_sent','1'); }catch(e){}
+    var eid = 'lead_'+Date.now()+'_'+Math.random().toString(36).slice(2,10);
+    var content = 'Grupo VIP Josi Live 07/07';
+    // Pixel (navegador) com eventID
+    try{ if(window.fbq){ fbq('track','Lead',{content_name:content},{eventID:eid}); } }catch(e){}
+    // API de Conversões (servidor) com o MESMO eventID -> Meta deduplica
+    try{
+      var body = JSON.stringify({
+        event_id:eid, event_name:'Lead', event_time:Math.floor(Date.now()/1000),
+        event_source_url:location.href, content_name:content,
+        fbp:getCookie('_fbp'), fbc:getFbc()
+      });
+      if(navigator.sendBeacon){ navigator.sendBeacon(CAPI_ENDPOINT, new Blob([body],{type:'text/plain'})); }
+      else { fetch(CAPI_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain'},body:body,keepalive:true}); }
+    }catch(e){}
+    try{ (window.dataLayer=window.dataLayer||[]).push({event:'cta_grupo_vip'}); }catch(e){}
+    try{ if(window.gtag){ gtag('event','click_grupo_vip',{event_category:'cta'}); } }catch(e){}
+  }
   document.querySelectorAll('a[data-vip]').forEach(function(a){
-    a.addEventListener('click', function(){
-      try{ if(window.fbq){ fbq('track','Lead',{content_name:'Grupo VIP Josi Live 07/07'}); } }catch(e){}
-      try{ (window.dataLayer=window.dataLayer||[]).push({event:'cta_grupo_vip'}); }catch(e){}
-      try{ if(window.gtag){ gtag('event','click_grupo_vip',{event_category:'cta'}); } }catch(e){}
-    });
+    a.addEventListener('click', fireLead);
   });
 </script>
 </body>
