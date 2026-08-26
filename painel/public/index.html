@@ -70,6 +70,10 @@ const FUNNEL = [["gerado","Gerado"],["abordado","Abordado"],["respondeu","Respon
 const IDX = {gerado:0,abordado:1,respondeu:2,negociando:3,fechado:4};
 const COLOR = ["#7c5cff","#6457e0","#34d3ff","#f59e0b","#22c55e"];
 const MENSALIDADE = 97;
+// Acesso por link: /?k=SENHA entra direto, sem tela de login. A chave vai pro
+// localStorage e some da barra de endereço, então basta salvar o link uma vez.
+const _k = new URLSearchParams(location.search).get("k");
+if(_k){ localStorage.setItem("painel_senha", _k); history.replaceState(null, "", location.pathname); }
 let senha = localStorage.getItem("painel_senha") || "";
 let view = localStorage.getItem("painel_view") || "funil";
 let DATA = [];
@@ -88,7 +92,8 @@ function setFiltro(v){ filtro=v; render(); const b=document.getElementById("busc
 
 async function load(){
   const r = await api("/prospectos");
-  if(r.status===401){ login(); return; }
+  // chave errada/velha: descarta pra não ficar preso num loop de 401
+  if(r.status===401){ localStorage.removeItem("painel_senha"); senha=""; login(); return; }
   DATA = await r.json();
   render();
 }
