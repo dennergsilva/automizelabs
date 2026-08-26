@@ -30,6 +30,8 @@
   .col.disc h2{color:#f0a8d6}
   .col.nowpp{border-color:#3a3e48;opacity:.85}
   .col.nowpp h2{color:#8b92a0}
+  .col.val{border-color:#1f6f4a}
+  .col.val h2{color:#3ddc97}
   select,textarea{width:100%;background:#0f1218;border:1px solid var(--bd);color:#e8eaed;border-radius:8px;padding:6px;font-size:12px}
   textarea{margin-top:6px;resize:vertical;min-height:34px}
   /* metricas */
@@ -62,7 +64,7 @@
 <div id="app"></div>
 <script>
 const COLS = [
-  ["descoberto","Descoberto"],
+  ["descoberto","Descoberto"],["validado","Validado"],
   ["gerado","Gerado"],["sem_whatsapp","Sem WhatsApp"],["abordado","Abordado"],["respondeu","Respondeu"],
   ["negociando","Negociando"],["fechado","Fechado"],["perdido","Perdido"],
 ];
@@ -139,7 +141,7 @@ async function del(id){ if(!confirm("Excluir este cliente do CRM?\n\nO card sai 
 function kanban(){
   const f = filtro.trim().toLowerCase();
   const vis = DATA.filter(x => !f || (x.nome||"").toLowerCase().includes(f));
-  return `<div class="board">${COLS.map(([k,l])=>`<div class="col ${k==='descoberto'?'disc':''} ${k==='sem_whatsapp'?'nowpp':''}">
+  return `<div class="board">${COLS.map(([k,l])=>`<div class="col ${k==='descoberto'?'disc':''} ${k==='validado'?'val':''} ${k==='sem_whatsapp'?'nowpp':''}">
     <h2>${l}<span>${vis.filter(x=>x.status===k).length}</span></h2>
     ${vis.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
 }
@@ -150,10 +152,14 @@ async function obs(id,observacoes){ await api("/prospectos/"+id,{method:"PATCH",
 function metricas(){
   const rows=DATA, total=rows.length;
   const descobertos=rows.filter(r=>r.status==="descoberto").length;
+  const validados=rows.filter(r=>r.status==="validado").length;
   const semWpp=rows.filter(r=>r.status==="sem_whatsapp").length;
   const fechado=rows.filter(r=>r.status==="fechado").length;
   const perdido=rows.filter(r=>r.status==="perdido").length;
-  const noFunil=total-descobertos-semWpp;          // leads contatáveis que entraram no funil (exclui pool e sem-whatsapp)
+  const noFunil=total-descobertos-validados-semWpp; // entraram no funil de fato (exclui pool, validados sem site e sem-whatsapp)
+  // quanto do pool tem WhatsApp de verdade — mede a qualidade da fonte de leads
+  const checados=validados+semWpp;
+  const taxaWpp=checados?Math.round(validados/checados*100):0;
   const ativos=rows.filter(r=>r.status!=="perdido");
   const reached=(k)=>ativos.filter(r=>(IDX[r.status]??-1)>=IDX[k]).length;
   const pipeline=noFunil-fechado-perdido;          // em negociação ativa (exclui pool e finalizados)
@@ -163,8 +169,10 @@ function metricas(){
 
   const kpi=(lbl,val,sub,color)=>`<div class="kpi"><div class="lbl">${lbl}</div><div class="val" ${color?'style="color:'+color+'"':''}>${val}</div>${sub?'<div class="sub">'+sub+'</div>':''}</div>`;
   const kpis=`<div class="kpis">
-    ${kpi("Descobertos",descobertos,"pool sem site (a abordar)","#f0a8d6")}
-    ${kpi("Sem WhatsApp",semWpp,"fora do funil (linha fixa)","#8b92a0")}
+    ${kpi("Descobertos",descobertos,"pool bruto (a validar)","#f0a8d6")}
+    ${kpi("Validados",validados,"WhatsApp confirmado, site a gerar","#3ddc97")}
+    ${kpi("Sem WhatsApp",semWpp,"número não existe ou linha fixa","#8b92a0")}
+    ${kpi("WhatsApp válido",taxaWpp+"%","validados / checados","#3ddc97")}
     ${kpi("No funil",noFunil,"contatáveis → venda")}
     ${kpi("Em pipeline",pipeline,"em negociação ativa")}
     ${kpi("Taxa de resposta",taxaResp+"%","responderam / abordados","#34d3ff")}
