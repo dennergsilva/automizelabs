@@ -44,7 +44,10 @@ await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS prospectos_place_id_key ON p
 //   pais        BR | ES | PT — decide DDI, moeda e idioma da mensagem
 //   maps_url    a ficha do Google (Business Profile) — a fonte de onde o lead veio;
 //               o card mostra o botão "Google" para conferir a origem em 1 clique
-for (const col of ["persona TEXT", "gancho TEXT", "preco INTEGER", "website TEXT", "flags TEXT", "site_desde TEXT", "motivo TEXT", "pais TEXT DEFAULT 'BR'", "maps_url TEXT"]) {
+//   caduca_em   quando a demo expira (7 dias) — o card avisa; sem seguimiento depois disso
+//   abriu_em    1ª abertura da demo (beacon POST /api/demo/abriu?t=<slug>) — a Tainá só faz
+//               seguimiento em quem abriu
+for (const col of ["persona TEXT", "gancho TEXT", "preco INTEGER", "website TEXT", "flags TEXT", "site_desde TEXT", "motivo TEXT", "pais TEXT DEFAULT 'BR'", "maps_url TEXT", "caduca_em TIMESTAMPTZ", "abriu_em TIMESTAMPTZ"]) {
   await pool.query(`ALTER TABLE prospectos ADD COLUMN IF NOT EXISTS ${col};`);
 }
 
@@ -70,12 +73,15 @@ app.get("/api/prospectos", auth, async (_req, res) => {
 app.post("/api/prospectos", auth, async (req, res) => {
   const b = req.body || {};
   if (b.place_id) {
+    // demo regenerada: caduca_em nova, abriu_em zerado (a Tainá quer saber se abriu ESTA)
     const up = await pool.query(
       `UPDATE prospectos SET
          nome=$1, cidade=$2, nicho=$3, whatsapp=$4, instagram=$5, endereco=$6,
-         nota_google=$7, preview_url=$8, slug=$9, status='gerado', atualizado_em=now()
+         nota_google=$7, preview_url=$8, slug=$9, status='gerado',
+         caduca_em=COALESCE($11, caduca_em), abriu_em=CASE WHEN $11::timestamptz IS NULL THEN abriu_em ELSE NULL END,
+         atualizado_em=now()
        WHERE place_id=$10 RETURNING *`,
-      [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug, b.place_id]
+      [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google, b.preview_url, b.slug, b.place_id, b.caduca_em ?? null]
     );
     if (up.rows[0]) return res.json(up.rows[0]);
   }
@@ -132,9 +138,9 @@ app.post("/api/descobertos", auth, async (req, res) => {
 });
 
 // Atualiza o que se edita no card: status, observações, persona (confirmação do
-// "P3?"), preço e gancho (a Tainá corrige o castelhano antes de enviar).
+// "P3?"), preço, gancho (a Tainá corrige o castelhano antes de enviar) e caduca_em.
 app.patch("/api/prospectos/:id", auth, async (req, res) => {
-  const { status, observacoes, persona, preco, gancho } = req.body || {};
+  const { status, observacoes, persona, preco, gancho, caduca_em } = req.body || {};
   const r = await pool.query(
     `UPDATE prospectos SET
        status = COALESCE($1, status),
@@ -142,11 +148,22 @@ app.patch("/api/prospectos/:id", auth, async (req, res) => {
        persona = COALESCE($3, persona),
        preco = COALESCE($4, preco),
        gancho = COALESCE($5, gancho),
+       caduca_em = COALESCE($6, caduca_em),
        atualizado_em = now()
-     WHERE id = $6 RETURNING *`,
-    [status ?? null, observacoes ?? null, persona ?? null, preco ?? null, gancho ?? null, req.params.id]
+     WHERE id = $7 RETURNING *`,
+    [status ?? null, observacoes ?? null, persona ?? null, preco ?? null, gancho ?? null, caduca_em ?? null, req.params.id]
   );
   res.json(r.rows[0]);
+});
+
+// Beacon da demo: a página, na 1ª abertura, faz POST aqui com o slug (token não
+// adivinhável) — sem senha, porque roda no navegador da médica. Só grava a 1ª vez.
+// Resposta vazia; sendBeacon não lê nada. GET também funciona (pixel de fallback).
+app.all("/api/demo/abriu", async (req, res) => {
+  const t = String(req.query.t || "").slice(0, 80);
+  if (!/^[a-z0-9-]+$/i.test(t)) return res.status(204).end();
+  await pool.query(`UPDATE prospectos SET abriu_em = COALESCE(abriu_em, now()) WHERE slug = $1`, [t]).catch(() => {});
+  res.status(204).end();
 });
 
 // Remove um prospect

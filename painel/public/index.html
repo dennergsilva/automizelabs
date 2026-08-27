@@ -65,6 +65,8 @@
   .badge.eur{color:#7ee2a8;border-color:#2e5c46;font-weight:600}
   .badge.movil{color:#34d3ff;border-color:#1f4a5c}
   .badge.fijo{color:#f59e0b;border-color:#5c4a1f}
+  .badge.abriu{color:#7ee2a8;border-color:#2e5c46}
+  .badge.caducou{color:#e0708a;border-color:#6e2a3a}
   select.per{width:auto;font-size:11px;padding:3px 6px;font-weight:600}
   select.per.P1{color:#f0a8d6;border-color:#6e2a55}
   select.per.P2{color:#c4b4ff;border-color:#3a2e5c}
@@ -223,6 +225,12 @@ function cardPersona(p){
   const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
   const pers = PERSONAS.map(([k,l])=>`<option value="${k}" ${per===k?"selected":""}>${l}${per===k&&naoConfirmada?" ?":""}</option>`).join("");
   const desde = p.site_desde ? `<span class="badge" title="registro do domínio / 1ª captura">web desde ${esc(String(p.site_desde).slice(0,4))}</span>` : "";
+  // demo: abriu? caducou? — decide se cabe seguimiento (só para quem abriu, e antes de caducar)
+  const dt = (s) => { const d = new Date(s); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; };
+  const caducou = p.caduca_em && new Date(p.caduca_em).getTime() < Date.now();
+  const demoBadges = p.preview_url ? `
+      ${p.abriu_em ? `<span class="badge abriu" title="1ª abertura da demo">👁 abriu ${dt(p.abriu_em)}</span>` : `<span class="badge" title="ainda não abriu a demo">não abriu</span>`}
+      ${p.caduca_em ? `<span class="badge ${caducou?'caducou':''}" title="a demo expira nesta data">${caducou?'caducou':'caduca'} ${dt(p.caduca_em).slice(0,5)}</span>` : ""}` : "";
   return `<div class="card">
     <div class="nm">${esc(p.nome||"")}</div>
     <div class="ci">${esc(p.cidade||"")} ${p.nota_google?'· <span class="star">★</span>'+esc(p.nota_google):""} ${p.nicho&&p.nicho!=='salao'?'· '+esc(p.nicho):""}</div>
@@ -230,7 +238,7 @@ function cardPersona(p){
       <select class="per ${per}" title="${naoConfirmada?'Persona NÃO confirmada — abrir a web e decidir':'Persona'}" onchange="setPersona(${p.id},this.value)">${pers}</select>
       <span class="badge eur">€ ${precio}</span>
       ${tt?`<span class="badge ${tt}">${tt==="movil"?"📱 móvil":"☎ fixo"}</span>`:""}
-      ${desde}
+      ${desde}${demoBadges}
     </div>
     ${naoConfirmada?`<div class="hint">Persona não confirmada: nome de marca. Abra a web — uma médica só = P2, equipe/unidades = P3.</div>`:""}
     <textarea class="gancho" placeholder="Gancho (1ª línea, en castellano)…" onblur="setGancho(${p.id},this.value)">${esc(p.gancho||"")}</textarea>
