@@ -58,6 +58,25 @@
   .login input{width:100%;padding:11px;border-radius:10px;border:1px solid var(--bd);background:#0f1218;color:#fff;margin:14px 0}
   .login button{width:100%;padding:11px;border-radius:10px;border:0;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
   .star{color:var(--warn)}
+  /* prospecção por persona (Espanha) */
+  .tags{align-items:center}
+  .badge{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--bd);color:var(--mut);white-space:nowrap}
+  .badge.eur{color:#7ee2a8;border-color:#2e5c46;font-weight:600}
+  .badge.movil{color:#34d3ff;border-color:#1f4a5c}
+  .badge.fijo{color:#f59e0b;border-color:#5c4a1f}
+  select.per{width:auto;font-size:11px;padding:3px 6px;font-weight:600}
+  select.per.P1{color:#f0a8d6;border-color:#6e2a55}
+  select.per.P2{color:#c4b4ff;border-color:#3a2e5c}
+  select.per.P3{color:#34d3ff;border-color:#1f4a5c}
+  textarea.gancho{min-height:46px;font-style:italic;color:#d7dae0;margin-top:0}
+  .flags{font-size:10px;color:var(--mut);margin:4px 0 8px;letter-spacing:.02em}
+  .hint{font-size:11px;color:var(--mut);margin:-2px 0 8px;line-height:1.35}
+  .btn.dis{opacity:.4;pointer-events:none}
+  .btn.cp{padding:6px 8px}
+  .btn.tel{background:#3d2f1f;border-color:#5c4a2e;color:#f5c77e}
+  .chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+  .chip{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--bd);color:var(--mut);cursor:pointer}
+  .chip.on{background:#222633;color:#fff;border-color:#3a3e48}
 </style>
 </head>
 <body>
@@ -71,7 +90,58 @@ const COLS = [
 const FUNNEL = [["gerado","Gerado"],["abordado","Abordado"],["respondeu","Respondeu"],["negociando","Negociando"],["fechado","Fechado"]];
 const IDX = {gerado:0,abordado:1,respondeu:2,negociando:3,fechado:4};
 const COLOR = ["#7c5cff","#6457e0","#34d3ff","#f59e0b","#22c55e"];
-const MENSALIDADE = 97;
+// Espanha (2026-08-27): venda por ENTRADA ÚNICA, preço segue a persona. Sem mensalidade.
+const PRECOS = { P1: 300, P2: 500, P3: 700 };
+const PERSONAS = [["P1","P1 · Recién llegada"],["P2","P2 · Establecida"],["P3","P3 · Clínica con marca"]];
+const basePersona = (p) => String(p||"").replace("?","");          // "P3?" (não confirmada) -> "P3"
+// +34: móvil começa por 6 ou 71–79; fixo por 8/9. Fixo não recebe WhatsApp -> ligar.
+function tipoTel(num){ const d=String(num||"").replace(/\D/g,""); if(!d.startsWith("34")) return null; const n=d.slice(2); return /^(6|7[1-9])/.test(n) ? "movil" : "fijo"; }
+// Nome da médica a partir do nome do Maps: "Dra. Elena Berezo | Medicina Estética" -> Dra. / Elena / Berezo.
+const PARA_NOMES = /^(medicina|est[eé]tica|est[eé]tico|cl[ií]nica|cl[ií]nicas|cirug[ií]a|cirujan[oa]|madrid|centro|m[eé]dic[oa]|especialista|dermat[oó]log[oa]|l[aá]ser|capilar|facial|y|e|de|del|la|el|en|&|tratamientos?|medicina)$/i;
+const titulo = (s) => s.split(/\s+/).map(w => w.length>2 && w===w.toUpperCase() ? w[0]+w.slice(1).toLowerCase() : w).join(" ");
+function nombres(p){
+  const nome = String(p.nome||"").replace(/\s+/g," ").trim();
+  // nome curto da clínica: 1º trecho antes de | · - :, sem os genéricos do fim
+  // ("BeLift Medicina Estética Madrid" -> "BeLift"; "Clínica Carballo" fica).
+  const cl = nome.split(/\s*[|·\-–—:]\s*/)[0].replace(/\.$/,"").split(/\s+/);
+  while(cl.length>1 && PARA_NOMES.test(cl[cl.length-1].replace(/[.,]/g,""))) cl.pop();
+  const clinica = titulo(cl.join(" "));
+  const m = nome.match(/(^|[^A-Za-z])(Dra|Dr|Dres|Doctora|Doctor)\.?\s+(.+)$/i);
+  if(!m) return { tratamiento:null, primero:null, apellido:null, clinica };
+  const t = m[2].toLowerCase(); const tratamiento = t.startsWith("dra")||t==="doctora" ? "Dra." : t==="dres" ? "Dres." : "Dr.";
+  const tokens = []; for(const w of m[3].split(/\s*[|·\-–—:,(]\s*|\.\s+/)[0].split(/\s+/)){ if(PARA_NOMES.test(w.replace(/[.,]/g,""))) break; tokens.push(w.replace(/[.,]$/,"")); }
+  const primero = tokens[0] ? titulo(tokens[0]) : null;
+  // 2 tokens é ambíguo ("Elena Berezo" vs "Fernández Palacios"): usa os dois — formal,
+  // nunca errado. 3+ tokens: nome + dois apelidos -> os dois últimos.
+  const apellido = tokens.length>=3 ? titulo(tokens.slice(-2).join(" ")) : tokens.length ? titulo(tokens.join(" ")) : null;
+  return { tratamiento, primero, apellido, clinica };
+}
+// As duas mensagens (dois tempos): a 1ª pede permissão para mandar o link — o "sí"
+// torna o envio solicitado (LSSI art. 21.1). A 2ª só existe quando a demo existe.
+// Castelhano peninsular; a Tainá revisa antes de enviar. O gancho vem do radar.
+function mensajes(p){
+  const per = basePersona(p.persona) || "P2";
+  const precio = p.preco || PRECOS[per];
+  const n = nombres(p);
+  const gan = (p.gancho||"").trim();
+  // o radar escreve o gancho em "tu" (P1) ou "usted" (resto); P3 fala em "vosotros"
+  const g = !gan ? "" : (per==="P3" ? gan.replace(/^Su web/,"Vuestra web").replace(/ (de |en )su web/g," $1vuestra web").replace(/a la doctora/,"al equipo") : gan) + " ";
+  const enlace = p.preview_url || "[enlace de la demo — genera el sitio primero]";
+  if(per==="P1") return {
+    m1: `Hola, ${n.primero || "equipo de "+n.clinica} 👋 Soy Tainá, de AutomizeLabs. ${g}Te he preparado una web de demostración con tus datos, sin coste y sin compromiso. ¿Te paso el enlace?`,
+    m2: `Aquí la tienes 👇\n${enlace}\n\nLa hice como demostración: las fotos son ejemplos que se cambian por las tuyas, y ya va sin nombrar medicamentos y con hueco para tu nº de colegiado y el registro sanitario, como pide Sanidad de Madrid.\n\nSi te gusta, te la dejo publicada y funcionando en 24h. Pago único de ${precio} €, la web es tuya, sin mensualidades. ¿La dejamos lista?`,
+  };
+  if(per==="P3") return {
+    m1: `Hola, equipo de ${n.clinica}. Soy Tainá, de AutomizeLabs. ${g}Hemos preparado una demostración de web para ${n.clinica}, pensada para generar citas de forma previsible y conforme a la normativa sanitaria. ¿Con quién lo veo — contigo o con quien lleve la web?`,
+    m2: `Aquí la tenéis 👇\n${enlace}\n\nLas imágenes son ejemplos editables; va sin nombrar medicamentos y con el registro sanitario y los colegiados en el pie. Si os encaja, la dejo publicada y funcionando en 24h. Pago único de ${precio} €, sin mensualidades. ¿Lo vemos con quien lleve las decisiones?`,
+  };
+  return {
+    m1: `Buenos días, ${n.tratamiento ? n.tratamiento+" "+n.apellido : "equipo de "+n.clinica}. Soy Tainá, de AutomizeLabs. ${g}He preparado una versión de demostración de su web, ya adaptada a la normativa de publicidad sanitaria de Madrid, para que la compare con la actual. ¿Se la envío?`,
+    m2: `Aquí la tiene 👇\n${enlace}\n\nEs una demostración con su información; las fotos son ejemplos que se cambian por las suyas. Va sin nombrar medicamentos y con el nº de colegiado y el registro CS en el pie — justo lo que Sanidad está revisando este año. Hoy el paciente decide si confía ya en la web, antes de la primera cita.\n\nSi le gusta, se la dejo publicada en 24h. Pago único de ${precio} €, la web es suya, sin mensualidades. ¿La dejamos lista?`,
+  };
+}
+const LLAMADA = "Hola, buenos días. Soy Tainá, de AutomizeLabs. ¿Me puede pasar el WhatsApp de la doctora o de quien lleve la web? Le hemos preparado una demostración y me gustaría enviársela.";
+const MSGS = {};
 // Acesso por link: /?k=SENHA entra direto, sem tela de login. A chave vai pro
 // localStorage e some da barra de endereço, então basta salvar o link uma vez.
 const _k = new URLSearchParams(location.search).get("k");
@@ -89,6 +159,8 @@ function login(){
 }
 function setSenha(){ senha=document.getElementById("s").value; localStorage.setItem("painel_senha",senha); load(); }
 let filtro = "";
+let filtroPersona = localStorage.getItem("painel_persona") || "";
+function setPersonaFiltro(v){ filtroPersona=v; localStorage.setItem("painel_persona",v); render(); }
 function setView(v){ view=v; localStorage.setItem("painel_view",v); render(); }
 function setFiltro(v){ filtro=v; render(); const b=document.getElementById("busca"); if(b){ b.focus(); b.setSelectionRange(b.value.length,b.value.length); } }
 
@@ -107,7 +179,8 @@ function header(){
       <div class="tab ${view==='funil'?'on':''}" onclick="setView('funil')">Funil</div>
       <div class="tab ${view==='metricas'?'on':''}" onclick="setView('metricas')">Métricas</div>
     </div>
-  </div>${view==='funil'?`<input id="busca" placeholder="Buscar por nome..." value="${esc(filtro)}" oninput="setFiltro(this.value)" style="width:100%;max-width:340px;margin-top:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--bd);background:#1a1d24;color:#e8eaed;font-size:13px" />`:""}</header>`;
+  </div>${view==='funil'?`<input id="busca" placeholder="Buscar por nome..." value="${esc(filtro)}" oninput="setFiltro(this.value)" style="width:100%;max-width:340px;margin-top:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--bd);background:#1a1d24;color:#e8eaed;font-size:13px" />
+  <div class="chips">${[["","Todas"],["P1","P1 · Recién llegada"],["P2","P2 · Establecida"],["P3","P3 · Clínica con marca"],["fijo","☎ só fixo (ligar)"]].map(([k,l])=>`<span class="chip ${filtroPersona===k?'on':''}" onclick="setPersonaFiltro('${k}')">${l}</span>`).join("")}</div>`:""}</header>`;
 }
 
 function render(){
@@ -117,6 +190,66 @@ function render(){
 
 /* ---------- FUNIL (kanban) ---------- */
 function card(p){
+  if(p.persona || p.pais==="ES") return cardPersona(p);
+  return cardBR(p);
+}
+// Card da prospecção por persona (Espanha). O que a Tainá faz aqui, nesta ordem:
+// 1) confirma a persona (P3? = marca de clínica ainda não olhada) — o preço segue;
+// 2) lê o gancho do radar e corrige o castelhano se precisar;
+// 3) móvil: "1ª msg" abre o WhatsApp com a permissão pedida; quando ela diz sí e a
+//    demo existe, "2ª msg" leva o link + preço. Fixo: liga e pede o WhatsApp.
+function cardPersona(p){
+  const num = String(p.whatsapp||"").replace(/\D/g,"");
+  const tt = tipoTel(num);
+  const per = basePersona(p.persona) || "P2";
+  const naoConfirmada = String(p.persona||"").endsWith("?");
+  const precio = p.preco || PRECOS[per];
+  const m = mensajes(p); MSGS[p.id] = m;
+  const wa = (t) => num ? "https://wa.me/"+num+"?text="+encodeURIComponent(t) : "#";
+  const ig = p.instagram ? "https://instagram.com/"+String(p.instagram).replace(/^@/,"") : "";
+  const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
+  const pers = PERSONAS.map(([k,l])=>`<option value="${k}" ${per===k?"selected":""}>${l}${per===k&&naoConfirmada?" ?":""}</option>`).join("");
+  const desde = p.site_desde ? `<span class="badge" title="registro do domínio / 1ª captura">web desde ${esc(String(p.site_desde).slice(0,4))}</span>` : "";
+  return `<div class="card">
+    <div class="nm">${esc(p.nome||"")}</div>
+    <div class="ci">${esc(p.cidade||"")} ${p.nota_google?'· <span class="star">★</span>'+esc(p.nota_google):""} ${p.nicho&&p.nicho!=='salao'?'· '+esc(p.nicho):""}</div>
+    <div class="row tags">
+      <select class="per ${per}" title="${naoConfirmada?'Persona NÃO confirmada — abrir a web e decidir':'Persona'}" onchange="setPersona(${p.id},this.value)">${pers}</select>
+      <span class="badge eur">€ ${precio}</span>
+      ${tt?`<span class="badge ${tt}">${tt==="movil"?"📱 móvil":"☎ fixo"}</span>`:""}
+      ${desde}
+    </div>
+    ${naoConfirmada?`<div class="hint">Persona não confirmada: nome de marca. Abra a web — uma médica só = P2, equipe/unidades = P3.</div>`:""}
+    <textarea class="gancho" placeholder="Gancho (1ª línea, en castellano)…" onblur="setGancho(${p.id},this.value)">${esc(p.gancho||"")}</textarea>
+    ${p.flags?`<div class="flags">radar: ${esc(String(p.flags).replace(/\s+/g," · "))}</div>`:'<div class="flags"></div>'}
+    <div class="row">
+      ${tt==="fijo"
+        ? `<a class="btn tel" href="tel:+${num}">☎ Ligar</a><span class="btn cp" title="copiar roteiro da ligação" onclick="copiar(${p.id},'ll')">📋 roteiro</span>`
+        : `<a class="btn wa ${num?'':'dis'}" href="${wa(m.m1)}" target="_blank" title="pede permissão para mandar o link">1ª msg</a><span class="btn cp" title="copiar 1ª mensagem" onclick="copiar(${p.id},'m1')">📋</span>
+           <a class="btn wa ${num&&p.preview_url?'':'dis'}" href="${wa(m.m2)}" target="_blank" title="${p.preview_url?'link da demo + preço':'gere a demo primeiro'}">2ª msg</a><span class="btn cp ${p.preview_url?'':'dis'}" title="copiar 2ª mensagem" onclick="copiar(${p.id},'m2')">📋</span>`}
+      ${p.website?`<a class="btn see" href="${esc(p.website)}" target="_blank" title="web atual da clínica">Web atual</a>`:""}
+      ${p.preview_url?`<a class="btn see" href="${p.preview_url}" target="_blank">Ver demo</a>`:""}
+      ${ig?`<a class="btn ig" href="${ig}" target="_blank">Instagram</a>`:""}
+    </div>
+    ${tt==="fijo"?`<div class="hint">Fixo não recebe WhatsApp: ligue e peça o WhatsApp da médica ou de quem cuida da web. Só então a 1ª msg.</div>`:""}
+    <select onchange="mv(${p.id},this.value)">${opts}</select>
+    <textarea placeholder="Observações..." onblur="obs(${p.id},this.value)">${esc(p.observacoes||"")}</textarea>
+    <div style="text-align:right;margin-top:6px"><span onclick="del(${p.id})" style="font-size:11px;color:#e0708a;cursor:pointer">🗑 excluir cliente</span></div>
+  </div>`;
+}
+async function setPersona(id, persona){
+  const p = DATA.find(x=>x.id===id); const preco = PRECOS[persona];
+  await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({persona, preco})});
+  if(p){ p.persona=persona; p.preco=preco; } render();
+}
+async function setGancho(id, gancho){ const p=DATA.find(x=>x.id===id); if(p) p.gancho=gancho; await api("/prospectos/"+id,{method:"PATCH",body:JSON.stringify({gancho})}); }
+async function copiar(id, qual){
+  const t = qual==="ll" ? LLAMADA : (MSGS[id]||{})[qual];
+  if(!t) return;
+  try{ await navigator.clipboard.writeText(t); }catch{ prompt("Copie:", t); }
+}
+// Card antigo (Brasil, pré-persona): mantido para os leads legados.
+function cardBR(p){
   const num = String(p.whatsapp||"").replace(/\D/g,"");
   const msg = p.preview_url
     ? `Olá! Vim pelo site de vocês e gostaria de mais informações sobre os serviços.\n\nNa verdade, comecei assim de propósito: sou o Denner, da AutomizeLabs — essa é a mensagem que um cliente mandaria se vocês tivessem um site no ar.\n\nSegundo o Google, 76% de quem busca um serviço por perto visita o negócio em até 1 dia — e, sem site, quem recebe essa visita é o concorrente que aparece.\n\nPor isso preparei um modelo de cortesia do site de vocês, com as fotos e avaliações reais, para mostrar como ficaria:\n\n${p.preview_url}\n\nPode dar uma olhada e me dizer o que achou?`
@@ -140,7 +273,8 @@ function card(p){
 async function del(id){ if(!confirm("Excluir este cliente do CRM?\n\nO card sai agora. Os arquivos do site e o subdomínio são removidos do servidor no purge (excluir-cliente.mjs).")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
 function kanban(){
   const f = filtro.trim().toLowerCase();
-  const vis = DATA.filter(x => !f || (x.nome||"").toLowerCase().includes(f));
+  const vis = DATA.filter(x => (!f || (x.nome||"").toLowerCase().includes(f))
+    && (!filtroPersona || (filtroPersona==="fijo" ? tipoTel(x.whatsapp)==="fijo" : basePersona(x.persona)===filtroPersona)));
   return `<div class="board">${COLS.map(([k,l])=>`<div class="col ${k==='descoberto'?'disc':''} ${k==='validado'?'val':''} ${k==='sem_whatsapp'?'nowpp':''}">
     <h2>${l}<span>${vis.filter(x=>x.status===k).length}</span></h2>
     ${vis.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
@@ -166,6 +300,9 @@ function metricas(){
   const taxaResp = reached("abordado") ? Math.round(reached("respondeu")/reached("abordado")*100) : 0;
   const taxaFech = noFunil ? Math.round(fechado/noFunil*100) : 0;
   const taxaPerda = noFunil ? Math.round(perdido/noFunil*100) : 0;
+  // Espanha: venda por entrada única com preço por persona -> receita = soma dos fechados
+  const receita = rows.filter(r=>r.status==="fechado").reduce((s,r)=>s+(Number(r.preco)||0),0);
+  const nP = (k) => rows.filter(r=>r.status!=="perdido" && basePersona(r.persona)===k).length;
 
   const kpi=(lbl,val,sub,color)=>`<div class="kpi"><div class="lbl">${lbl}</div><div class="val" ${color?'style="color:'+color+'"':''}>${val}</div>${sub?'<div class="sub">'+sub+'</div>':''}</div>`;
   const kpis=`<div class="kpis">
@@ -177,7 +314,8 @@ function metricas(){
     ${kpi("Em pipeline",pipeline,"em negociação ativa")}
     ${kpi("Taxa de resposta",taxaResp+"%","responderam / abordados","#34d3ff")}
     ${kpi("Taxa de fechamento",taxaFech+"%","fechados / no funil","#22c55e")}
-    ${kpi("MRR","R$ "+(fechado*MENSALIDADE).toLocaleString("pt-BR"),fechado+" assinante(s)","#22c55e")}
+    ${kpi("Receita (entrada única)","€ "+receita.toLocaleString("es-ES"),fechado+" venda(s) · ticket médio € "+(fechado?Math.round(receita/fechado):0),"#22c55e")}
+    ${kpi("Personas no pool",`${nP("P1")} · ${nP("P2")} · ${nP("P3")}`,"P1 recién llegada · P2 establecida · P3 clínica","#c4b4ff")}
   </div>`;
 
   // Funil: reached por etapa, largura relativa ao topo (gerado)

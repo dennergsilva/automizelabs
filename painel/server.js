@@ -31,6 +31,20 @@ await pool.query(`
 // slug fica NULL até gerar o site; place_id deduplica a descoberta.
 await pool.query(`ALTER TABLE prospectos ADD COLUMN IF NOT EXISTS place_id TEXT;`);
 await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS prospectos_place_id_key ON prospectos(place_id);`);
+// Migração (2026-08-27): prospecção por persona (Espanha). O lead chega do
+// classificar.mjs + radar-web.mjs já etiquetado; a Tainá confirma a persona no card
+// e o preço segue a persona (P1 300 · P2 500 · P3 700, entrada única).
+//   persona     P1 | P2 | P3 | P3? (marca de clínica ainda não confirmada)
+//   gancho      a 1ª linha verificável da abordagem, em castelhano
+//   preco       em euros (entrada única, sem mensalidade)
+//   website     site atual (rebranding é ~88% do mercado)
+//   flags       achados do radar (medicamento, sin_CS, sin_colegiado…)
+//   site_desde  data de registro/1ª captura do domínio (idade do site)
+//   motivo      por que o classificador deu essa persona
+//   pais        BR | ES | PT — decide DDI, moeda e idioma da mensagem
+for (const col of ["persona TEXT", "gancho TEXT", "preco INTEGER", "website TEXT", "flags TEXT", "site_desde TEXT", "motivo TEXT", "pais TEXT DEFAULT 'BR'"]) {
+  await pool.query(`ALTER TABLE prospectos ADD COLUMN IF NOT EXISTS ${col};`);
+}
 
 const app = express();
 app.use(express.json());
@@ -76,38 +90,57 @@ app.post("/api/prospectos", auth, async (req, res) => {
   res.json(r.rows[0]);
 });
 
-// Bulk de leads DESCOBERTOS (scrape do Maps / n8n). Upsert por place_id, status='descoberto'.
-// Aceita array direto ou { leads: [...] }. Não mexe em quem já virou site (gerado etc.).
+// Bulk de leads DESCOBERTOS (scrape do Maps / classificar+radar). Upsert por place_id,
+// status='descoberto'. Aceita array direto ou { leads: [...] }. Não mexe em quem já
+// virou site (gerado etc.). Persona e preço só entram se ainda não existem: uma
+// reinserção (radar rodado de novo) não pode apagar a persona que a Tainá confirmou
+// na mão. Gancho/flags/site são da máquina e sempre atualizam.
 app.post("/api/descobertos", auth, async (req, res) => {
   const leads = Array.isArray(req.body) ? req.body : (req.body?.leads || []);
   let inseridos = 0, atualizados = 0, ignorados = 0;
   for (const b of leads) {
     if (!b.place_id) { ignorados++; continue; }
     const r = await pool.query(
-      `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,place_id,status)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'descoberto')
+      `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,place_id,status,
+                               persona,gancho,preco,website,flags,site_desde,motivo,pais)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'descoberto',$9,$10,$11,$12,$13,$14,$15,$16)
        ON CONFLICT (place_id) DO UPDATE SET
          nome=EXCLUDED.nome, cidade=EXCLUDED.cidade, nicho=EXCLUDED.nicho,
          whatsapp=EXCLUDED.whatsapp, instagram=EXCLUDED.instagram, endereco=EXCLUDED.endereco,
-         nota_google=EXCLUDED.nota_google, atualizado_em=now()
+         nota_google=EXCLUDED.nota_google,
+         persona=COALESCE(prospectos.persona, EXCLUDED.persona),
+         preco=COALESCE(prospectos.preco, EXCLUDED.preco),
+         gancho=COALESCE(EXCLUDED.gancho, prospectos.gancho),
+         website=COALESCE(EXCLUDED.website, prospectos.website),
+         flags=COALESCE(EXCLUDED.flags, prospectos.flags),
+         site_desde=COALESCE(EXCLUDED.site_desde, prospectos.site_desde),
+         motivo=COALESCE(EXCLUDED.motivo, prospectos.motivo),
+         pais=COALESCE(EXCLUDED.pais, prospectos.pais),
+         atualizado_em=now()
        RETURNING (xmax = 0) AS novo`,
-      [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google ?? b.nota, b.place_id]
+      [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google ?? b.nota, b.place_id,
+       b.persona ?? null, b.gancho ?? null, b.preco ?? null, b.website ?? null,
+       Array.isArray(b.flags) ? b.flags.join(" ") : (b.flags ?? null), b.site_desde ?? null, b.motivo ?? null, b.pais ?? null]
     );
     r.rows[0].novo ? inseridos++ : atualizados++;
   }
   res.json({ ok: true, inseridos, atualizados, ignorados, total: leads.length });
 });
 
-// Atualiza status / observações
+// Atualiza o que se edita no card: status, observações, persona (confirmação do
+// "P3?"), preço e gancho (a Tainá corrige o castelhano antes de enviar).
 app.patch("/api/prospectos/:id", auth, async (req, res) => {
-  const { status, observacoes } = req.body || {};
+  const { status, observacoes, persona, preco, gancho } = req.body || {};
   const r = await pool.query(
     `UPDATE prospectos SET
        status = COALESCE($1, status),
        observacoes = COALESCE($2, observacoes),
+       persona = COALESCE($3, persona),
+       preco = COALESCE($4, preco),
+       gancho = COALESCE($5, gancho),
        atualizado_em = now()
-     WHERE id = $3 RETURNING *`,
-    [status ?? null, observacoes ?? null, req.params.id]
+     WHERE id = $6 RETURNING *`,
+    [status ?? null, observacoes ?? null, persona ?? null, preco ?? null, gancho ?? null, req.params.id]
   );
   res.json(r.rows[0]);
 });
