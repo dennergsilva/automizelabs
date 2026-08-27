@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Painel · Prospectos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c5cff'/%3E%3Cpath d='M8 22V10h4l4 8 4-8h4v12h-3v-7l-4 7h-2l-4-7v7z' fill='%23fff'/%3E%3C/svg%3E" />
 <style>
   :root{--bg:#0f1115;--card:#1a1d24;--bd:#2a2e38;--mut:#8b92a0;--pri:#7c5cff;--ok:#22c55e;--warn:#f59e0b;--cyan:#34d3ff}
   *{margin:0;box-sizing:border-box;font-family:system-ui,sans-serif}
@@ -68,7 +69,7 @@
   select.per.P1{color:#f0a8d6;border-color:#6e2a55}
   select.per.P2{color:#c4b4ff;border-color:#3a2e5c}
   select.per.P3{color:#34d3ff;border-color:#1f4a5c}
-  textarea.gancho{min-height:46px;font-style:italic;color:#d7dae0;margin-top:0}
+  textarea.gancho{min-height:78px;font-style:italic;color:#d7dae0;margin-top:0;line-height:1.35}
   .flags{font-size:10px;color:var(--mut);margin:4px 0 8px;letter-spacing:.02em}
   .hint{font-size:11px;color:var(--mut);margin:-2px 0 8px;line-height:1.35}
   .btn.dis{opacity:.4;pointer-events:none}
@@ -275,6 +276,12 @@ function kanban(){
   const f = filtro.trim().toLowerCase();
   const vis = DATA.filter(x => (!f || (x.nome||"").toLowerCase().includes(f))
     && (!filtroPersona || (filtroPersona==="fijo" ? tipoTel(x.whatsapp)==="fijo" : basePersona(x.persona)===filtroPersona)));
+  // ordem de ataque dentro da coluna: P1 antes de P2 antes de P3, móvil antes de fixo,
+  // depois o mais recente — o que dá para abordar hoje fica no topo.
+  const ORD = { P1: 0, P2: 1, P3: 2 };
+  vis.sort((a, b) => ((ORD[basePersona(a.persona)] ?? 3) - (ORD[basePersona(b.persona)] ?? 3))
+    || ((tipoTel(a.whatsapp)==="fijo") - (tipoTel(b.whatsapp)==="fijo"))
+    || String(b.atualizado_em||"").localeCompare(String(a.atualizado_em||"")));
   return `<div class="board">${COLS.map(([k,l])=>`<div class="col ${k==='descoberto'?'disc':''} ${k==='validado'?'val':''} ${k==='sem_whatsapp'?'nowpp':''}">
     <h2>${l}<span>${vis.filter(x=>x.status===k).length}</span></h2>
     ${vis.filter(x=>x.status===k).map(card).join("")}</div>`).join("")}</div>`;
