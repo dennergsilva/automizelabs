@@ -42,7 +42,9 @@ await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS prospectos_place_id_key ON p
 //   site_desde  data de registro/1ª captura do domínio (idade do site)
 //   motivo      por que o classificador deu essa persona
 //   pais        BR | ES | PT — decide DDI, moeda e idioma da mensagem
-for (const col of ["persona TEXT", "gancho TEXT", "preco INTEGER", "website TEXT", "flags TEXT", "site_desde TEXT", "motivo TEXT", "pais TEXT DEFAULT 'BR'"]) {
+//   maps_url    a ficha do Google (Business Profile) — a fonte de onde o lead veio;
+//               o card mostra o botão "Google" para conferir a origem em 1 clique
+for (const col of ["persona TEXT", "gancho TEXT", "preco INTEGER", "website TEXT", "flags TEXT", "site_desde TEXT", "motivo TEXT", "pais TEXT DEFAULT 'BR'", "maps_url TEXT"]) {
   await pool.query(`ALTER TABLE prospectos ADD COLUMN IF NOT EXISTS ${col};`);
 }
 
@@ -103,8 +105,8 @@ app.post("/api/descobertos", auth, async (req, res) => {
     if (!b.place_id) { ignorados++; continue; }
     const r = await pool.query(
       `INSERT INTO prospectos (nome,cidade,nicho,whatsapp,instagram,endereco,nota_google,place_id,status,
-                               persona,gancho,preco,website,flags,site_desde,motivo,pais)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'descoberto',$9,$10,$11,$12,$13,$14,$15,$16)
+                               persona,gancho,preco,website,flags,site_desde,motivo,pais,maps_url)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'descoberto',$9,$10,$11,$12,$13,$14,$15,$16,$17)
        ON CONFLICT (place_id) DO UPDATE SET
          nome=EXCLUDED.nome, cidade=EXCLUDED.cidade, nicho=EXCLUDED.nicho,
          whatsapp=EXCLUDED.whatsapp, instagram=EXCLUDED.instagram, endereco=EXCLUDED.endereco,
@@ -117,11 +119,12 @@ app.post("/api/descobertos", auth, async (req, res) => {
          site_desde=COALESCE(EXCLUDED.site_desde, prospectos.site_desde),
          motivo=COALESCE(EXCLUDED.motivo, prospectos.motivo),
          pais=COALESCE(EXCLUDED.pais, prospectos.pais),
+         maps_url=COALESCE(EXCLUDED.maps_url, prospectos.maps_url),
          atualizado_em=now()
        RETURNING (xmax = 0) AS novo`,
       [b.nome, b.cidade, b.nicho || "salao", b.whatsapp, b.instagram, b.endereco, b.nota_google ?? b.nota, b.place_id,
        b.persona ?? null, b.gancho ?? null, b.preco ?? null, b.website ?? null,
-       Array.isArray(b.flags) ? b.flags.join(" ") : (b.flags ?? null), b.site_desde ?? null, b.motivo ?? null, b.pais ?? null]
+       Array.isArray(b.flags) ? b.flags.join(" ") : (b.flags ?? null), b.site_desde ?? null, b.motivo ?? null, b.pais ?? null, b.maps_url ?? null]
     );
     r.rows[0].novo ? inseridos++ : atualizados++;
   }

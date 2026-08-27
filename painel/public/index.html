@@ -75,6 +75,7 @@
   .btn.dis{opacity:.4;pointer-events:none}
   .btn.cp{padding:6px 8px}
   .btn.tel{background:#3d2f1f;border-color:#5c4a2e;color:#f5c77e}
+  .btn.gm{background:#1f2e3d;border-color:#2e465c;color:#8fc3ff}
   .chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
   .chip{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--bd);color:var(--mut);cursor:pointer}
   .chip.on{background:#222633;color:#fff;border-color:#3a3e48}
@@ -143,6 +144,17 @@ function mensajes(p){
 }
 const LLAMADA = "Hola, buenos días. Soy Tainá, de AutomizeLabs. ¿Me puede pasar el WhatsApp de la doctora o de quien lleve la web? Le hemos preparado una demostración y me gustaría enviársela.";
 const MSGS = {};
+// Ficha do Google (Business Profile): a origem do lead, para conferir a fonte em 1 clique.
+// Usa a URL guardada; sem ela, deriva do place_id — hex "0x…:0x…" vira ?cid=<decimal do 2º hex>,
+// e o formato "ChIJ…" (Apify, leads antigos do BR) vira place_id:…
+function mapsLink(p){
+  if(p.maps_url) return p.maps_url;
+  const id = String(p.place_id||"");
+  if(/^ChIJ/.test(id)) return "https://www.google.com/maps/place/?q=place_id:"+encodeURIComponent(id);
+  const m = id.match(/:0x([0-9a-f]+)$/i);
+  if(m){ try{ return "https://maps.google.com/?cid="+BigInt("0x"+m[1]).toString(); }catch(e){} }
+  return null;
+}
 // Acesso por link: /?k=SENHA entra direto, sem tela de login. A chave vai pro
 // localStorage e some da barra de endereço, então basta salvar o link uma vez.
 const _k = new URLSearchParams(location.search).get("k");
@@ -230,6 +242,7 @@ function cardPersona(p){
            <a class="btn wa ${num&&p.preview_url?'':'dis'}" href="${wa(m.m2)}" target="_blank" title="${p.preview_url?'link da demo + preço':'gere a demo primeiro'}">2ª msg</a><span class="btn cp ${p.preview_url?'':'dis'}" title="copiar 2ª mensagem" onclick="copiar(${p.id},'m2')">📋</span>`}
       ${p.website?`<a class="btn see" href="${esc(p.website)}" target="_blank" title="web atual da clínica">Web atual</a>`:""}
       ${p.preview_url?`<a class="btn see" href="${p.preview_url}" target="_blank">Ver demo</a>`:""}
+      ${mapsLink(p)?`<a class="btn gm" href="${esc(mapsLink(p))}" target="_blank" title="ficha do Google (Business Profile) — a origem deste lead">📍 Google</a>`:""}
       ${ig?`<a class="btn ig" href="${ig}" target="_blank">Instagram</a>`:""}
     </div>
     ${tt==="fijo"?`<div class="hint">Fixo não recebe WhatsApp: ligue e peça o WhatsApp da médica ou de quem cuida da web. Só então a 1ª msg.</div>`:""}
@@ -265,6 +278,7 @@ function cardBR(p){
       ${num?`<a class="btn wa" href="${wa}" target="_blank">WhatsApp</a>`:""}
       ${ig?`<a class="btn ig" href="${ig}" target="_blank">Instagram</a>`:""}
       ${p.preview_url?`<a class="btn see" href="${p.preview_url}" target="_blank">Ver site</a>`:""}
+      ${mapsLink(p)?`<a class="btn gm" href="${esc(mapsLink(p))}" target="_blank" title="ficha do Google — a origem deste lead">📍 Google</a>`:""}
     </div>
     <select onchange="mv(${p.id},this.value)">${opts}</select>
     <textarea placeholder="Observações..." onblur="obs(${p.id},this.value)">${esc(p.observacoes||"")}</textarea>
