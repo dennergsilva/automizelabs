@@ -47,7 +47,8 @@ for (const col of ["persona TEXT", "gancho TEXT", "preco INTEGER", "website TEXT
 }
 
 const app = express();
-app.use(express.json());
+// 5 MB: o bulk de descobertos com gancho/motivo por lead passa dos 100 KB padrão (deu 413 em 27/08).
+app.use(express.json({ limit: "5mb" }));
 
 // Auth simples por senha (header x-senha). Suficiente p/ uso interno.
 const auth = (req, res, next) => {
