@@ -176,17 +176,27 @@ function login(){
 }
 function setSenha(){ senha=document.getElementById("s").value; localStorage.setItem("painel_senha",senha); load(); }
 let filtro = "";
-let filtroPersona = localStorage.getItem("painel_persona") || "";
-function setPersonaFiltro(v){ filtroPersona=v; localStorage.setItem("painel_persona",v); render(); }
-// Chips do funil: persona, telefone fixo ou presença de web. "sin web" lê a coluna
+// Dois grupos de chips COMBINÁVEIS: persona × alcance ("P2 + móvil", "con web + móvil"…).
+// Alcance: móvil = candidato a WhatsApp (+34 6/71–79); "sin/con web" lê a coluna
 // website — preenchida pela ficha do Google (radar/classificar), a fonte que não mente.
-const CHIPS = [["","Todas"],["P1","P1 · Recién llegada"],["P2","P2 · Establecida"],["P3","P3 · Clínica con marca"],["fijo","☎ só fixo (ligar)"],["semweb","🚫 sin web"]];
-function chipMatch(x,k){
+let filtroPersona = localStorage.getItem("painel_persona") || "";
+let filtroAlcance = localStorage.getItem("painel_alcance") || "";
+// migração: antes "fijo"/"semweb" viviam no filtro de persona
+if(["fijo","semweb"].includes(filtroPersona)){ filtroAlcance=filtroPersona; filtroPersona=""; localStorage.setItem("painel_persona",""); localStorage.setItem("painel_alcance",filtroAlcance); }
+function setPersonaFiltro(v){ filtroPersona=v; localStorage.setItem("painel_persona",v); render(); }
+function setAlcanceFiltro(v){ filtroAlcance=v; localStorage.setItem("painel_alcance",v); render(); }
+const CHIPS_P = [["","Todas"],["P1","P1 · Recién llegada"],["P2","P2 · Establecida"],["P3","P3 · Clínica con marca"]];
+const CHIPS_A = [["","Todos"],["movil","📱 móvil (WhatsApp)"],["fijo","☎ só fixo (ligar)"],["semweb","🚫 sin web"],["conweb","🌐 con web"]];
+const matchP = (x,k) => !k || basePersona(x.persona)===k;
+function matchA(x,k){
   if(!k) return true;
+  if(k==="movil") return tipoTel(x.whatsapp)==="movil";
   if(k==="fijo") return tipoTel(x.whatsapp)==="fijo";
   if(k==="semweb") return !x.website;
-  return basePersona(x.persona)===k;
+  if(k==="conweb") return !!x.website;
+  return true;
 }
+const chipMatch = (x) => matchP(x,filtroPersona) && matchA(x,filtroAlcance);
 function setView(v){ view=v; localStorage.setItem("painel_view",v); render(); }
 function setFiltro(v){ filtro=v; render(); const b=document.getElementById("busca"); if(b){ b.focus(); b.setSelectionRange(b.value.length,b.value.length); } }
 
@@ -206,7 +216,8 @@ function header(){
       <div class="tab ${view==='metricas'?'on':''}" onclick="setView('metricas')">Métricas</div>
     </div>
   </div>${view==='funil'?`<input id="busca" placeholder="Buscar por nome..." value="${esc(filtro)}" oninput="setFiltro(this.value)" style="width:100%;max-width:340px;margin-top:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--bd);background:#1a1d24;color:#e8eaed;font-size:13px" />
-  <div class="chips">${CHIPS.map(([k,l])=>`<span class="chip ${filtroPersona===k?'on':''}" onclick="setPersonaFiltro('${k}')">${l} <b>${DATA.filter(x=>chipMatch(x,k)).length}</b></span>`).join("")}</div>`:""}</header>`;
+  <div class="chips">${CHIPS_P.map(([k,l])=>`<span class="chip ${filtroPersona===k?'on':''}" onclick="setPersonaFiltro('${k}')">${l} <b>${DATA.filter(x=>matchP(x,k)&&matchA(x,filtroAlcance)).length}</b></span>`).join("")}</div>
+  <div class="chips">${CHIPS_A.map(([k,l])=>`<span class="chip ${filtroAlcance===k?'on':''}" onclick="setAlcanceFiltro('${k}')">${l} <b>${DATA.filter(x=>matchA(x,k)&&matchP(x,filtroPersona)).length}</b></span>`).join("")}</div>`:""}</header>`;
 }
 
 function render(){
@@ -308,7 +319,7 @@ function cardBR(p){
 async function del(id){ if(!confirm("Excluir este cliente do CRM?\n\nO card sai agora. Os arquivos do site e o subdomínio são removidos do servidor no purge (excluir-cliente.mjs).")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
 function kanban(){
   const f = filtro.trim().toLowerCase();
-  const vis = DATA.filter(x => (!f || (x.nome||"").toLowerCase().includes(f)) && chipMatch(x, filtroPersona));
+  const vis = DATA.filter(x => (!f || (x.nome||"").toLowerCase().includes(f)) && chipMatch(x));
   // ordem de ataque dentro da coluna: P1 antes de P2 antes de P3, móvil antes de fixo,
   // depois o mais recente — o que dá para abordar hoje fica no topo.
   const ORD = { P1: 0, P2: 1, P3: 2 };
@@ -345,11 +356,13 @@ function metricas(){
   const nP = (k) => rows.filter(r=>r.status!=="perdido" && basePersona(r.persona)===k).length;
   // sem web = coluna website vazia (a ficha do Google respondeu "não tem site")
   const semWeb = rows.filter(r=>!r.website).length;
+  const moviles = rows.filter(r=>tipoTel(r.whatsapp)==="movil").length;
 
   const kpi=(lbl,val,sub,color)=>`<div class="kpi"><div class="lbl">${lbl}</div><div class="val" ${color?'style="color:'+color+'"':''}>${val}</div>${sub?'<div class="sub">'+sub+'</div>':''}</div>`;
   const kpis=`<div class="kpis">
     ${kpi("Descobertos",descobertos,"pool bruto (a validar)","#f0a8d6")}
     ${kpi("Sin web",semWeb,Math.round(semWeb/(total||1)*100)+"% do pool — não existe digitalmente","#f59e0b")}
+    ${kpi("Móviles (WhatsApp)",moviles,Math.round(moviles/(total||1)*100)+"% do pool — abordáveis por WhatsApp","#34d3ff")}
     ${kpi("Validados",validados,"WhatsApp confirmado, site a gerar","#3ddc97")}
     ${kpi("Sem WhatsApp",semWpp,"número não existe ou linha fixa","#8b92a0")}
     ${kpi("WhatsApp válido",taxaWpp+"%","validados / checados","#3ddc97")}
