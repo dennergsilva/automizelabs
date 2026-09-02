@@ -81,6 +81,8 @@
   .chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
   .chip{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--bd);color:var(--mut);cursor:pointer}
   .chip.on{background:#222633;color:#fff;border-color:#3a3e48}
+  .chip b{color:#e8eaed;font-weight:600}
+  .badge.noweb{color:#f59e0b;border-color:#5c4a1f}
 </style>
 </head>
 <body>
@@ -176,6 +178,15 @@ function setSenha(){ senha=document.getElementById("s").value; localStorage.setI
 let filtro = "";
 let filtroPersona = localStorage.getItem("painel_persona") || "";
 function setPersonaFiltro(v){ filtroPersona=v; localStorage.setItem("painel_persona",v); render(); }
+// Chips do funil: persona, telefone fixo ou presença de web. "sin web" lê a coluna
+// website — preenchida pela ficha do Google (radar/classificar), a fonte que não mente.
+const CHIPS = [["","Todas"],["P1","P1 · Recién llegada"],["P2","P2 · Establecida"],["P3","P3 · Clínica con marca"],["fijo","☎ só fixo (ligar)"],["semweb","🚫 sin web"]];
+function chipMatch(x,k){
+  if(!k) return true;
+  if(k==="fijo") return tipoTel(x.whatsapp)==="fijo";
+  if(k==="semweb") return !x.website;
+  return basePersona(x.persona)===k;
+}
 function setView(v){ view=v; localStorage.setItem("painel_view",v); render(); }
 function setFiltro(v){ filtro=v; render(); const b=document.getElementById("busca"); if(b){ b.focus(); b.setSelectionRange(b.value.length,b.value.length); } }
 
@@ -195,7 +206,7 @@ function header(){
       <div class="tab ${view==='metricas'?'on':''}" onclick="setView('metricas')">Métricas</div>
     </div>
   </div>${view==='funil'?`<input id="busca" placeholder="Buscar por nome..." value="${esc(filtro)}" oninput="setFiltro(this.value)" style="width:100%;max-width:340px;margin-top:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--bd);background:#1a1d24;color:#e8eaed;font-size:13px" />
-  <div class="chips">${[["","Todas"],["P1","P1 · Recién llegada"],["P2","P2 · Establecida"],["P3","P3 · Clínica con marca"],["fijo","☎ só fixo (ligar)"]].map(([k,l])=>`<span class="chip ${filtroPersona===k?'on':''}" onclick="setPersonaFiltro('${k}')">${l}</span>`).join("")}</div>`:""}</header>`;
+  <div class="chips">${CHIPS.map(([k,l])=>`<span class="chip ${filtroPersona===k?'on':''}" onclick="setPersonaFiltro('${k}')">${l} <b>${DATA.filter(x=>chipMatch(x,k)).length}</b></span>`).join("")}</div>`:""}</header>`;
 }
 
 function render(){
@@ -224,7 +235,8 @@ function cardPersona(p){
   const ig = p.instagram ? "https://instagram.com/"+String(p.instagram).replace(/^@/,"") : "";
   const opts = COLS.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
   const pers = PERSONAS.map(([k,l])=>`<option value="${k}" ${per===k?"selected":""}>${l}${per===k&&naoConfirmada?" ?":""}</option>`).join("");
-  const desde = p.site_desde ? `<span class="badge" title="registro do domínio / 1ª captura">web desde ${esc(String(p.site_desde).slice(0,4))}</span>` : "";
+  const desde = p.site_desde ? `<span class="badge" title="registro do domínio / 1ª captura">web desde ${esc(String(p.site_desde).slice(0,4))}</span>`
+    : !p.website ? `<span class="badge noweb" title="sem site na ficha do Google — não existe digitalmente">🚫 sin web</span>` : "";
   // demo: abriu? caducou? — decide se cabe seguimiento (só para quem abriu, e antes de caducar)
   const dt = (s) => { const d = new Date(s); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; };
   const caducou = p.caduca_em && new Date(p.caduca_em).getTime() < Date.now();
@@ -296,8 +308,7 @@ function cardBR(p){
 async function del(id){ if(!confirm("Excluir este cliente do CRM?\n\nO card sai agora. Os arquivos do site e o subdomínio são removidos do servidor no purge (excluir-cliente.mjs).")) return; await api("/prospectos/"+id,{method:"DELETE"}); load(); }
 function kanban(){
   const f = filtro.trim().toLowerCase();
-  const vis = DATA.filter(x => (!f || (x.nome||"").toLowerCase().includes(f))
-    && (!filtroPersona || (filtroPersona==="fijo" ? tipoTel(x.whatsapp)==="fijo" : basePersona(x.persona)===filtroPersona)));
+  const vis = DATA.filter(x => (!f || (x.nome||"").toLowerCase().includes(f)) && chipMatch(x, filtroPersona));
   // ordem de ataque dentro da coluna: P1 antes de P2 antes de P3, móvil antes de fixo,
   // depois o mais recente — o que dá para abordar hoje fica no topo.
   const ORD = { P1: 0, P2: 1, P3: 2 };
@@ -332,10 +343,13 @@ function metricas(){
   // Espanha: venda por entrada única com preço por persona -> receita = soma dos fechados
   const receita = rows.filter(r=>r.status==="fechado").reduce((s,r)=>s+(Number(r.preco)||0),0);
   const nP = (k) => rows.filter(r=>r.status!=="perdido" && basePersona(r.persona)===k).length;
+  // sem web = coluna website vazia (a ficha do Google respondeu "não tem site")
+  const semWeb = rows.filter(r=>!r.website).length;
 
   const kpi=(lbl,val,sub,color)=>`<div class="kpi"><div class="lbl">${lbl}</div><div class="val" ${color?'style="color:'+color+'"':''}>${val}</div>${sub?'<div class="sub">'+sub+'</div>':''}</div>`;
   const kpis=`<div class="kpis">
     ${kpi("Descobertos",descobertos,"pool bruto (a validar)","#f0a8d6")}
+    ${kpi("Sin web",semWeb,Math.round(semWeb/(total||1)*100)+"% do pool — não existe digitalmente","#f59e0b")}
     ${kpi("Validados",validados,"WhatsApp confirmado, site a gerar","#3ddc97")}
     ${kpi("Sem WhatsApp",semWpp,"número não existe ou linha fixa","#8b92a0")}
     ${kpi("WhatsApp válido",taxaWpp+"%","validados / checados","#3ddc97")}
