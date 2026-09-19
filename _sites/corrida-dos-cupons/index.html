@@ -13,10 +13,13 @@
   <meta property="og:url" content="https://sites.automizelabs.com.br/corrida-dos-cupons/" />
   <meta property="og:locale" content="pt_BR" />
 
+  <!-- uma família só: menos peso para baixar no 4G e traço uniforme, que é o
+       que se lê em tela de celular. Códigos de cupom usam a monoespaçada do
+       próprio sistema, sem download. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="./estilo.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E" />
@@ -48,7 +51,7 @@
           </button>
         </div>
       </div>
-      <div class="meta mono" id="meta"></div>
+      <div class="meta" id="meta"></div>
     </header>
 
     <!-- ========================================================= filtros -->
@@ -87,7 +90,7 @@
           <button type="button" data-top="0">Todas</button>
         </div>
       </div>
-      <div class="card grafico" id="cRanking" style="--h: 460px"></div>
+      <div class="card grafico" id="cRanking"></div>
       <details class="tabela">
         <summary>Ver como tabela</summary>
         <div class="tablewrap"><table id="tRanking"></table></div>
@@ -106,18 +109,18 @@
         <div class="card">
           <p class="charttitle">Interações por dia</p>
           <p class="chartsub">Volume bruto, dia a dia</p>
-          <div class="grafico" id="cDias" style="--h: 260px"></div>
+          <div class="grafico" id="cDias"></div>
         </div>
         <div class="card">
           <p class="charttitle">Quem apareceu</p>
           <p class="chartsub">Se só as recorrentes sobem, o alcance parou</p>
-          <div class="grafico" id="cPessoas" style="--h: 260px"></div>
+          <div class="grafico" id="cPessoas"></div>
         </div>
       </div>
       <div class="card" style="margin-top: 18px">
         <p class="charttitle">Mapa de calor — dia × hora</p>
-        <p class="chartsub">A que horas a campanha respira. Clique numa célula para isolar aquele dia.</p>
-        <div class="grafico" id="cHeat" style="--h: 300px"></div>
+        <p class="chartsub" id="legendaHeat">A que horas a campanha respira. Clique numa célula para isolar aquele dia.</p>
+        <div class="grafico" id="cHeat"></div>
       </div>
     </section>
 
@@ -133,7 +136,7 @@
           </p>
         </div>
       </div>
-      <div class="card grafico" id="cConv" style="--h: 420px"></div>
+      <div class="card grafico" id="cConv"></div>
     </section>
 
     <!-- ======================================================= seguidoras -->
@@ -156,7 +159,7 @@
         o total é recontado a cada nova interação, nunca incrementado. Esta página é a versão aberta —
         sem telefone e sem dados pessoais além do nome público e do @.
       </p>
-      <p class="mono creditos">AutomizeLabs · dados servidos por n8n</p>
+      <p class="creditos">AutomizeLabs · dados servidos por n8n</p>
     </footer>
   </div>
 

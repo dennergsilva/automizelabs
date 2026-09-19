@@ -27,7 +27,11 @@
   });
 
   var FONTE = "Figtree, system-ui, sans-serif";
-  var MONO = "IBM Plex Mono, monospace";
+
+  // a maior parte do acesso é no celular: alguns gráficos mudam de forma,
+  // não só de tamanho, abaixo desta largura
+  var LARGURA_CELULAR = 720;
+  function ehCelular() { return window.innerWidth <= LARGURA_CELULAR; }
 
   /* ----------------------------------------------------------- formatação */
   var nf = new Intl.NumberFormat("pt-BR");
@@ -228,7 +232,7 @@
       axisLine: { show: false },
       axisTick: { show: false },
       axisLabel: {
-        color: T["ink-3"], fontFamily: MONO, fontSize: 10.5,
+        color: T["ink-3"], fontFamily: FONTE, fontSize: 12, fontWeight: 600,
         formatter: rotulo || null, hideOverlap: true
       }
     };
@@ -238,11 +242,11 @@
     return {
       type: "value",
       name: nome || "",
-      nameTextStyle: { color: T["ink-3"], fontFamily: MONO, fontSize: 10, padding: [0, 0, 6, 0] },
+      nameTextStyle: { color: T["ink-3"], fontFamily: FONTE, fontSize: 11.5, fontWeight: 600, padding: [0, 0, 6, 0] },
       axisLine: { show: false },
       axisTick: { show: false },
       splitLine: { lineStyle: { color: T.line } },
-      axisLabel: { color: T["ink-3"], fontFamily: MONO, fontSize: 10.5, formatter: function (v) { return n(v); } }
+      axisLabel: { color: T["ink-3"], fontFamily: FONTE, fontSize: 12, fontWeight: 600, formatter: function (v) { return n(v); } }
     };
   }
 
@@ -250,7 +254,7 @@
     backgroundColor: T.ink,
     borderWidth: 0,
     padding: [8, 11],
-    textStyle: { color: T.ground, fontFamily: MONO, fontSize: 11.5 },
+    textStyle: { color: T.ground, fontFamily: FONTE, fontSize: 13, fontWeight: 600, lineHeight: 19 },
     extraCssText: "border-radius:8px;box-shadow:0 8px 24px -12px rgba(29,15,24,.5)"
   };
 
@@ -363,7 +367,11 @@
       } }, TOOLTIP),
       xAxis: Object.assign(eixoVal(), { splitLine: { lineStyle: { color: T.line } } }),
       yAxis: Object.assign(eixoCat(nomes), {
-        axisLabel: { color: T["ink-2"], fontFamily: FONTE, fontSize: 12.5, fontWeight: 500, width: 150, overflow: "truncate" }
+        axisLabel: {
+          color: T["ink-2"], fontFamily: FONTE,
+          fontSize: ehCelular() ? 13 : 13.5, fontWeight: 600,
+          width: ehCelular() ? 88 : 150, overflow: "truncate"
+        }
       }),
       series: [{
         type: "bar",
@@ -376,7 +384,7 @@
         emphasis: { itemStyle: { color: T.r4 } },
         label: {
           show: true, position: "right", distance: 8,
-          color: T["ink-2"], fontFamily: MONO, fontSize: 11.5,
+          color: T["ink-2"], fontFamily: FONTE, fontSize: 13, fontWeight: 800,
           formatter: function (p) { return p.value > 0 ? n(p.value) : ""; }
         }
       }]
@@ -387,15 +395,19 @@
     tabelaRanking(m.cupons);
   }
 
+  // no celular as colunas secundárias somem (classe so-desktop) em vez de
+  // empurrar a tabela para uma rolagem lateral que ninguém acha
   function tabelaRanking(cupons) {
     $("tRanking").innerHTML =
-      "<thead><tr><th>#</th><th>Influenciadora</th><th>Cupom</th><th class='n'>Interações</th>" +
-      "<th class='n'>Pessoas</th><th class='n'>Seguidores</th><th class='n'>Por mil seg.</th></tr></thead><tbody>" +
+      "<thead><tr><th>#</th><th>Influenciadora</th><th class='so-desktop'>Cupom</th><th class='n'>Interações</th>" +
+      "<th class='n so-desktop'>Pessoas</th><th class='n so-desktop'>Seguidores</th>" +
+      "<th class='n'>Por mil seg.</th></tr></thead><tbody>" +
       cupons.map(function (c, i) {
-        return "<tr><td class='codigo'>" + (i + 1) + "</td><td>" + esc(c.influenciadora) + "</td>" +
-          "<td class='codigo'>" + esc(c.codigo) + "</td>" +
-          "<td class='n'>" + n(c.n) + "</td><td class='n'>" + n(c.pessoas) + "</td>" +
-          "<td class='n'>" + n(c.seguidores) + "</td>" +
+        return "<tr><td class='pos'>" + (i + 1) + "</td><td>" + esc(c.influenciadora) +
+          "<span class='codigo so-celular'>" + esc(c.codigo) + "</span></td>" +
+          "<td class='codigo so-desktop'>" + esc(c.codigo) + "</td>" +
+          "<td class='n'>" + n(c.n) + "</td><td class='n so-desktop'>" + n(c.pessoas) + "</td>" +
+          "<td class='n so-desktop'>" + n(c.seguidores) + "</td>" +
           "<td class='n'>" + (c.seguidores ? dec(c.por1k, 2) : "—") + "</td></tr>";
       }).join("") + "</tbody>";
   }
@@ -420,7 +432,7 @@
         moveHandleStyle: { color: T.c1 },
         dataBackground: { lineStyle: { color: T["line-2"] }, areaStyle: { color: T["surface-3"] } },
         selectedDataBackground: { lineStyle: { color: T.c1 }, areaStyle: { color: T.r1 } },
-        textStyle: { color: T["ink-3"], fontFamily: MONO, fontSize: 10 }
+        textStyle: { color: T["ink-3"], fontFamily: FONTE, fontSize: 11.5, fontWeight: 600 }
       }] : [],
       series: [{
         type: "bar",
@@ -470,35 +482,50 @@
 
   function mapaDeCalor(m) {
     var dias = m.dias.map(function (d) { return d.dia; });
-    var horas = [];
-    for (var h = 0; h < 24; h++) horas.push(h);
+
+    // 24 colunas num celular dão ~13px cada: vira listra sem rótulo legível.
+    // Abaixo da largura de celular as horas entram em blocos de 3h — 8 colunas,
+    // que cabem e continuam contando a mesma história (quando a campanha respira).
+    var passo = ehCelular() ? 3 : 1;
+    var blocos = [];
+    for (var h = 0; h < 24; h += passo) {
+      blocos.push({
+        inicio: h,
+        rotulo: passo === 1
+          ? String(h).padStart(2, "0") + "h"
+          : String(h).padStart(2, "0") + "–" + String(h + passo).padStart(2, "0") + "h"
+      });
+    }
+    $("legendaHeat").textContent = passo === 1
+      ? "A que horas a campanha respira. Clique numa célula para isolar aquele dia."
+      : "A que horas a campanha respira, em blocos de 3 horas. Toque numa célula para isolar aquele dia.";
 
     var dados = [];
     var max = 0;
     dias.forEach(function (d, y) {
-      horas.forEach(function (hh, x) {
-        var v = m.heat[d + "|" + hh] || 0;
+      blocos.forEach(function (b, x) {
+        var v = 0;
+        for (var k = 0; k < passo; k++) v += m.heat[d + "|" + (b.inicio + k)] || 0;
         if (v > max) max = v;
         dados.push([x, y, v]);
       });
     });
+    var horas = blocos.map(function (b) { return b.rotulo; });
 
     pintar("cHeat", {
       animationDuration: menosMovimento ? 0 : 500,
       grid: { left: 8, right: 12, top: 10, bottom: 62, containLabel: true },
       tooltip: Object.assign({ formatter: function (p) {
-        return dias[p.value[1]] + " · " + String(p.value[0]).padStart(2, "0") + "h<br/>" +
+        return dias[p.value[1]] + " · " + horas[p.value[0]] + "<br/>" +
           n(p.value[2]) + (p.value[2] === 1 ? " interação" : " interações");
       } }, TOOLTIP),
-      xAxis: Object.assign(eixoCat(horas.map(function (x) { return String(x).padStart(2, "0") + "h"; })), {
-        splitArea: { show: false }
-      }),
+      xAxis: Object.assign(eixoCat(horas), { splitArea: { show: false } }),
       yAxis: Object.assign(eixoCat(dias.map(diaCurto)), { inverse: true }),
       visualMap: {
         min: 0, max: Math.max(1, max),
         calculable: true, orient: "horizontal", left: "center", bottom: 8,
         itemWidth: 12, itemHeight: 120,
-        textStyle: { color: T["ink-3"], fontFamily: MONO, fontSize: 10.5 },
+        textStyle: { color: T["ink-3"], fontFamily: FONTE, fontSize: 12, fontWeight: 600 },
         // magnitude = uma cor só, claro -> escuro
         inRange: { color: [T.r0, T.r1, T.r2, T.r3, T.r4, T.r5] }
       },
@@ -563,8 +590,9 @@
       };
     });
 
-    // marca as 3 melhores conversões para receberem rótulo direto
-    ativos.slice().sort(function (a, b) { return b.por1k - a.por1k; }).slice(0, 3).forEach(function (c) {
+    // rótulo direto só em quem se destaca; no celular sobra espaço para um só
+    ativos.slice().sort(function (a, b) { return b.por1k - a.por1k; })
+      .slice(0, ehCelular() ? 1 : 3).forEach(function (c) {
       series.forEach(function (s) {
         s.data.forEach(function (d) { if (d.codigo === c.codigo) d.por1kTop = true; });
       });
@@ -574,7 +602,7 @@
       animationDuration: menosMovimento ? 0 : 700,
       // top generoso: a legenda fica na linha de cima e o nome do eixo y
       // logo abaixo dela, sem os dois se encavalarem
-      grid: { left: 10, right: 24, top: 74, bottom: 46, containLabel: true },
+      grid: { left: 10, right: 24, top: ehCelular() ? 66 : 74, bottom: 46, containLabel: true },
       legend: {
         top: 0, left: 0, itemWidth: 10, itemHeight: 10, itemGap: 18,
         textStyle: { color: T["ink-2"], fontFamily: FONTE, fontSize: 12 }
@@ -588,15 +616,17 @@
         // no canto direito o rótulo do eixo era cortado pela borda do grid
         type: "log", logBase: 10, name: "seguidores",
         nameLocation: "middle", nameGap: 30,
-        nameTextStyle: { color: T["ink-3"], fontFamily: MONO, fontSize: 10 },
+        nameTextStyle: { color: T["ink-3"], fontFamily: FONTE, fontSize: 11.5, fontWeight: 600 },
         axisLine: { show: false }, axisTick: { show: false },
         splitLine: { lineStyle: { color: T.line } },
         axisLabel: {
-          color: T["ink-3"], fontFamily: MONO, fontSize: 10.5,
+          color: T["ink-3"], fontFamily: FONTE, fontSize: 12, fontWeight: 600,
           formatter: function (v) { return v >= 1000000 ? (v / 1000000) + "M" : v >= 1000 ? (v / 1000) + "k" : v; }
         }
       },
-      yAxis: eixoVal("interações por mil seguidores"),
+      // no celular a legenda quebra em duas linhas e o nome do eixo bate nela;
+      // a explicação já está no texto da seção, então some com o nome
+      yAxis: eixoVal(ehCelular() ? "" : "interações por mil seguidores"),
       series: series.concat([{
         name: "Média da campanha",
         type: "line",
@@ -611,7 +641,7 @@
           symbol: "none",
           label: {
             formatter: "média da campanha · " + dec(media, 2),
-            color: T["ink-3"], fontFamily: MONO, fontSize: 10.5,
+            color: T["ink-3"], fontFamily: FONTE, fontSize: 12, fontWeight: 600,
             position: "insideEndTop"
           },
           lineStyle: { color: T["line-2"], type: "dashed", width: 2 },
@@ -692,8 +722,19 @@
     if (!document.hidden && restante < INTERVALO - 10) buscar(false);
   });
 
+  // girar o celular ou mudar de faixa não é só redimensionar: o mapa de calor
+  // troca de granularidade e o ranking de largura de rótulo, então redesenha
+  var eraCelular = ehCelular();
+  var aoRedimensionar;
   window.addEventListener("resize", function () {
     Object.keys(graficos).forEach(function (k) { graficos[k].resize(); });
+    clearTimeout(aoRedimensionar);
+    aoRedimensionar = setTimeout(function () {
+      if (ehCelular() !== eraCelular) {
+        eraCelular = ehCelular();
+        desenhar();
+      }
+    }, 200);
   });
 
   // barra de progresso do scroll
