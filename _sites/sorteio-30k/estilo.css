@@ -1,0 +1,172 @@
+/* =====================================================================
+   Sorteio — Festa 30K Josi Moretto
+   Mesma identidade do painel corrida-dos-cupons: rosa #fc33a6, laranja
+   #e8590c, verde #1f9e7d, fundo #fdf8fa. Uma família só (Figtree), número
+   em peso 800 e tabular. Tema claro travado, como no painel.
+   ===================================================================== */
+
+:root {
+  color-scheme: light;
+  --ground: #fdf8fa;
+  --surface: #ffffff;
+  --surface-2: #fbf1f6;
+  --ink: #1a0d15;
+  --ink-2: #5d4455;
+  --ink-3: #8a7382;
+  --line: #f0dde8;
+  --line-2: #e3c9d8;
+  --c1: #fc33a6;
+  --c1-escuro: #c40f7a;
+  --c2: #e8590c;
+  --c3: #1f9e7d;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  --r: 14px;
+  --sombra: 0 1px 2px rgba(26, 13, 21, 0.04), 0 8px 24px -12px rgba(26, 13, 21, 0.14);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pagina { max-width: 1080px; margin: 0 auto; padding: 32px 24px 48px; }
+
+.topo { text-align: center; margin-bottom: 28px; }
+.selo {
+  display: inline-block; margin: 0 0 10px; padding: 4px 12px;
+  border-radius: 999px; background: var(--surface-2); color: var(--c1-escuro);
+  font-weight: 700; font-size: 13px; letter-spacing: .04em; text-transform: uppercase;
+}
+h1 { margin: 0; font-size: clamp(30px, 6vw, 46px); font-weight: 900; line-height: 1.1; letter-spacing: -.02em; }
+.sub { margin: 10px auto 0; max-width: 620px; color: var(--ink-2); font-weight: 500; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.kpi {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--sombra); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0;
+}
+.kpi .rot, .visor .rot { font-size: 12px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: .05em; }
+.kpi strong { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.2; overflow-wrap: anywhere; }
+.kpi .nota { font-size: 13px; color: var(--ink-2); }
+.cupom { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--c1-escuro); }
+
+.palco {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--sombra);
+  padding: 32px; margin-bottom: 24px;
+}
+
+.roda-caixa { position: relative; width: min(100%, 440px); aspect-ratio: 1; margin: 0 auto; }
+.roda { width: 100%; height: 100%; display: block; transform: rotate(0deg); will-change: transform; }
+.roda.girando { transition: transform var(--giro, 7s) cubic-bezier(.12, .66, .1, 1); }
+.roda .fatia { stroke: #fff; stroke-width: .5; }
+.roda .fatia.ganhou { fill: var(--c3) !important; }
+.roda .rotulo { font-family: var(--body); font-weight: 800; font-size: 8px; fill: #fff; pointer-events: none; }
+.roda .aro { fill: none; stroke: var(--ink); stroke-width: 3; }
+.ponteiro {
+  position: absolute; top: -14px; left: 50%; width: 40px; height: 44px; transform: translateX(-50%);
+  z-index: 2; fill: var(--ink); filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .25));
+}
+.miolo {
+  position: absolute; inset: 39%; border-radius: 50%; background: var(--surface); border: 3px solid var(--ink);
+  display: grid; place-items: center; font-weight: 900; font-size: clamp(16px, 4vw, 24px); color: var(--c1-escuro);
+}
+
+.comando { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.visor {
+  background: var(--surface-2); border-radius: var(--r); padding: 20px; text-align: center;
+  display: flex; flex-direction: column; gap: 4px; min-height: 196px; justify-content: center;
+}
+.numero { font-size: clamp(44px, 9vw, 64px); font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1.05; color: var(--ink); }
+.dona { font-size: 20px; font-weight: 800; color: var(--c1-escuro); overflow-wrap: anywhere; }
+.chance { font-size: 14px; color: var(--ink-2); min-height: 21px; }
+.visor.revelado { animation: pulso .6s ease-out; }
+@keyframes pulso { 0% { transform: scale(.96); } 60% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+.botao {
+  font: inherit; font-size: 20px; font-weight: 800; color: #fff; background: var(--c1); border: 0;
+  border-radius: 999px; min-height: 60px; padding: 0 28px; cursor: pointer;
+  box-shadow: 0 6px 18px -6px rgba(252, 51, 166, .7); transition: transform .15s, background .15s;
+}
+.botao:hover:not(:disabled) { background: var(--c1-escuro); }
+.botao:active:not(:disabled) { transform: scale(.98); }
+.botao:disabled { background: var(--line-2); color: var(--ink-3); box-shadow: none; cursor: not-allowed; }
+.botao:focus-visible, .botao-2:focus-visible, .busca:focus-visible, .troca input:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+.troca { display: flex; gap: 10px; align-items: center; font-weight: 600; color: var(--ink-2); cursor: pointer; min-height: 44px; }
+.troca input { width: 22px; height: 22px; accent-color: var(--c1); flex: none; }
+
+.bloco {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--sombra); padding: 20px 24px; margin-bottom: 24px;
+}
+.bloco-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+h2 { margin: 0; font-size: 22px; font-weight: 800; }
+.acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.botao-2 {
+  font: inherit; font-weight: 700; font-size: 15px; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  background: var(--surface); color: var(--ink); border: 1.5px solid var(--line-2); cursor: pointer;
+}
+.botao-2:hover:not(:disabled) { border-color: var(--ink-3); }
+.botao-2:disabled { opacity: .45; cursor: not-allowed; }
+.botao-2.perigo.armado { background: var(--c2); border-color: var(--c2); color: #fff; }
+
+.ata { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ata li {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  padding: 12px 14px; border-radius: 12px; background: var(--surface-2);
+}
+.ata li.vazio { display: block; background: none; color: var(--ink-3); padding: 4px 0; }
+.ata .ordem { width: 44px; height: 44px; border-radius: 50%; background: var(--c1); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 18px; }
+.ata .quem { font-weight: 800; font-size: 17px; overflow-wrap: anywhere; }
+.ata .det { font-size: 13px; color: var(--ink-2); }
+.ata .bil { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; }
+.ata .bil small { display: block; font-weight: 600; font-size: 12px; color: var(--ink-3); }
+
+.explica { margin: 0 0 12px; color: var(--ink-2); font-size: 15px; }
+.explica.ajuda { margin: 14px 0 0; font-size: 14px; }
+.busca {
+  font: inherit; font-size: 16px; min-height: 44px; padding: 0 14px; border-radius: 999px;
+  border: 1.5px solid var(--line-2); background: var(--surface); width: min(100%, 260px);
+}
+.tabela-caixa { overflow-x: auto; }
+.tabela { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tabela th { text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); padding: 8px 10px; border-bottom: 1.5px solid var(--line-2); }
+.tabela td { padding: 10px; border-bottom: 1px solid var(--line); }
+.tabela td:first-child { font-weight: 700; overflow-wrap: anywhere; }
+.tabela .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tabela tr.ganhou td { background: #e7f6f1; }
+.tabela tr.ganhou td:first-child::after { content: " 🏆"; }
+
+.rodape { color: var(--ink-3); font-size: 13px; text-align: center; }
+.rodape p { margin: 6px 0; }
+.rodape code { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; }
+
+@media (max-width: 720px) {
+  .pagina { padding: 20px 16px 36px; }
+  .kpis { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi { padding: 12px; }
+  .kpi strong { font-size: 21px; }
+  .palco { grid-template-columns: 1fr; padding: 24px 16px; gap: 24px; }
+  .visor { min-height: 170px; }
+  .bloco { padding: 16px; }
+  .busca { width: 100%; }
+  .ata li { grid-template-columns: 36px minmax(0, 1fr); }
+  .ata .ordem { width: 36px; height: 36px; font-size: 16px; }
+  .ata .bil { grid-column: 2; text-align: left; }
+  .tabela { font-size: 14px; }
+  .tabela th, .tabela td { padding: 8px 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roda.girando { --giro: 1.2s; }
+  .visor.revelado { animation: none; }
+}

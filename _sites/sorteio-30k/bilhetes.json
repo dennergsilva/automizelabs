@@ -1,0 +1,201 @@
+{
+  "campanha": "Festa 30K Josi Moretto",
+  "corte": "2026-09-25 09:04 (horário de Brasília)",
+  "regra": "Cada interação com o cupom da influenciadora campeã vale 1 bilhete.",
+  "ranking": [
+    {
+      "cupom": "RAINHADOS10",
+      "interacoes": 10133
+    },
+    {
+      "cupom": "VAITOMANDO",
+      "interacoes": 8254
+    },
+    {
+      "cupom": "TIMEPAULA",
+      "interacoes": 1079
+    },
+    {
+      "cupom": "ARRETADA",
+      "interacoes": 932
+    },
+    {
+      "cupom": "GABYMANSAO",
+      "interacoes": 756
+    }
+  ],
+  "cupom": "RAINHADOS10",
+  "influenciadora": "Karine",
+  "total_bilhetes": 10133,
+  "participantes": [
+    {
+      "instagram": "dayalves7588",
+      "bilhetes": 129,
+      "de": 1,
+      "ate": 129
+    },
+    {
+      "instagram": "Janaina costa",
+      "bilhetes": 9,
+      "de": 130,
+      "ate": 138
+    },
+    {
+      "instagram": "michelly.gomesss",
+      "bilhetes": 274,
+      "de": 139,
+      "ate": 412
+    },
+    {
+      "instagram": "geogeo_006",
+      "bilhetes": 423,
+      "de": 413,
+      "ate": 835
+    },
+    {
+      "instagram": "lima_bruna74",
+      "bilhetes": 8499,
+      "de": 836,
+      "ate": 9334
+    },
+    {
+      "instagram": "dix_camilla_ro",
+      "bilhetes": 1,
+      "de": 9335,
+      "ate": 9335
+    },
+    {
+      "instagram": "giovannazuquetee",
+      "bilhetes": 124,
+      "de": 9336,
+      "ate": 9459
+    },
+    {
+      "instagram": "Saboresdavida100",
+      "bilhetes": 1,
+      "de": 9460,
+      "ate": 9460
+    },
+    {
+      "instagram": "amanda_faria00",
+      "bilhetes": 1,
+      "de": 9461,
+      "ate": 9461
+    },
+    {
+      "instagram": "glaucianelopes",
+      "bilhetes": 41,
+      "de": 9462,
+      "ate": 9502
+    },
+    {
+      "instagram": "Laninha2382",
+      "bilhetes": 133,
+      "de": 9503,
+      "ate": 9635
+    },
+    {
+      "instagram": "_annaesteves",
+      "bilhetes": 7,
+      "de": 9636,
+      "ate": 9642
+    },
+    {
+      "instagram": "lps.hellen",
+      "bilhetes": 5,
+      "de": 9643,
+      "ate": 9647
+    },
+    {
+      "instagram": "Lu_martins_2026",
+      "bilhetes": 45,
+      "de": 9648,
+      "ate": 9692
+    },
+    {
+      "instagram": "Correagislene376",
+      "bilhetes": 32,
+      "de": 9693,
+      "ate": 9724
+    },
+    {
+      "instagram": "nikollefonsecaa",
+      "bilhetes": 3,
+      "de": 9725,
+      "ate": 9727
+    },
+    {
+      "instagram": "kamillasilva91",
+      "bilhetes": 1,
+      "de": 9728,
+      "ate": 9728
+    },
+    {
+      "instagram": "nayanenana",
+      "bilhetes": 4,
+      "de": 9729,
+      "ate": 9732
+    },
+    {
+      "instagram": "amandah1549",
+      "bilhetes": 1,
+      "de": 9733,
+      "ate": 9733
+    },
+    {
+      "instagram": "pretah1997",
+      "bilhetes": 3,
+      "de": 9734,
+      "ate": 9736
+    },
+    {
+      "instagram": "thaisinhaaasouza",
+      "bilhetes": 1,
+      "de": 9737,
+      "ate": 9737
+    },
+    {
+      "instagram": "mayseramos",
+      "bilhetes": 1,
+      "de": 9738,
+      "ate": 9738
+    },
+    {
+      "instagram": "eumaricunhaa",
+      "bilhetes": 1,
+      "de": 9739,
+      "ate": 9739
+    },
+    {
+      "instagram": "cristinavilelarezende",
+      "bilhetes": 1,
+      "de": 9740,
+      "ate": 9740
+    },
+    {
+      "instagram": "gisele Pereira da Silva",
+      "bilhetes": 390,
+      "de": 9741,
+      "ate": 10130
+    },
+    {
+      "instagram": "mairaceciliavinhal",
+      "bilhetes": 1,
+      "de": 10131,
+      "ate": 10131
+    },
+    {
+      "instagram": "geisi_elesilvaa",
+      "bilhetes": 1,
+      "de": 10132,
+      "ate": 10132
+    },
+    {
+      "instagram": "katiana.cristina.54",
+      "bilhetes": 1,
+      "de": 10133,
+      "ate": 10133
+    }
+  ],
+  "sha256": "345b8b90a8dfd1db7ed225ab749b02ac229fb6d96250fbf163af7b29dfec3a12"
+}

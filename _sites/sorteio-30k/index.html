@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sorteio Festa 30K</title>
+  <meta name="description" content="Sorteio entre as seguidoras da influenciadora campeã da Festa 30K Josi Moretto. Cada interação vale 1 bilhete." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./estilo.css?v=20260925b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <main class="pagina">
+    <header class="topo">
+      <p class="selo">Festa 30K Josi Moretto</p>
+      <h1>Sorteio das seguidoras</h1>
+      <p class="sub" id="sub">Carregando os bilhetes…</p>
+    </header>
+
+    <section class="kpis" aria-label="Resumo">
+      <div class="kpi"><span class="rot">Influenciadora campeã</span><strong id="k-influ">—</strong><span class="cupom" id="k-cupom"></span></div>
+      <div class="kpi"><span class="rot">Bilhetes</span><strong id="k-bilhetes">—</strong><span class="nota">1 por interação</span></div>
+      <div class="kpi"><span class="rot">Participantes</span><strong id="k-pessoas">—</strong><span class="nota">seguidoras com bilhete</span></div>
+      <div class="kpi"><span class="rot">Sorteios</span><strong id="k-sorteios">0 de 5</strong><span class="nota" id="k-restam">—</span></div>
+    </section>
+
+    <section class="palco" aria-label="Roleta">
+      <div class="roda-caixa">
+        <svg class="ponteiro" viewBox="0 0 40 44" aria-hidden="true"><path d="M20 42 L4 6 Q20 -2 36 6 Z" /></svg>
+        <svg id="roda" class="roda" viewBox="-110 -110 220 220" role="img" aria-label="Roleta com uma fatia por participante, do tamanho dos bilhetes de cada uma"></svg>
+        <div class="miolo" aria-hidden="true"><span>30K</span></div>
+      </div>
+
+      <div class="comando">
+        <div class="visor" id="visor" aria-live="polite">
+          <span class="rot">Bilhete sorteado</span>
+          <strong id="numero" class="numero">—</strong>
+          <span id="visor-dona" class="dona">Clique em sortear</span>
+          <span id="chance" class="chance"></span>
+        </div>
+        <button id="sortear" class="botao" type="button" disabled>Sortear</button>
+        <label class="troca">
+          <input id="sem-repetir" type="checkbox" checked />
+          <span>Quem ganhar sai dos próximos sorteios</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="bloco" aria-labelledby="t-ata">
+      <div class="bloco-topo">
+        <h2 id="t-ata">Resultado</h2>
+        <div class="acoes">
+          <button id="copiar" class="botao-2" type="button" disabled>Copiar resultado</button>
+          <button id="desfazer" class="botao-2 perigo" type="button" disabled>Desfazer último</button>
+          <button id="zerar" class="botao-2 perigo" type="button" disabled>Recomeçar tudo</button>
+        </div>
+      </div>
+      <ol id="ata" class="ata"><li class="vazio">Nenhum sorteio feito ainda.</li></ol>
+      <p class="explica ajuda">Deu erro em algum sorteio? <strong>Desfazer último</strong> apaga só o último resultado e devolve a ganhadora para a roleta. <strong>Recomeçar tudo</strong> apaga todos. Os dois pedem um segundo clique para confirmar.</p>
+    </section>
+
+    <section class="bloco" aria-labelledby="t-lista">
+      <div class="bloco-topo">
+        <h2 id="t-lista">Lista de bilhetes</h2>
+        <input id="busca" class="busca" type="search" placeholder="Procurar @" aria-label="Procurar participante" />
+      </div>
+      <p class="explica">Cada participante tem uma faixa de números. O bilhete sorteado cai na faixa de uma pessoa só. Dá para conferir qualquer resultado por esta lista.</p>
+      <div class="tabela-caixa">
+        <table class="tabela">
+          <thead><tr><th>Participante</th><th class="num">Bilhetes</th><th class="num">Faixa</th><th class="num">Chance</th></tr></thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="rodape">
+      <p id="regra"></p>
+      <p>Sorteio feito no navegador com o gerador criptográfico do próprio aparelho (<code>crypto.getRandomValues</code>): cada bilhete tem a mesma chance.</p>
+      <p>Impressão digital da lista (SHA-256): <code id="hash">—</code> <span id="hash-ok"></span></p>
+    </footer>
+  </main>
+  <script src="./sorteio.js?v=20260925b"></script>
+</body>
+</html>
