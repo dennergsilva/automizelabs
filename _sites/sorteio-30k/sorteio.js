@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  var MAX_SORTEIOS = 5;
+  var MAX_SORTEIOS = 1;
   var CORES = ["#fc33a6", "#870a55", "#ff8dc8", "#e8590c", "#c40f7a"];
   var fmt = new Intl.NumberFormat("pt-BR");
   var pct = new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -193,18 +193,15 @@
     var feitos = estado.sorteios.length;
     var semGente = naDisputa().length === 0;
     $("sortear").disabled = girando || feitos >= MAX_SORTEIOS || semGente;
-    $("sortear").textContent = feitos >= MAX_SORTEIOS ? "Sorteios encerrados" : "Sortear " + (feitos + 1) + "º prêmio";
+    $("sortear").textContent = feitos >= MAX_SORTEIOS ? "Sorteio feito" : "Sortear";
     $("copiar").disabled = girando || !feitos;
     $("desfazer").disabled = girando || !feitos;
-    $("zerar").disabled = girando || !feitos;
-    $("sem-repetir").disabled = girando;
   }
 
   function render() {
     var feitos = estado.sorteios.length;
-    $("k-sorteios").textContent = feitos + " de " + MAX_SORTEIOS;
-    $("k-restam").textContent = feitos >= MAX_SORTEIOS ? "todos feitos" : "faltam " + (MAX_SORTEIOS - feitos);
-    $("sem-repetir").checked = estado.semRepetir;
+    $("k-sorteios").textContent = feitos >= MAX_SORTEIOS ? "Feito" : "Pendente";
+    $("k-restam").textContent = "1 ganhadora";
 
     // resultado
     var ata = $("ata");
@@ -248,7 +245,7 @@
       "",
     ];
     estado.sorteios.forEach(function (s) {
-      linhas.push(s.ordem + "º prêmio: @" + s.instagram + " (bilhete nº " + fmt.format(s.bilhete) + ", " + pct.format(s.chance) + " de chance) em " + s.quando);
+      linhas.push("Ganhadora: @" + s.instagram + " (bilhete nº " + fmt.format(s.bilhete) + ", " + pct.format(s.chance) + " de chance) em " + s.quando);
     });
     linhas.push("", "Lista (SHA-256): " + dados.sha256, location.href.split("#")[0]);
     return linhas.join("\n");
@@ -316,7 +313,7 @@
   /* ---------- início ---------- */
   function iniciar(texto) {
     dados = JSON.parse(texto);
-    chaveLocal = "sorteio30k:" + dados.sha256;
+    chaveLocal = "sorteio30k:1:" + dados.sha256;
     carregar();
 
     $("sub").textContent = "Contagem fechada em " + dados.corte + ". Cada interação com o cupom da campeã vale 1 bilhete: quem interagiu mais tem mais chance.";
@@ -339,13 +336,11 @@
 
     $("sortear").addEventListener("click", sortear);
     $("copiar").addEventListener("click", copiar);
-    doisCliques("desfazer", "Desfazer último", function () { estado.sorteios.pop(); });
-    doisCliques("zerar", "Recomeçar tudo", function () { estado.sorteios = []; });
+    doisCliques("desfazer", "Desfazer sorteio", function () { estado.sorteios.pop(); });
     $("busca").addEventListener("input", render);
-    $("sem-repetir").addEventListener("change", function (e) { estado.semRepetir = e.target.checked; salvar(); render(); });
   }
 
-  fetch("./bilhetes.json?v=20260925b", { cache: "no-store" })
+  fetch("./bilhetes.json?v=20260925c", { cache: "no-store" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
     .then(iniciar)
     .catch(function () { $("sub").textContent = "Não foi possível carregar a lista de bilhetes. Recarregue a página."; });

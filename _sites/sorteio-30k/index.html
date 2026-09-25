@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./estilo.css?v=20260925b" />
+  <link rel="stylesheet" href="./estilo.css?v=20260925c" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
@@ -23,7 +23,7 @@
       <div class="kpi"><span class="rot">Influenciadora campeã</span><strong id="k-influ">—</strong><span class="cupom" id="k-cupom"></span></div>
       <div class="kpi"><span class="rot">Bilhetes</span><strong id="k-bilhetes">—</strong><span class="nota">1 por interação</span></div>
       <div class="kpi"><span class="rot">Participantes</span><strong id="k-pessoas">—</strong><span class="nota">seguidoras com bilhete</span></div>
-      <div class="kpi"><span class="rot">Sorteios</span><strong id="k-sorteios">0 de 5</strong><span class="nota" id="k-restam">—</span></div>
+      <div class="kpi"><span class="rot">Sorteio</span><strong id="k-sorteios">Pendente</strong><span class="nota" id="k-restam">—</span></div>
     </section>
 
     <section class="palco" aria-label="Roleta">
@@ -41,10 +41,6 @@
           <span id="chance" class="chance"></span>
         </div>
         <button id="sortear" class="botao" type="button" disabled>Sortear</button>
-        <label class="troca">
-          <input id="sem-repetir" type="checkbox" checked />
-          <span>Quem ganhar sai dos próximos sorteios</span>
-        </label>
       </div>
     </section>
 
@@ -53,12 +49,11 @@
         <h2 id="t-ata">Resultado</h2>
         <div class="acoes">
           <button id="copiar" class="botao-2" type="button" disabled>Copiar resultado</button>
-          <button id="desfazer" class="botao-2 perigo" type="button" disabled>Desfazer último</button>
-          <button id="zerar" class="botao-2 perigo" type="button" disabled>Recomeçar tudo</button>
+          <button id="desfazer" class="botao-2 perigo" type="button" disabled>Desfazer sorteio</button>
         </div>
       </div>
       <ol id="ata" class="ata"><li class="vazio">Nenhum sorteio feito ainda.</li></ol>
-      <p class="explica ajuda">Deu erro em algum sorteio? <strong>Desfazer último</strong> apaga só o último resultado e devolve a ganhadora para a roleta. <strong>Recomeçar tudo</strong> apaga todos. Os dois pedem um segundo clique para confirmar.</p>
+      <p class="explica ajuda">Deu erro no sorteio? <strong>Desfazer sorteio</strong> apaga o resultado e deixa a roleta pronta para girar de novo. Pede um segundo clique para confirmar.</p>
     </section>
 
     <section class="bloco" aria-labelledby="t-lista">
@@ -81,6 +76,6 @@
       <p>Impressão digital da lista (SHA-256): <code id="hash">—</code> <span id="hash-ok"></span></p>
     </footer>
   </main>
-  <script src="./sorteio.js?v=20260925b"></script>
+  <script src="./sorteio.js?v=20260925c"></script>
 </body>
 </html>
